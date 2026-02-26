@@ -1,12 +1,43 @@
-.device {
+/* Adapted from https://www.w3schools.com/howto/howto_js_tabs.asp */
+.tab {
+    overflow: hidden;
+    width: 640px;
+    border: 1px solid #ccc;
+    background-color: #f1f1f1;
+    display: flex;
+    justify-content: space-evenly;
+    margin: auto;
+}
+
+h1 {
+    font-size: 28pt;
+}
+
+.tab button {
+    background-color: inherit;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    transition: 0.3s;
+}
+  
+/* Change background color of buttons on hover */
+.tab button:hover {
+    background-color: #ddd;
+}
+  
+/* Create an active/current tablink class */
+.tab button.active {
+    background-color: #ccc;
+}
+  
+/* Style the tab content */
+.tabcontent {
     margin:auto; 
     width: 640px;
     height: 960px;
     overflow: hidden;
     background-color: powderblue;
     position: relative;
-  }
-  
-  h1 {
-    font-size: 28pt;
-  }
+}

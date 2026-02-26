@@ -1,49 +1,26 @@
 <!DOCTYPE html>
 <html lang=en>
 <head>
-<title>Example</title>
-<link rel="stylesheet" href="style.css">
-
-
+    <title>Prototype</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-<div class="device">
+    <div id="tab1" class="tabcontent">Tab 1</div>
+    <div id="tab2" class="tabcontent">Tab 2</div>
+    <div id="tab3" class="tabcontent">Tab 3</div>
+    <div id="tab4" class="tabcontent">Tab 4</div>
+    <div id="tab5" class="tabcontent">Tab 5</div>
+    <div id="tab6" class="tabcontent">Tab 6</div>
 
-Tab 1
-
-</div>
-<div class="device">
-
-    Tab 2
-    
-</div>
-<div class="device">
-
-    Tab 3
-    
-</div>
-<div class="device">
-
-    Tab 4
-    
-</div>
-<div class="device">
-
-    Tab 5
-    
-</div>
-<div class="device">
-
-    Tab 6
-    
-</div>
-
-<nav>
-    <!-- <button class="tablinks" onclick="openCity(event, 'London')">London</button>
-    <button class="tablinks" onclick="openCity(event, 'Paris')">Paris</button>
-    <button class="tablinks" onclick="openCity(event, 'Tokyo')">Tokyo</button> -->
-</nav>
-
+    <div class="tab">
+        <button class="tablinks active" onclick="openTab(event, 'tab1')">Tab 1</button>
+        <button class="tablinks" onclick="openTab(event, 'tab2')">Tab 2</button>
+        <button class="tablinks" onclick="openTab(event, 'tab3')">Tab 3</button>
+        <button class="tablinks" onclick="openTab(event, 'tab4')">Tab 4</button>
+        <button class="tablinks" onclick="openTab(event, 'tab5')">Tab 5</button>
+        <button class="tablinks" onclick="openTab(event, 'tab6')">Tab 6</button>
+    </div>
+    <script src="script.js"></script>
 </body>
 </html>
