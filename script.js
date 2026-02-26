@@ -26,9 +26,10 @@ function displayForm(evt) {
   const dropdown = document.getElementById("selection2");
 
   if (!radioButton || !dropdown.value) {
-    document.getElementById("selections").textContent = "Please select both options.";
+    document.getElementById("selections").textContent = "Please select a camera mode and camera quality.";
   } else {
-    document.getElementById("selections").textContent = `You chose ${radioButton.value} and ${dropdown.value}`;
+    const text = `Camera mode: ${radioButton.value}` + "<br>" + `Camera quality: ${dropdown.value}`;
+    document.getElementById("selections").innerHTML = text
   }
 
 }

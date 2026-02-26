@@ -2,19 +2,21 @@
 .tab {
     overflow: hidden;
     width: 640px;
-    border: 1px solid #ccc;
-    background-color: #f1f1f1;
+    background-color: rgb(32, 75, 132);
     display: flex;
     justify-content: space-evenly;
     margin: auto;
+    font-family: "Courier New", Courier, monospace;
 }
 
 h1 {
     font-size: 28pt;
+    font-family: "Courier New", Courier, monospace;
 }
 
 .tab button {
     background-color: inherit;
+    font-family: "Courier New", Courier, monospace;
     border: none;
     outline: none;
     cursor: pointer;
@@ -24,28 +26,34 @@ h1 {
 
 /* Change background color of buttons on hover */
 .tab button:hover {
-    background-color: #ddd;
+    background-color: rgb(142, 179, 231);
 }
 
 /* Create an active/current tablink class */
 .tab button.active {
-    background-color: #ccc;
+    background-color: rgb(230, 221, 45);
 }
 
-/* Style the tab content */
+
 .tabcontent {
     margin: auto;
     width: 640px;
     height: 960px;
     overflow: hidden;
-    background-color: powderblue;
+    background-color: rgb(176, 230, 177);
+    font-family: "Courier New", Courier, monospace;
     position: relative;
+    padding: 20px;
+    box-sizing: border-box;
 }
+
+
 
 /* UMD tab 5 example */
 .alert {
     padding: 20px;
-    background-color: gray;
+    background-color: rgb(32, 75, 132);
+    font-family: "Courier New", Courier, monospace;
     color: white;
     display: none;
 }
@@ -53,6 +61,7 @@ h1 {
 .closebtn {
     margin-left: 15px;
     color: white;
+    font-family: "Courier New", Courier, monospace;
     font-weight: bold;
     float: right;
     font-size: 16pt;

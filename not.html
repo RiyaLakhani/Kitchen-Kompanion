@@ -22,21 +22,22 @@
     </div>
     <div id="tab5" class="tabcontent">
         <form>
-            <p>First select:</p>
+            <p>Camera mode:</p>
             <input type="radio" id="choice1" name="selection1">
-            <label for="choice1">Do this</label><br>
+            <label for="choice1">Front-facing</label><br>
             <input type="radio" id="choice2" name="selection1">
-            <label for="choice2">Or this</label><br>
+            <label for="choice2">Back-facing</label><br>
 
-            <p>Second select: </p>
+            <p>Camera quality: </p>
             <select id="selection2">
-                <option value="choice1" selected>Apple</option>
-                <option value="choice2">Choice 2</option>
+                <option value="choice1" selected>400px</option>
+                <option value="choice2">800px</option>
+                <option value="choice3">1600px</option>
             </select>
         </form><br><br>
 
 
-        <button onclick="displayForm(event)">Click Me</button>
+        <button onclick="displayForm(event)">Show Preferences</button><br><br>
         <div id="selections"></div>
     </div>
     <div id="tab6" class="tabcontent">Tab 6</div>
