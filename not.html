@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang=en>
+
 <head>
     <title>Prototype</title>
     <link rel="stylesheet" href="style.css">
@@ -9,7 +10,16 @@
     <div id="tab1" class="tabcontent">Tab 1</div>
     <div id="tab2" class="tabcontent">Tab 2</div>
     <div id="tab3" class="tabcontent">Tab 3</div>
-    <div id="tab4" class="tabcontent">Tab 4</div>
+
+    <div id="tab4" class="tabcontent">
+        <img src=turtle.png width=100 onClick="document.getElementById('thealert').style.display='block';"><br>
+
+        <div id="thealert" class="alert">
+            <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+            Hello
+        </div>
+
+    </div>
     <div id="tab5" class="tabcontent">Tab 5</div>
     <div id="tab6" class="tabcontent">Tab 6</div>
 
@@ -17,10 +27,11 @@
         <button class="tablinks active" onclick="openTab(event, 'tab1')">Tab 1</button>
         <button class="tablinks" onclick="openTab(event, 'tab2')">Tab 2</button>
         <button class="tablinks" onclick="openTab(event, 'tab3')">Tab 3</button>
-        <button class="tablinks" onclick="openTab(event, 'tab4')">Tab 4</button>
-        <button class="tablinks" onclick="openTab(event, 'tab5')">Tab 5</button>
+        <button class="tablinks" onclick="openTab(event, 'tab4')">Profile</button>
+        <button class="tablinks" onclick="openTab(event, 'tab5')">Choices</button>
         <button class="tablinks" onclick="openTab(event, 'tab6')">Tab 6</button>
     </div>
     <script src="script.js"></script>
 </body>
+
 </html>
