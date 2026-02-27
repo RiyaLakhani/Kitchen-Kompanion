@@ -40,7 +40,25 @@
         <button onclick="displayForm(event)">Show Preferences</button><br><br>
         <div id="selections"></div>
     </div>
-    <div id="tab6" class="tabcontent">Tab 6</div>
+
+    <div id="tab6" class="tabcontent">
+        <h2>To Do!</h2>
+        <h3>Cross off tasks by clicking the title of task!<h3>
+
+        <div class="todo-input-row">
+            <input id="todoInput" type="text" placeholder="To add an item, press 'Add' (or Enter)" />
+            <button id="addTodoBtn" type="button">Add</button>
+        </div>
+
+        <ul id="todoList" class="todo-list"></ul>
+
+        <div class="todo-actions">
+            <button id="clear" type="button">Clear crossed off tasks</button>
+            
+        </div>
+
+        <p id="todoError" class="todo-error" aria-live="polite"></p>
+    </div>
 
     <div class="tab">
         <button class="tablinks active" onclick="openTab(event, 'tab1')">Tab 1</button>
@@ -48,7 +66,7 @@
         <button class="tablinks" onclick="openTab(event, 'tab3')">Tab 3</button>
         <button class="tablinks" onclick="openTab(event, 'tab4')">Profile</button>
         <button class="tablinks" onclick="openTab(event, 'tab5')">Choices</button>
-        <button class="tablinks" onclick="openTab(event, 'tab6')">Tab 6</button>
+        <button class="tablinks" onclick="openTab(event, 'tab6')">Tab 6: To Do!</button>
     </div>
     <script src="script.js"></script>
 </body>
