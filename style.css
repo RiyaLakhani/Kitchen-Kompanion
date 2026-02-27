@@ -136,3 +136,130 @@ h1 {
   color: #b00020;
   margin-top: 10px;
 }
+
+/* tab 3 */
+.tab3-main {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-top: 10px;
+}
+
+.tab3-section {
+  background: #f5f9f7;
+  border-radius: 0;
+  padding: 12px 14px;
+}
+
+.tab3-pie-row {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  margin-top: 8px;
+}
+
+.tab3-pie {
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  background: conic-gradient(
+    #7dd4a8 0 35%,
+    #f0c090 35% 60%,
+    #7dd4f0 60% 80%,
+    #f0a080 80% 95%,
+    #bdbdbd 95% 100%
+  );
+}
+
+.tab3-legend {
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+  font-size: 11pt;
+}
+
+.tab3-legend li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 4px;
+}
+
+.legend-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.legend-dairy {
+  background-color: #7dd4a8;
+}
+
+.legend-produce {
+  background-color: #f0c090;
+}
+
+.legend-protein {
+  background-color: #7dd4f0;
+}
+
+.legend-leftovers {
+  background-color: #f0a080;
+}
+
+.legend-other {
+  background-color: #bdbdbd;
+}
+
+.tab3-note {
+  font-size: 10pt;
+  color: #555;
+  margin-top: 6px;
+}
+
+.tab3-expiring-list {
+  list-style: none;
+  padding-left: 0;
+  margin: 10px 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.tab3-expiring-list li {
+  background: #fefefe;
+  border-radius: 0;
+  padding: 8px 10px;
+  border: 1px solid #d4e8dc;
+}
+
+.item-main {
+  display: flex;
+  justify-content: space-between;
+  font-weight: 600;
+}
+
+.item-owner {
+  font-size: 10pt;
+  color: #555;
+}
+
+.item-meta {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 4px;
+  font-size: 10pt;
+}
+
+.item-date {
+  color: #c48b9f;
+}
+
+.item-warning {
+  color: #d4a574;
+}
+
+.item-muted {
+  color: #555;
+}

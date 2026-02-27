@@ -9,7 +9,79 @@
 <body>
     <div id="tab1" class="tabcontent">Tab 1</div>
     <div id="tab2" class="tabcontent">Tab 2</div>
-    <div id="tab3" class="tabcontent">Tab 3</div>
+    <div id="tab3" class="tabcontent">
+        <h2>Fridge at a Glance</h2>
+        <p>
+            Quick overview of what is in the shared refrigerator so you can plan meals,
+            avoid waste, and see who items belong to.
+        </p>
+
+        <div class="tab3-main">
+            <section class="tab3-section">
+                <h3>Space Used in Fridge</h3>
+                <div class="tab3-pie-row">
+                    <div class="tab3-pie"></div>
+                    <ul class="tab3-legend">
+                        <li><span class="legend-dot legend-dairy"></span>Dairy (milk, cheese, yogurt): 35%</li>
+                        <li><span class="legend-dot legend-produce"></span>Produce (fruit &amp; veggies): 25%</li>
+                        <li><span class="legend-dot legend-protein"></span>Proteins (meat, tofu, eggs): 20%</li>
+                        <li><span class="legend-dot legend-leftovers"></span>Leftovers: 15%</li>
+                        <li><span class="legend-dot legend-other"></span>Other items: 5%</li>
+                    </ul>
+                </div>
+                <p class="tab3-note">
+                    Pre-filled to simulate a real fridge that is already in use.
+                </p>
+            </section>
+
+            <section class="tab3-section">
+                <h3>Expiring Soon</h3>
+                <p>Tap an item when you use it up so you remember to remove it from other lists later.</p>
+                <ul class="tab3-expiring-list">
+                    <li>
+                        <div class="item-main">
+                            <span class="item-name">2% Milk (half gallon)</span>
+                            <span class="item-owner">Shared</span>
+                        </div>
+                        <div class="item-meta">
+                            <span class="item-date">Use by: Mar 1</span>
+                            <span class="item-warning">Use first</span>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="item-main">
+                            <span class="item-name">Strawberries</span>
+                            <span class="item-owner">Alex</span>
+                        </div>
+                        <div class="item-meta">
+                            <span class="item-date">Use by: Mar 2</span>
+                            <span class="item-warning">Going soft</span>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="item-main">
+                            <span class="item-name">Leftover veggie pasta</span>
+                            <span class="item-owner">Jamie</span>
+                        </div>
+                        <div class="item-meta">
+                            <span class="item-date">Use by: Tonight</span>
+                            <span class="item-warning">Great for lunch</span>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="item-main">
+                            <span class="item-name">Eggs (12)</span>
+                            <span class="item-owner">Shared</span>
+                        </div>
+                        <div class="item-meta">
+                            <span class="item-date">Use by: Mar 5</span>
+                            <span class="item-muted">Okay for weekend baking</span>
+                        </div>
+                    </li>
+                </ul>
+            </section>
+        </div>
+    </div>
 
     <div id="tab4" class="tabcontent">
         <img src=turtle.png width=100 onClick="document.getElementById('thealert').style.display='block';"><br>
