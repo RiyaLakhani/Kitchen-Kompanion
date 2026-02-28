@@ -7,8 +7,67 @@
 </head>
 
 <body>
-    <div id="tab1" class="tabcontent">Tab 1</div>
-    <div id="tab2" class="tabcontent">Tab 2</div>
+<div class="app-wrapper">
+    <div id="tab1" class="tabcontent tab1-bg" style="display:block;">
+        <h2>Meal Plan</h2>
+        <div class="tab1-scroll">
+            <div class="meal-day">
+                <h3>Monday</h3>
+                <p><strong>Breakfast:</strong> Pancakes</p>
+                <p><strong>Lunch:</strong> Salad</p>
+                <p><strong>Dinner:</strong> Soup</p>
+                <p><strong>Snack:</strong> Carrots</p>
+            </div>
+            <div class="meal-day">
+                <h3>Tuesday</h3>
+                <p><strong>Breakfast:</strong> Pancakes</p>
+                <p><strong>Lunch:</strong> Salad</p>
+                <p><strong>Dinner:</strong> Soup</p>
+                <p><strong>Snack:</strong> Carrots</p>
+            </div>
+            <div class="meal-day">
+                <h3>Wednesday</h3>
+                <p><strong>Breakfast:</strong> Pancakes</p>
+                <p><strong>Lunch:</strong> Salad</p>
+                <p><strong>Dinner:</strong> Soup</p>
+                <p><strong>Snack:</strong> Carrots</p>
+            </div>
+            <div class="meal-day">
+                <h3>Thursday</h3>
+                <p><strong>Breakfast:</strong> Pancakes</p>
+                <p><strong>Lunch:</strong> Salad</p>
+                <p><strong>Dinner:</strong> Soup</p>
+                <p><strong>Snack:</strong> Carrots</p>
+            </div>
+            <div class="meal-day">
+                <h3>Friday</h3>
+                <p><strong>Breakfast:</strong> Pancakes</p>
+                <p><strong>Lunch:</strong> Salad</p>
+                <p><strong>Dinner:</strong> Soup</p>
+                <p><strong>Snack:</strong> Carrots</p>
+            </div>
+            <div class="meal-day">
+                <h3>Saturday</h3>
+                <p><strong>Breakfast:</strong> Pancakes</p>
+                <p><strong>Lunch:</strong> Salad</p>
+                <p><strong>Dinner:</strong> Soup</p>
+                <p><strong>Snack:</strong> Carrots</p>
+            </div>
+            <div class="meal-day">
+                <h3>Sunday</h3>
+                <p><strong>Breakfast:</strong> Pancakes</p>
+                <p><strong>Lunch:</strong> Salad</p>
+                <p><strong>Dinner:</strong> Soup</p>
+                <p><strong>Snack:</strong> Carrots</p>
+            </div>
+        </div>
+    </div>
+    
+    <div id="tab2" class="tabcontent tab2-bg">
+        <h2>Look at the lower Right</h2>
+            <span class="lower-right-text">Down Here</span>
+    </div>
+
     <div id="tab3" class="tabcontent">
         <h2>Fridge at a Glance</h2>
         <p>
@@ -133,14 +192,27 @@
     </div>
 
     <div class="tab">
-        <button class="tablinks active" onclick="openTab(event, 'tab1')">Tab 1</button>
-        <button class="tablinks" onclick="openTab(event, 'tab2')">Tab 2</button>
-        <button class="tablinks" onclick="openTab(event, 'tab3')">Tab 3</button>
-        <button class="tablinks" onclick="openTab(event, 'tab4')">Profile</button>
-        <button class="tablinks" onclick="openTab(event, 'tab5')">Choices</button>
-        <button class="tablinks" onclick="openTab(event, 'tab6')">Tab 6: To Do!</button>
+        <button class="tablinks active" onclick="openTab(event, 'tab1')">
+            <img src="down.png" width="24"><br>Text
+        </button>
+        <button class="tablinks" onclick="openTab(event, 'tab2')">
+            <img src="right-down.png" width="24"><br>LR
+        </button>
+        <button class="tablinks" onclick="openTab(event, 'tab3')">
+            <img src="art.png" width="24"><br>Colors
+        </button>
+        <button class="tablinks" onclick="openTab(event, 'tab4')">
+            <img src="user.png" width="24"><br>Profile
+        </button>
+        <button class="tablinks" onclick="openTab(event, 'tab5')">
+            <img src="choice.png" width="24"><br>Choices
+        </button>
+        <button class="tablinks" onclick="openTab(event, 'tab6')">
+            <img src="task-list.png" width="24"><br>ToDo
+        </button>
     </div>
-    <script src="script.js"></script>
-</body>
 
+</div>
+<script src="script.js"></script>
+</body>
 </html>
