@@ -152,27 +152,27 @@ margin-top: 10px;
 }
 
 /* tab 3 */
-.tab3-main {
+.my-fridge-main {
 display: flex;
 flex-direction: column;
 gap: 20px;
 margin-top: 10px;
 }
 
-.tab3-section {
+.my-fridge-section {
 background: #f5f9f7;
 border-radius: 0;
 padding: 12px 14px;
 }
 
-.tab3-pie-row {
+.my-fridge-pie-row {
 display: flex;
 gap: 16px;
 align-items: center;
 margin-top: 8px;
 }
 
-.tab3-pie {
+.my-fridge-pie {
 width: 180px;
 height: 180px;
 border-radius: 50%;
@@ -185,14 +185,14 @@ background: conic-gradient(
 );
 }
 
-.tab3-legend {
+.my-fridge-legend {
 list-style: none;
 padding-left: 0;
 margin: 0;
 font-size: 11pt;
 }
 
-.tab3-legend li {
+.my-fridge-legend li {
 display: flex;
 align-items: center;
 gap: 8px;
@@ -226,13 +226,13 @@ background-color: #f0a080;
 background-color: #bdbdbd;
 }
 
-.tab3-note {
+.my-fridge-note {
 font-size: 10pt;
 color: #555;
 margin-top: 6px;
 }
 
-.tab3-expiring-list {
+.my-fridge-expiring-list {
 list-style: none;
 padding-left: 0;
 margin: 10px 0 0;
@@ -241,7 +241,7 @@ flex-direction: column;
 gap: 8px;
 }
 
-.tab3-expiring-list li {
+.my-fridge-expiring-list li {
 background: #fefefe;
 border-radius: 0;
 padding: 8px 10px;
@@ -291,7 +291,7 @@ color: #555;
   box-sizing: border-box;
 }
 
-.tab1-bg { background-color: #ffc0cb; }
+.welcome-bg { background-color: #ffc0cb; }
 .tab2-bg { background-color: #ffc0cb; position: relative; }
 
 .lower-right-text {
@@ -301,7 +301,7 @@ color: #555;
   font-weight: bold;
 }
 
-.tab1-scroll {
+.welcome-scroll {
   height: calc(100% - 60px);
   overflow-y: scroll;
 }
