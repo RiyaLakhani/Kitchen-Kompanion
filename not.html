@@ -149,22 +149,32 @@
         </div>
 
         <div id="shopping-list" class="tabcontent">
-            <h2>To Do!</h2>
-            <h3>Cross off tasks by clicking the title of task!<h3>
-
-                    <div class="todo-input-row">
-                        <input id="todoInput" type="text" placeholder="To add an item, press 'Add' (or Enter)" />
-                        <button id="addTodoBtn" type="button">Add</button>
-                    </div>
-
-                    <ul id="todoList" class="todo-list"></ul>
-
-                    <div class="todo-actions">
-                        <button id="clear" type="button">Clear crossed off tasks</button>
-
-                    </div>
-
-                    <p id="todoError" class="todo-error" aria-live="polite"></p>
+            <h2 class="shop-heading">Shopping List</h2>
+            <div class="shop-input-row">
+                <input id="shopInput" type="text" placeholder="Item name" />
+                <input id="shopQty" type="text" placeholder="Qty" class="shop-qty-input" />
+                <select id="shopCat">
+                    <option value="Produce">Produce</option>
+                    <option value="Dairy">Dairy</option>
+                    <option value="Protein">Protein</option>
+                    <option value="Pantry">Pantry</option>
+                    <option value="Frozen">Frozen</option>
+                    <option value="Other">Other</option>
+                </select>
+                <button id="addShopBtn" type="button">Add</button>
+            </div>
+            <div class="shop-filters">
+                <button class="shop-filter active" data-cat="all">All</button>
+                <button class="shop-filter" data-cat="Produce">Produce</button>
+                <button class="shop-filter" data-cat="Dairy">Dairy</button>
+                <button class="shop-filter" data-cat="Protein">Protein</button>
+                <button class="shop-filter" data-cat="Pantry">Pantry</button>
+            </div>
+            <ul id="shopList" class="shop-list"></ul>
+            <div class="shop-footer">
+                <button id="clearShop" type="button">Clear checked</button>
+                <span id="shopCount" class="shop-count"></span>
+            </div>
         </div>
 
         <div class="tab">

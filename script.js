@@ -21,7 +21,7 @@ function openTab(evt, tabName) { // adapted from https://www.w3schools.com/howto
   evt.currentTarget.className += " active";
 }
 
-function displayForm(evt) {
+function displayForm() {
   const radioButton = document.querySelector('input[name="selection1"]:checked');
   const dropdown = document.getElementById("selection2");
 
@@ -36,7 +36,7 @@ function displayForm(evt) {
 
 
 
-function addFridgeItem(evt) {
+function addFridgeItem() {
 
   var form = document.getElementById("fridge-input");
   var item = form.elements["itemName"].value;
@@ -71,84 +71,77 @@ function addFridgeItem(evt) {
 
 
 
-function Todo() {
+function ShoppingList() {
+  const input    = document.getElementById("shopInput");
+  const qtyInput = document.getElementById("shopQty");
+  const catSel   = document.getElementById("shopCat");
+  const addBtn   = document.getElementById("addShopBtn");
+  const list     = document.getElementById("shopList");
+  const clearBtn = document.getElementById("clearShop");
+  const countEl  = document.getElementById("shopCount");
 
-  const input = document.getElementById("todoInput");
+  const seedItems = [
+    { name: "Milk",           qty: "1 gal",   cat: "Dairy"   },
+    { name: "Eggs",           qty: "1 doz",   cat: "Dairy"   },
+    { name: "Yogurt",         qty: "2",       cat: "Dairy"   },
+    { name: "Chicken breast", qty: "2 lbs",   cat: "Protein" },
+    { name: "Ground turkey",  qty: "1 lb",    cat: "Protein" },
+    { name: "Spinach",        qty: "1 bag",   cat: "Produce" },
+    { name: "Apples",         qty: "6",       cat: "Produce" },
+    { name: "Broccoli",       qty: "1 head",  cat: "Produce" },
+    { name: "Bananas",        qty: "1 bunch", cat: "Produce" },
+    { name: "Rice",           qty: "2 lbs",   cat: "Pantry"  },
+    { name: "Pasta",          qty: "1 box",   cat: "Pantry"  },
+    { name: "Olive oil",      qty: "1 btl",   cat: "Pantry"  },
+  ];
 
-  const addBtn = document.getElementById("addTodoBtn");
-  const list = document.getElementById("todoList");
-
-  const error = document.getElementById("todoError");
-  const clear = document.getElementById("clear");
-
-
-  // console.log({ input, addBtn, list });
-
-  if (!input || !addBtn || !list) return;
-
-  function setError(msg) {
-
-    if (!error) return;
-    error.textContent = msg || "";
-
+  function updateCount() {
+    const all     = list.querySelectorAll(".shop-item");
+    const checked = list.querySelectorAll(".shop-item.checked");
+    countEl.textContent = `${all.length - checked.length} of ${all.length} remaining`;
   }
 
-  function addTodoItem(text) {
-    const trimmed = text.trim();
-    if (!trimmed) {
-      setError("Please type something before adding.");
-      return;
-    }
-    setError("");
-
-
+  function addItem(name, qty, cat) {
+    if (!name.trim()) return;
     const li = document.createElement("li");
-    li.classList.add("todo-item");
-
-    const span = document.createElement("span");
-    span.classList.add("todo-text");
-    span.textContent = trimmed;
-
-    span.addEventListener("click", () => {
-      li.classList.toggle("completed");
+    li.className = "shop-item";
+    li.dataset.cat = cat;
+    li.innerHTML = `<span class="shop-checkbox"></span>
+      <span class="shop-item-name">${name.trim()}</span>
+      <span class="shop-item-qty">${qty.trim()}</span>
+      <span class="shop-item-cat">${cat}</span>`;
+    li.addEventListener("click", () => {
+      li.classList.toggle("checked");
+      li.querySelector(".shop-checkbox").textContent = li.classList.contains("checked") ? "✓" : "";
+      updateCount();
     });
-
-    // delete button
-    const delBtn = document.createElement("button");
-    delBtn.type = "button";
-    delBtn.classList.add("todo-delete");
-    delBtn.textContent = "Delete";
-
-    delBtn.addEventListener("click", () => {
-      li.remove();
-    });
-
-    li.appendChild(span);
-    li.appendChild(delBtn);
     list.appendChild(li);
-
     input.value = "";
+    qtyInput.value = "";
     input.focus();
+    updateCount();
   }
 
-  addBtn.addEventListener("click", () => addTodoItem(input.value));
+  seedItems.forEach(i => addItem(i.name, i.qty, i.cat));
 
-  // press Enter in the input to add
-  input.addEventListener("keydown", (e) => {
-    if (e.key === "Enter") {
-      e.preventDefault();
-      addTodoItem(input.value);
-    }
+  addBtn.addEventListener("click", () => addItem(input.value, qtyInput.value, catSel.value));
+  input.addEventListener("keydown", e => { if (e.key === "Enter") addItem(input.value, qtyInput.value, catSel.value); });
+  clearBtn.addEventListener("click", () => {
+    list.querySelectorAll(".shop-item.checked").forEach(li => li.remove());
+    updateCount();
   });
 
-  if (clear) {
-    clear.addEventListener("click", () => {
-      const completed = list.querySelectorAll(".completed");
-      completed.forEach((li) => li.remove());
+  document.querySelectorAll(".shop-filter").forEach(btn => {
+    btn.addEventListener("click", () => {
+      document.querySelectorAll(".shop-filter").forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+      const cat = btn.dataset.cat;
+      list.querySelectorAll(".shop-item").forEach(item => {
+        item.style.display = (cat === "all" || item.dataset.cat === cat) ? "" : "none";
+      });
+      updateCount();
     });
-  }
-
+  });
 }
 
-
-document.addEventListener("DOMContentLoaded", Todo);
+document.addEventListener("DOMContentLoaded", ShoppingList);
