@@ -145,3 +145,52 @@ function ShoppingList() {
 }
 
 document.addEventListener("DOMContentLoaded", ShoppingList);
+
+const profileUpload = document.getElementById("profileUpload");
+const profilePreview = document.getElementById("profilePreview");
+
+if (profileUpload) {
+    profileUpload.addEventListener("change", function () {
+        const file = this.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                profilePreview.src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+    });
+}
+
+function saveProfile() {
+    const age = document.getElementById("profileAge").value;
+
+    const goals = document.getElementById("profileGoals").value;
+    const skill = document.getElementById("profileSkill").value;
+    const time = document.getElementById("profileTime").value;
+
+    const message = document.getElementById("profileMessage");
+
+    localStorage.setItem("profileAge", age);
+    localStorage.setItem("profileGoals", goals);
+    localStorage.setItem("profileSkill", skill);
+
+    localStorage.setItem("profileTime", time);
+
+    message.textContent = "Profile saved!";
+}
+
+window.addEventListener("DOMContentLoaded", function () {
+    const savedAge = localStorage.getItem("profileAge");
+    const savedGoals = localStorage.getItem("profileGoals");
+
+    const savedSkill = localStorage.getItem("profileSkill");
+    const savedTime = localStorage.getItem("profileTime");
+
+
+    if (savedAge) document.getElementById("profileAge").value = savedAge;
+    if (savedGoals) document.getElementById("profileGoals").value = savedGoals;
+    
+    if (savedSkill) document.getElementById("profileSkill").value = savedSkill;
+    if (savedTime) document.getElementById("profileTime").value = savedTime;
+});

@@ -118,14 +118,76 @@
         </div>
 
         <div id="profile" class="tabcontent">
-            <img src=turtle.png width=100 onClick="document.getElementById('thealert').style.display='block';"><br>
+            <div class="profile-page">
+                <div class="profile-topbar">
+                    <div class="profile-brand">
+                        <span class="brand-icon">🍽️</span>
+                        <span>Kitchen Kompanion</span>
+                    </div>
+                </div>
 
-            <div id="thealert" class="alert">
-                <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
-                Hello
+                <div class="profile-content">
+                    <h1 class="profile-title">My Profile</h1>
+                    <p class="profile-subtitle">Personalize your kitchen companion experience.</p>
+
+                    <div class="profile-card">
+                        <div class="profile-image-section">
+                            <div class="profile-avatar-wrap">
+                                <img
+                                    id="profilePreview"
+                                    src="https://via.placeholder.com/140x140.png?text=Photo"
+                                    alt="Profile picture"
+                                    class="profile-avatar"
+                                />
+                            </div>
+
+                            <label for="profileUpload" class="profile-upload-btn">Choose Photo</label>
+                            <input type="file" id="profileUpload" accept="image/*" hidden />
+                        </div>
+
+                        <form class="profile-form">
+                            <div class="profile-field">
+                                <label for="profileAge">Age</label>
+                                <input type="number" id="profileAge" placeholder="Enter your age">
+                            </div>
+
+                            <div class="profile-field">
+                                <label for="profileGoals">Goals</label>
+                                <textarea id="profileGoals" rows="3" placeholder="Ex: eat healthier, save money, meal prep more"></textarea>
+                            </div>
+
+                            <div class="profile-field">
+                                <label for="profileSkill">Cooking Skill Level</label>
+                                <select id="profileSkill">
+                                    <option value="">Select skill level</option>
+                                    <option>Beginner</option>
+                                    <option>Intermediate</option>
+                                    <option>Advanced</option>
+                                </select>
+                            </div>
+
+                            <div class="profile-field">
+                                <label for="profileTime">Estimated Time Budgeted for Cooking Per Week</label>
+                                <select id="profileTime">
+                                    <option value="">Select time</option>
+                                    <option>Less than 2 hours</option>
+                                    <option>2–4 hours</option>
+                                    <option>5–7 hours</option>
+                                    <option>8+ hours</option>
+                                </select>
+                            </div>
+
+                            <button type="button" class="profile-save-btn" onclick="saveProfile()">
+                                Save Profile
+                            </button>
+
+                            <p id="profileMessage" class="profile-message"></p>
+                        </form>
+                    </div>
+                </div>
             </div>
-
         </div>
+        
         <div id="recipes" class="tabcontent">
             <form>
                 <p>Camera mode:</p>
