@@ -71,7 +71,8 @@
             </p>
 
             <div class="my-fridge-main">
-                <section class="my-fridge-section">
+                <!-- Just commenting this out for now! -->
+                <!-- <section class="my-fridge-section">
                     <h3>Space Used in Fridge</h3>
                     <div class="my-fridge-pie-row">
                         <div class="my-fridge-pie"></div>
@@ -86,53 +87,33 @@
                     <p class="my-fridge-note">
                         Pre-filled to simulate a real fridge that is already in use.
                     </p>
+                </section> -->
+                <form id="fridge-input">
+                    Item Name: <input name="itemName" type="text">
+                    Item Cost: <input name="exp-date" type="date">
+                    <button type="button" onclick="addFridgeItem()">Add</button>
+                </form>
+                <section class="my-fridge-section">
+                    <h3>My Fridge</h3>
+                    <p>Tap an item when you use it up so you remember to remove it from other lists later.</p>
+                    <ul id="my-fridge-list">
+                        <!-- <li>
+                        <div class="item-main">
+                            <span class="item-name">2% Milk (half gallon)</span>
+                            <span class="item-owner">Shared</span>
+                        </div>
+                        <div class="item-meta">
+                            <span class="item-date">Use by: Mar 1</span>
+                            <span class="item-warning">Use first</span>
+                        </div>
+                    </li> -->
+                    </ul>
                 </section>
 
                 <section class="my-fridge-section">
                     <h3>Expiring Soon</h3>
                     <p>Tap an item when you use it up so you remember to remove it from other lists later.</p>
-                    <ul class="my-fridge-expiring-list">
-                        <li>
-                            <div class="item-main">
-                                <span class="item-name">2% Milk (half gallon)</span>
-                                <span class="item-owner">Shared</span>
-                            </div>
-                            <div class="item-meta">
-                                <span class="item-date">Use by: Mar 1</span>
-                                <span class="item-warning">Use first</span>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="item-main">
-                                <span class="item-name">Strawberries</span>
-                                <span class="item-owner">Alex</span>
-                            </div>
-                            <div class="item-meta">
-                                <span class="item-date">Use by: Mar 2</span>
-                                <span class="item-warning">Going soft</span>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="item-main">
-                                <span class="item-name">Leftover veggie pasta</span>
-                                <span class="item-owner">Jamie</span>
-                            </div>
-                            <div class="item-meta">
-                                <span class="item-date">Use by: Tonight</span>
-                                <span class="item-warning">Great for lunch</span>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="item-main">
-                                <span class="item-name">Eggs (12)</span>
-                                <span class="item-owner">Shared</span>
-                            </div>
-                            <div class="item-meta">
-                                <span class="item-date">Use by: Mar 5</span>
-                                <span class="item-muted">Okay for weekend baking</span>
-                            </div>
-                        </li>
-                    </ul>
+                    <ul class="my-fridge-expiring-list" id="my-fridge-expiring-list"></ul>
                 </section>
             </div>
         </div>

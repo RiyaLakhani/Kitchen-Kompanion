@@ -35,6 +35,42 @@ function displayForm(evt) {
 }
 
 
+
+function addFridgeItem(evt) {
+
+  var form = document.getElementById("fridge-input");
+  var item = form.elements["itemName"].value;
+  var date = form.elements["exp-date"].value;
+  const fridgeList = document.getElementById("my-fridge-list");
+  const expList = document.getElementById("my-fridge-expiring-list");
+  // var obj = { 'item': item, 'exp-date': date };
+
+  // localStorage.setItem(item, JSON.stringify(obj)); // is this prone to bugs?
+  // var retrievedObject = localStorage.getItem(item);
+
+  const li = document.createElement("li");
+  li.textContent = `${item} -- Expires ${date}`;
+
+
+  li.addEventListener("click", () => {
+    li.remove();
+  });
+
+  // If it is under three days until expiration, we move it to exp lsit
+  const daysLeft = (new Date(date) - new Date()) / (1000 * 60 * 60 * 24);
+
+  if (daysLeft < 3) {
+    expList.appendChild(li);
+  } else {
+    fridgeList.appendChild(li)
+  }
+
+
+  form.reset()
+}
+
+
+
 function Todo() {
 
   const input = document.getElementById("todoInput");
@@ -45,10 +81,10 @@ function Todo() {
   const error = document.getElementById("todoError");
   const clear = document.getElementById("clear");
 
-  
-  console.log({ input, addBtn, list });
 
-  if (!input || !addBtn || !list) return; 
+  // console.log({ input, addBtn, list });
+
+  if (!input || !addBtn || !list) return;
 
   function setError(msg) {
 
