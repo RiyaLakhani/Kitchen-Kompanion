@@ -8,113 +8,69 @@
 
 <body>
     <div class="app-wrapper">
-    <!-- start of homepage -->
-    <div id="welcome" class="tabcontent" style="display:block;">
-        <div class="welcome-scroll">
-    
-            <!-- Today's highlight card -->
-            <div class="today-card">
-                <div class="today-label">TODAY · MONDAY</div>
-                <div class="today-meals">
-                    <div class="today-meal-item">
-                        <span class="today-meal-emoji">🥞</span>
-                        <div>
-                            <div class="today-meal-type">Breakfast</div>
-                            <div class="today-meal-name">Pancakes</div>
+        <div id="welcome" class="tabcontent" style="display:block;">
+            <div class="welcome-scroll">
+
+                <!-- Today's highlight card -->
+                <div class="today-card">
+                    <div class="today-label">TODAY · MONDAY</div>
+                    <div class="today-meals">
+                        <div class="today-meal-item">
+                            <span class="today-meal-emoji">🥞</span>
+                            <div>
+                                <div class="today-meal-type">Breakfast</div>
+                                <div class="today-meal-name">Pancakes</div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="today-meal-item">
-                        <span class="today-meal-emoji">🥗</span>
-                        <div>
-                            <div class="today-meal-type">Lunch</div>
-                            <div class="today-meal-name">Salad</div>
+                        <div class="today-meal-item">
+                            <span class="today-meal-emoji">🥗</span>
+                            <div>
+                                <div class="today-meal-type">Lunch</div>
+                                <div class="today-meal-name">Salad</div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="today-meal-item">
-                        <span class="today-meal-emoji">🍵</span>
-                        <div>
-                            <div class="today-meal-type">Dinner</div>
-                            <div class="today-meal-name">Soup</div>
+                        <div class="today-meal-item">
+                            <span class="today-meal-emoji">🍵</span>
+                            <div>
+                                <div class="today-meal-type">Dinner</div>
+                                <div class="today-meal-name">Soup</div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="today-meal-item">
-                        <span class="today-meal-emoji">🥕</span>
-                        <div>
-                            <div class="today-meal-type">Snack</div>
-                            <div class="today-meal-name">Carrots</div>
+                        <div class="today-meal-item">
+                            <span class="today-meal-emoji">🥕</span>
+                            <div>
+                                <div class="today-meal-type">Snack</div>
+                                <div class="today-meal-name">Carrots</div>
+                            </div>
                         </div>
                     </div>
                 </div>
+
+                <!-- Rest of week -->
+                <div class="week-section-label">THIS WEEK</div>
+
+                <div class="meal-day">
+                    <h3>Tuesday</h3>
+                    <p><strong>Breakfast:</strong> Pancakes</p>
+                    <p><strong>Lunch:</strong> Salad</p>
+                    <p><strong>Dinner:</strong> Soup</p>
+                    <p><strong>Snack:</strong> Carrots</p>
+                </div>
+                <!-- ...repeat for Wed–Sun as you had before -->
+
             </div>
-    
-            <!-- Rest of week -->
-            <div class="week-section-label">THIS WEEK</div>
-    
-            <div class="meal-day">
-                <h3>Tuesday</h3>
-                <p><strong>Breakfast:</strong> Pancakes</p>
-                <p><strong>Lunch:</strong> Salad</p>
-                <p><strong>Dinner:</strong> Soup</p>
-                <p><strong>Snack:</strong> Carrots</p>
-            </div>
-            <!-- ...repeat for Wed–Sun as you had before -->
-    
         </div>
-    </div>
-<!-- end of homepage -->
-        <div id="my-fridge" class="tabcontent">
-            <h2>Fridge at a Glance</h2>
-            <p>
-                Quick overview of what is in the shared refrigerator so you can plan meals,
-                avoid waste, and see who items belong to.
-            </p>
-
-            <div class="my-fridge-main">
-                <!-- Just commenting this out for now! -->
-                <!-- <section class="my-fridge-section">
-                    <h3>Space Used in Fridge</h3>
-                    <div class="my-fridge-pie-row">
-                        <div class="my-fridge-pie"></div>
-                        <ul class="my-fridge-legend">
-                            <li><span class="legend-dot legend-dairy"></span>Dairy (milk, cheese, yogurt): 35%</li>
-                            <li><span class="legend-dot legend-produce"></span>Produce (fruit &amp; veggies): 25%</li>
-                            <li><span class="legend-dot legend-protein"></span>Proteins (meat, tofu, eggs): 20%</li>
-                            <li><span class="legend-dot legend-leftovers"></span>Leftovers: 15%</li>
-                            <li><span class="legend-dot legend-other"></span>Other items: 5%</li>
-                        </ul>
-                    </div>
-                    <p class="my-fridge-note">
-                        Pre-filled to simulate a real fridge that is already in use.
-                    </p>
-                </section> -->
-                <form id="fridge-input">
-                    Item Name: <input name="itemName" type="text">
-                    Item Cost: <input name="exp-date" type="date">
-                    <button type="button" onclick="addFridgeItem()">Add</button>
-                </form>
-                <section class="my-fridge-section">
-                    <h3>My Fridge</h3>
-                    <p>Tap an item when you use it up so you remember to remove it from other lists later.</p>
-                    <ul id="my-fridge-list">
-                        <!-- <li>
-                        <div class="item-main">
-                            <span class="item-name">2% Milk (half gallon)</span>
-                            <span class="item-owner">Shared</span>
-                        </div>
-                        <div class="item-meta">
-                            <span class="item-date">Use by: Mar 1</span>
-                            <span class="item-warning">Use first</span>
-                        </div>
-                    </li> -->
-                    </ul>
-                </section>
-
-                <section class="my-fridge-section">
-                    <h3>Expiring Soon</h3>
-                    <p>Tap an item when you use it up so you remember to remove it from other lists later.</p>
-                    <ul class="my-fridge-expiring-list" id="my-fridge-expiring-list"></ul>
-                </section>
+        <div id="inventory" class="tabcontent">
+            <h2 class="shop-heading">Inventory</h2>
+            <div class="shop-filters">
+                <button class="shop-filter active" data-cat="expiring">Expiring Soon</button>
+                <button class="shop-filter" data-cat="Produce">Produce</button>
+                <button class="shop-filter" data-cat="Dairy">Dairy</button>
+                <button class="shop-filter" data-cat="Protein">Protein</button>
+                <button class="shop-filter" data-cat="Pantry">Pantry</button>
+                <button class="shop-filter" data-cat="all">All</button>
             </div>
+            <ul id="inventoryList" class="shop-list"></ul>
         </div>
 
         <div id="profile" class="tabcontent">
@@ -186,7 +142,7 @@
             <button class="tablinks" onclick="openTab(event, 'shopping-list')">
                 <img src="list-check.svg" width="24"><br>
             </button>
-            <button class="tablinks" onclick="openTab(event, 'my-fridge')">
+            <button class="tablinks" onclick="openTab(event, 'inventory')">
                 <img src="fridge.svg" width="24"><br>
             </button>
             <button class="tablinks" onclick="openTab(event, 'profile')">
