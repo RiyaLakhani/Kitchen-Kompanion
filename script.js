@@ -69,11 +69,50 @@ function addFridgeItem() {
   form.reset()
 }
 
-function Inventory() {
+function Inventory() { // w help from https://www.w3schools.com/howto/howto_css_modals.asp 
   const list = document.getElementById("inventoryList");
+
+  // manual add stuff
+  const addBtn = document.getElementById("addInventoryBtn");
+  const input = document.getElementById("invenName");
+  const qtyInput = document.getElementById("inventQty");
+  const cat = document.getElementById("invenCat");
+  const exp = document.getElementById("invenExp");
+
+  addBtn.addEventListener("click", () => addItem(input.value, qtyInput.value, cat.value, String(exp.value)));
+
+  // modal stuff
+  var modal = document.getElementById("myModal");
+  var btn = document.getElementById("myBtn");
+  var span = document.getElementsByClassName("close")[0];
+
+
+  // When the user clicks on the button, open the modal
+  btn.onclick = function () {
+    modal.style.display = "flex";
+  }
+  // When the user clicks on <span> (x), close the modal
+  span.onclick = function () {
+    modal.style.display = "none";
+  }
+  // When the user clicks anywhere outside of the modal, close it
+  window.onclick = function (event) {
+    if (event.target == modal) {
+      modal.style.display = "none";
+    }
+  }
   const seedItems = [
     { name: "Sriracha", qty: "1 bottle", cat: "Pantry", expiration: "2026-08-09" },
     { name: "Broccoli", qty: "1 head", cat: "Produce", expiration: "2026-04-07" },
+    { name: "Chicken breast", qty: "2 lbs", cat: "Protein", expiration: "2026-04-07" },
+    { name: "Ground turkey", qty: "1 lb", cat: "Protein", expiration: "2026-07-07" },
+    { name: "Spinach", qty: "1 bag", cat: "Produce", expiration: "2026-04-07" },
+    { name: "Apples", qty: "6", cat: "Produce", expiration: "2026-04-07" },
+    { name: "Broccoli", qty: "1 head", cat: "Produce", expiration: "2026-08-07" },
+    { name: "Bananas", qty: "1 bunch", cat: "Produce", expiration: "2026-05-07" },
+    { name: "Rice", qty: "2 lbs", cat: "Pantry", expiration: "2026-04-07" },
+    { name: "Pasta", qty: "1 box", cat: "Pantry", expiration: "2026-06-07" },
+    { name: "Olive oil", qty: "1 btl", cat: "Pantry", expiration: "2026-04-07" },
   ];
 
   function expiringSoon(expiration) {
