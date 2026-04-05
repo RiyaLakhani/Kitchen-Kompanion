@@ -118,75 +118,106 @@
         </div>
 
         <div id="profile" class="tabcontent">
-            <div class="profile-page">
-                <div class="profile-topbar">
-                    <div class="profile-brand">
-                        <span class="brand-icon">🍽️</span>
-                        <span>Kitchen Kompanion</span>
-                    </div>
+        <div class="profile-page">
+            <div class="profile-topbar">
+                <div class="profile-brand">
+                    <span class="brand-icon">🍽️</span>
+                    <span>Kitchen Kompanion</span>
                 </div>
+            </div>
 
-                <div class="profile-content">
-                    <h1 class="profile-title">My Profile</h1>
-                    <p class="profile-subtitle">Personalize your kitchen companion experience.</p>
+            <div class="profile-content">
+                <h1 class="profile-title">My Profile</h1>
+                <p class="profile-subtitle">Personalize your kitchen companion experience.</p>
 
-                    <div class="profile-card">
-                        <div class="profile-image-section">
-                            <div class="profile-avatar-wrap">
-                                <img
-                                    id="profilePreview"
-                                    src="https://via.placeholder.com/140x140.png?text=Photo"
-                                    alt="Profile picture"
-                                    class="profile-avatar"
-                                />
-                            </div>
-
-                            <label for="profileUpload" class="profile-upload-btn">Choose Photo</label>
-                            <input type="file" id="profileUpload" accept="image/*" hidden />
+                <div class="profile-card">
+                    <div class="profile-image-section">
+                        <div class="profile-avatar-wrap">
+                            <img
+                                id="profilePreview"
+                                src="https://via.placeholder.com/140x140.png?text=Photo"
+                                alt="Profile picture"
+                                class="profile-avatar"
+                            />
                         </div>
 
-                        <form class="profile-form">
-                            <div class="profile-field">
-                                <label for="profileAge">Age</label>
-                                <input type="number" id="profileAge" placeholder="Enter your age">
-                            </div>
-
-                            <div class="profile-field">
-                                <label for="profileGoals">Goals</label>
-                                <textarea id="profileGoals" rows="3" placeholder="Ex: eat healthier, save money, meal prep more"></textarea>
-                            </div>
-
-                            <div class="profile-field">
-                                <label for="profileSkill">Cooking Skill Level</label>
-                                <select id="profileSkill">
-                                    <option value="">Select skill level</option>
-                                    <option>Beginner</option>
-                                    <option>Intermediate</option>
-                                    <option>Advanced</option>
-                                </select>
-                            </div>
-
-                            <div class="profile-field">
-                                <label for="profileTime">Estimated Time Budgeted for Cooking Per Week</label>
-                                <select id="profileTime">
-                                    <option value="">Select time</option>
-                                    <option>Less than 2 hours</option>
-                                    <option>2–4 hours</option>
-                                    <option>5–7 hours</option>
-                                    <option>8+ hours</option>
-                                </select>
-                            </div>
-
-                            <button type="button" class="profile-save-btn" onclick="saveProfile()">
-                                Save Profile
-                            </button>
-
-                            <p id="profileMessage" class="profile-message"></p>
-                        </form>
+                        <label for="profileUpload" class="profile-upload-btn">Choose Photo</label>
+                        <input type="file" id="profileUpload" accept="image/*" hidden />
                     </div>
+
+                    <form class="profile-form">
+                        <div class="profile-field">
+                            <label for="profileAge">Age</label>
+                            <input type="number" id="profileAge" placeholder="Enter your age">
+                        </div>
+
+                        <div class="profile-field">
+                            <label for="profileGoals">Goals</label>
+                            <select id="profileGoals">
+                                <option value="">Select a goal</option>
+                                <option>Eat healthier</option>
+                                <option>Save money</option>
+                                <option>Meal prep more</option>
+                                <option>Cook faster</option>
+                                <option>Learn new recipes</option>
+                                <option>Eat more protein</option>
+                            </select>
+                        </div>
+
+                        <div class="profile-field">
+                            <label for="profileSkill">Cooking Skill Level</label>
+                            <select id="profileSkill">
+                                <option value="">Select skill level</option>
+                                <option>Beginner</option>
+                                <option>Intermediate</option>
+                                <option>Advanced</option>
+                            </select>
+                        </div>
+
+                        <div class="profile-field">
+                            <label for="profileTime">Estimated Time Budgeted for Cooking Per Week</label>
+                            <select id="profileTime">
+                                <option value="">Select time</option>
+                                <option>Less than 2 hours</option>
+                                <option>2–4 hours</option>
+                                <option>5–7 hours</option>
+                                <option>8+ hours</option>
+                            </select>
+                        </div>
+
+                        <div class="profile-field">
+                            <label for="profileRestriction">Restrictions</label>
+                            <select id="profileRestriction">
+                                <option value="">Select a restriction</option>
+                                <option>None</option>
+                                <option>Vegetarian</option>
+                                <option>Vegan</option>
+                                <option>Gluten-Free</option>
+                                <option>Dairy-Free</option>
+                                <option>Nut-Free</option>
+                                <option>Halal</option>
+                                <option>Kosher</option>
+                            </select>
+                        </div>
+
+                        <div class="profile-field roommate-field">
+                            <label for="roommateMode">Roommate Mode</label>
+                            <label class="switch">
+                                <input type="checkbox" id="roommateMode">
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+
+                        <button type="button" class="profile-save-btn" onclick="saveProfile()">
+                            Save Profile
+                        </button>
+
+                        <p id="profileMessage" class="profile-message"></p>
+                    </form>
                 </div>
             </div>
         </div>
+    </div>
         
         <div id="recipes" class="tabcontent">
             <form>

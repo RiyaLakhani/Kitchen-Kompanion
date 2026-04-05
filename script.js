@@ -164,18 +164,19 @@ if (profileUpload) {
 
 function saveProfile() {
     const age = document.getElementById("profileAge").value;
-
     const goals = document.getElementById("profileGoals").value;
     const skill = document.getElementById("profileSkill").value;
     const time = document.getElementById("profileTime").value;
-
+    const restriction = document.getElementById("profileRestriction").value;
+    const roommateMode = document.getElementById("roommateMode").checked;
     const message = document.getElementById("profileMessage");
 
     localStorage.setItem("profileAge", age);
     localStorage.setItem("profileGoals", goals);
     localStorage.setItem("profileSkill", skill);
-
     localStorage.setItem("profileTime", time);
+    localStorage.setItem("profileRestriction", restriction);
+    localStorage.setItem("roommateMode", roommateMode);
 
     message.textContent = "Profile saved!";
 }
@@ -183,14 +184,15 @@ function saveProfile() {
 window.addEventListener("DOMContentLoaded", function () {
     const savedAge = localStorage.getItem("profileAge");
     const savedGoals = localStorage.getItem("profileGoals");
-
     const savedSkill = localStorage.getItem("profileSkill");
     const savedTime = localStorage.getItem("profileTime");
-
+    const savedRestriction = localStorage.getItem("profileRestriction");
+    const savedRoommateMode = localStorage.getItem("roommateMode");
 
     if (savedAge) document.getElementById("profileAge").value = savedAge;
     if (savedGoals) document.getElementById("profileGoals").value = savedGoals;
-    
     if (savedSkill) document.getElementById("profileSkill").value = savedSkill;
     if (savedTime) document.getElementById("profileTime").value = savedTime;
+    if (savedRestriction) document.getElementById("profileRestriction").value = savedRestriction;
+    if (savedRoommateMode === "true") document.getElementById("roommateMode").checked = true;
 });
