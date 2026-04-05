@@ -69,34 +69,75 @@ function addFridgeItem() {
   form.reset()
 }
 
+function Inventory() {
+  const list = document.getElementById("inventoryList");
+
+
+  const seedItems = [
+    { name: "Sriracha", qty: "1 bottle", cat: "Pantry", expiration: "2026-08-09" },
+    { name: "Broccoli", qty: "1 head", cat: "Produce", expiration: "2026-08-09" },
+  ];
+
+  function addItem(name, qty, cat, expiration) {
+    if (!name.trim()) return;
+    const li = document.createElement("li");
+    li.className = "shop-item"; // do i need to change this?
+    li.dataset.cat = cat;
+    li.innerHTML = `<span ></span>
+      <span class="shop-item-name">${name.trim()}</span>
+      <span class="shop-item-qty">${qty.trim()}</span>
+      <span class="shop-item-cat">${cat}</span>`;
+    list.appendChild(li);
+    // input.value = "";
+    // qtyInput.value = "";
+    // input.focus();
+  }
+
+  seedItems.forEach(i => addItem(i.name, i.qty, i.cat));
+
+  // addBtn.addEventListener("click", () => addItem(input.value, qtyInput.value, catSel.value));
+  // input.addEventListener("keydown", e => { if (e.key === "Enter") addItem(input.value, qtyInput.value, catSel.value); });
+
+
+  document.querySelectorAll(".shop-filter").forEach(btn => { // set up selection even listeners
+    btn.addEventListener("click", () => {
+      document.querySelectorAll(".shop-filter").forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+      const cat = btn.dataset.cat;
+      list.querySelectorAll(".shop-item").forEach(item => {
+        item.style.display = (cat === "all" || item.dataset.cat === cat) ? "" : "none";
+      });
+    });
+  });
+}
 
 
 function ShoppingList() {
-  const input    = document.getElementById("shopInput");
+  const input = document.getElementById("shopInput");
   const qtyInput = document.getElementById("shopQty");
-  const catSel   = document.getElementById("shopCat");
-  const addBtn   = document.getElementById("addShopBtn");
-  const list     = document.getElementById("shopList");
+  const catSel = document.getElementById("shopCat");
+  const addBtn = document.getElementById("addShopBtn");
+  const list = document.getElementById("shopList");
   const clearBtn = document.getElementById("clearShop");
-  const countEl  = document.getElementById("shopCount");
+  const countEl = document.getElementById("shopCount");
 
   const seedItems = [
-    { name: "Milk",           qty: "1 gal",   cat: "Dairy"   },
-    { name: "Eggs",           qty: "1 doz",   cat: "Dairy"   },
-    { name: "Yogurt",         qty: "2",       cat: "Dairy"   },
-    { name: "Chicken breast", qty: "2 lbs",   cat: "Protein" },
-    { name: "Ground turkey",  qty: "1 lb",    cat: "Protein" },
-    { name: "Spinach",        qty: "1 bag",   cat: "Produce" },
-    { name: "Apples",         qty: "6",       cat: "Produce" },
-    { name: "Broccoli",       qty: "1 head",  cat: "Produce" },
-    { name: "Bananas",        qty: "1 bunch", cat: "Produce" },
-    { name: "Rice",           qty: "2 lbs",   cat: "Pantry"  },
-    { name: "Pasta",          qty: "1 box",   cat: "Pantry"  },
-    { name: "Olive oil",      qty: "1 btl",   cat: "Pantry"  },
+    { name: "Milk", qty: "1 gal", cat: "Dairy" },
+    { name: "Eggs", qty: "1 doz", cat: "Dairy" },
+    { name: "Yogurt", qty: "2", cat: "Dairy" },
+    { name: "Chicken breast", qty: "2 lbs", cat: "Protein" },
+    { name: "Ground turkey", qty: "1 lb", cat: "Protein" },
+    { name: "Spinach", qty: "1 bag", cat: "Produce" },
+    { name: "Apples", qty: "6", cat: "Produce" },
+    { name: "Broccoli", qty: "1 head", cat: "Produce" },
+    { name: "Bananas", qty: "1 bunch", cat: "Produce" },
+    { name: "Rice", qty: "2 lbs", cat: "Pantry" },
+    { name: "Pasta", qty: "1 box", cat: "Pantry" },
+    { name: "Olive oil", qty: "1 btl", cat: "Pantry" },
   ];
 
   function updateCount() {
-    const all     = list.querySelectorAll(".shop-item");
+    const all = list.querySelectorAll(".shop-item");
     const checked = list.querySelectorAll(".shop-item.checked");
     countEl.textContent = `${all.length - checked.length} of ${all.length} remaining`;
   }
@@ -196,3 +237,4 @@ window.addEventListener("DOMContentLoaded", function () {
     if (savedRestriction) document.getElementById("profileRestriction").value = savedRestriction;
     if (savedRoommateMode === "true") document.getElementById("roommateMode").checked = true;
 });
+document.addEventListener("DOMContentLoaded", Inventory);
