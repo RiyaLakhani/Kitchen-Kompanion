@@ -71,33 +71,35 @@ function addFridgeItem() {
 
 function Inventory() {
   const list = document.getElementById("inventoryList");
-
-
   const seedItems = [
     { name: "Sriracha", qty: "1 bottle", cat: "Pantry", expiration: "2026-08-09" },
-    { name: "Broccoli", qty: "1 head", cat: "Produce", expiration: "2026-08-09" },
+    { name: "Broccoli", qty: "1 head", cat: "Produce", expiration: "2026-04-07" },
   ];
+
+  function expiringSoon(expiration) {
+    let diff = (new Date(expiration) - new Date()) / (1000 * 24 * 60 * 60)
+    return diff <= 3 && diff >= 0
+  }
 
   function addItem(name, qty, cat, expiration) {
     if (!name.trim()) return;
     const li = document.createElement("li");
     li.className = "shop-item"; // do i need to change this?
     li.dataset.cat = cat;
+    li.dataset.expiration = expiration
+    let expirationTag = expiringSoon(expiration) ? `<span class="exp-tag">Expiring Soon</span>` : ""
+
+
     li.innerHTML = `<span ></span>
       <span class="shop-item-name">${name.trim()}</span>
       <span class="shop-item-qty">${qty.trim()}</span>
-      <span class="shop-item-cat">${cat}</span>`;
+      <span class="shop-item-cat">${cat}</span>
+      ${expirationTag} `;
+
     list.appendChild(li);
-    // input.value = "";
-    // qtyInput.value = "";
-    // input.focus();
   }
 
-  seedItems.forEach(i => addItem(i.name, i.qty, i.cat));
-
-  // addBtn.addEventListener("click", () => addItem(input.value, qtyInput.value, catSel.value));
-  // input.addEventListener("keydown", e => { if (e.key === "Enter") addItem(input.value, qtyInput.value, catSel.value); });
-
+  seedItems.forEach(i => addItem(i.name, i.qty, i.cat, i.expiration));
 
   document.querySelectorAll(".shop-filter").forEach(btn => { // set up selection even listeners
     btn.addEventListener("click", () => {
@@ -105,7 +107,13 @@ function Inventory() {
       btn.classList.add("active");
       const cat = btn.dataset.cat;
       list.querySelectorAll(".shop-item").forEach(item => {
-        item.style.display = (cat === "all" || item.dataset.cat === cat) ? "" : "none";
+        if (cat === "all") {
+          item.style.display = "";
+        } else if (cat === "expiring") {
+          item.style.display = expiringSoon(item.dataset.expiration) ? "" : "none";
+        } else {
+          item.style.display = item.dataset.cat === cat ? "" : "none";
+        }
       });
     });
   });
