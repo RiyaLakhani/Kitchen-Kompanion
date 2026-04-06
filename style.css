@@ -765,3 +765,180 @@ h1 {
   font-weight: 600;
   color: #214f96;
 }
+
+/* RECIPES HOME */
+.recipes-header {
+  margin-bottom: 12px;
+}
+
+.recipes-header h2 {
+  margin: 0;
+  font-size: 20pt;
+  color: #1f3b63;
+}
+
+.recipe-filters {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.filter-group {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.filter-label {
+  font-size: 10pt;
+  font-weight: 700;
+  color: #555;
+  margin-right: 4px;
+}
+
+.filter {
+  padding: 6px 10px;
+  border: 1px solid #aab7c8;
+  border-radius: 14px;
+  background: white;
+  font-size: 9pt;
+  cursor: pointer;
+}
+
+.filter.active {
+  background: rgb(32, 75, 132);
+  color: white;
+  border-color: rgb(32, 75, 132);
+}
+
+.recipe-toggle {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.toggle {
+  padding: 8px 12px;
+  border: 1px solid #aab7c8;
+  border-radius: 10px;
+  background: white;
+  font-size: 10pt;
+  cursor: pointer;
+}
+
+.toggle.active {
+  background: rgb(32, 75, 132);
+  color: white;
+  border-color: rgb(32, 75, 132);
+}
+
+.recipe-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-height: calc(100vh - 320px);
+  overflow-y: auto;
+  padding-right: 4px;
+}
+
+.recipe-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: white;
+  border: 1px solid #d7e2cc;
+  border-radius: 14px;
+  padding: 12px;
+  cursor: pointer;
+}
+
+.recipe-left {
+  width: 46px;
+  height: 46px;
+  border-radius: 12px;
+  background: #eef4ff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  flex-shrink: 0;
+}
+
+.recipe-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.recipe-title {
+  font-size: 12pt;
+  font-weight: 700;
+  color: #222;
+}
+
+.recipe-meta {
+  font-size: 9pt;
+  color: #666;
+  margin-top: 2px;
+}
+
+.recipe-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 6px;
+}
+
+.tag {
+  font-size: 8pt;
+  padding: 3px 8px;
+  border-radius: 10px;
+  white-space: nowrap;
+}
+
+.tag.blue {
+  background: #dbeafe;
+  color: #1d4ed8;
+}
+
+.tag.green {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.tag.purple {
+  background: #f3e8ff;
+  color: #7e22ce;
+}
+
+.tag.orange {
+  background: #ffedd5;
+  color: #c2410c;
+}
+
+.recipe-right {
+  font-size: 10pt;
+  font-weight: 700;
+  color: #1f3b63;
+  white-space: nowrap;
+}
+
+.recipe-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
+  flex-wrap: wrap;
+}
+
+.recipe-actions button {
+  flex: 1;
+  min-width: 0;
+  padding: 10px 8px;
+  border: none;
+  border-radius: 10px;
+  background: rgb(32, 75, 132);
+  color: white;
+  font-size: 9pt;
+  cursor: pointer;
+}
