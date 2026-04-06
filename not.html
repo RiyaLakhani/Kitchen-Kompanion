@@ -9,55 +9,95 @@
 <body>
     <div class="app-wrapper">
         <div id="welcome" class="tabcontent" style="display:block;">
-            <div class="welcome-scroll">
 
-                <!-- Today's highlight card -->
-                <div class="today-card">
-                    <div class="today-label">TODAY · MONDAY</div>
-                    <div class="today-meals">
-                        <div class="today-meal-item">
-                            <span class="today-meal-emoji">🥞</span>
-                            <div>
-                                <div class="today-meal-type">Breakfast</div>
-                                <div class="today-meal-name">Pancakes</div>
-                            </div>
-                        </div>
-                        <div class="today-meal-item">
-                            <span class="today-meal-emoji">🥗</span>
-                            <div>
-                                <div class="today-meal-type">Lunch</div>
-                                <div class="today-meal-name">Salad</div>
-                            </div>
-                        </div>
-                        <div class="today-meal-item">
-                            <span class="today-meal-emoji">🍵</span>
-                            <div>
-                                <div class="today-meal-type">Dinner</div>
-                                <div class="today-meal-name">Soup</div>
-                            </div>
-                        </div>
-                        <div class="today-meal-item">
-                            <span class="today-meal-emoji">🥕</span>
-                            <div>
-                                <div class="today-meal-type">Snack</div>
-                                <div class="today-meal-name">Carrots</div>
-                            </div>
+            <div class="recipes-header">
+                <h2>Recipes</h2>
+            </div>
+        
+            <div class="recipe-filters">
+                <div class="filter-group">
+                    <span class="filter-label">Diet</span>
+                    <button class="filter active" data-filter="all" type="button">All</button>
+                    <button class="filter" data-filter="vegetarian" type="button">Vegetarian</button>
+                    <button class="filter" data-filter="gluten-free" type="button">Gluten-free</button>
+                    <button class="filter" data-filter="dairy-free" type="button">Dairy-free</button>
+                </div>
+        
+                <div class="filter-group">
+                    <span class="filter-label">Nutrition</span>
+                    <button class="filter" data-filter="low-cal" type="button">Low Cal</button>
+                    <button class="filter" data-filter="high-protein" type="button">High Protein</button>
+                </div>
+            </div>
+        
+            <div class="recipe-toggle">
+                <button class="toggle active" type="button" onclick="showAllRecipes()">All recipes</button>
+                <button class="toggle" type="button" onclick="filterInventoryRecipes()">Use what I have</button>
+            </div>
+        
+            <div class="recipe-list" id="recipeList">
+                <div class="recipe-card"
+                    onclick="openRecipe('beef')"
+                    data-tags="dairy-free high-protein"
+                    data-ingredients="5/6">
+        
+                    <div class="recipe-left">🥩</div>
+        
+                    <div class="recipe-info">
+                        <div class="recipe-title">Beef &amp; Broccoli</div>
+                        <div class="recipe-meta">25 min · Intermediate</div>
+                        <div class="recipe-tags">
+                            <span class="tag blue">Dairy-free</span>
+                            <span class="tag purple">High Protein</span>
                         </div>
                     </div>
+        
+                    <div class="recipe-right">5 / 6</div>
                 </div>
-
-                <!-- Rest of week -->
-                <div class="week-section-label">THIS WEEK</div>
-
-                <div class="meal-day">
-                    <h3>Tuesday</h3>
-                    <p><strong>Breakfast:</strong> Pancakes</p>
-                    <p><strong>Lunch:</strong> Salad</p>
-                    <p><strong>Dinner:</strong> Soup</p>
-                    <p><strong>Snack:</strong> Carrots</p>
+        
+                <div class="recipe-card"
+                    onclick="openRecipe('pasta')"
+                    data-tags="vegetarian low-cal"
+                    data-ingredients="4/5">
+        
+                    <div class="recipe-left">🍝</div>
+        
+                    <div class="recipe-info">
+                        <div class="recipe-title">Aglio e Olio</div>
+                        <div class="recipe-meta">20 min · Beginner</div>
+                        <div class="recipe-tags">
+                            <span class="tag green">Vegetarian</span>
+                            <span class="tag orange">Low Cal</span>
+                        </div>
+                    </div>
+        
+                    <div class="recipe-right">4 / 5</div>
                 </div>
-                <!-- ...repeat for Wed–Sun as you had before -->
-
+        
+                <div class="recipe-card"
+                    onclick="openRecipe('fried-rice')"
+                    data-tags="gluten-free high-protein"
+                    data-ingredients="6/6">
+        
+                    <div class="recipe-left">🍚</div>
+        
+                    <div class="recipe-info">
+                        <div class="recipe-title">Chicken Fried Rice</div>
+                        <div class="recipe-meta">30 min · Beginner</div>
+                        <div class="recipe-tags">
+                            <span class="tag blue">Gluten-free</span>
+                            <span class="tag purple">High Protein</span>
+                        </div>
+                    </div>
+        
+                    <div class="recipe-right">6 / 6</div>
+                </div>
+            </div>
+        
+            <div class="recipe-actions">
+                <button type="button" onclick="addToShopping()">Add Missing → Shopping</button>
+                <button type="button" onclick="saveRecipe()">Save Recipe</button>
+                <button type="button" onclick="openCalendar()">Add to Meal Plan</button>
             </div>
         </div>
         <div id="inventory" class="tabcontent inventory">
@@ -277,6 +317,21 @@
 
     </div>
     <script src="script.js"></script>
+
+    <div id="calendarModal" class="modal">
+        <div class="modal-content">
+            <h3>Select Day</h3>
+            <button type="button" onclick="addToDay('Monday')">Mon</button>
+            <button type="button" onclick="addToDay('Tuesday')">Tue</button>
+            <button type="button" onclick="addToDay('Wednesday')">Wed</button>
+            <button type="button" onclick="addToDay('Thursday')">Thu</button>
+            <button type="button" onclick="addToDay('Friday')">Fri</button>
+    
+            <br><br>
+            <button type="button" onclick="closeCalendar()">Done</button>
+        </div>
+    </div>
+
 </body>
 
 </html>

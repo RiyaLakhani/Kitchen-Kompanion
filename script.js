@@ -289,3 +289,67 @@ window.addEventListener("DOMContentLoaded", function () {
   if (savedRestriction) document.getElementById("profileRestriction").value = savedRestriction;
   if (savedRoommateMode === "true") document.getElementById("roommateMode").checked = true;
 });
+document.addEventListener("DOMContentLoaded", Inventory);
+
+document.addEventListener("DOMContentLoaded", function () {
+  document.querySelectorAll(".filter").forEach(btn => {
+    btn.addEventListener("click", () => {
+      document.querySelectorAll(".filter").forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+
+      const filter = btn.dataset.filter;
+
+      document.querySelectorAll(".recipe-card").forEach(card => {
+        if (!filter || filter === "all") {
+          card.style.display = "flex";
+        } else {
+          card.style.display = card.dataset.tags.includes(filter) ? "flex" : "none";
+        }
+      });
+    });
+  });
+});
+
+function showAllRecipes() {
+  document.querySelectorAll(".toggle").forEach(btn => btn.classList.remove("active"));
+  document.querySelector(".recipe-toggle .toggle:first-child").classList.add("active");
+
+  document.querySelectorAll(".recipe-card").forEach(card => {
+    card.style.display = "flex";
+  });
+}
+
+function filterInventoryRecipes() {
+  document.querySelectorAll(".toggle").forEach(btn => btn.classList.remove("active"));
+  document.querySelector(".recipe-toggle .toggle:last-child").classList.add("active");
+
+  document.querySelectorAll(".recipe-card").forEach(card => {
+    const ratio = card.dataset.ingredients.split("/");
+    card.style.display = (ratio[0] === ratio[1]) ? "flex" : "none";
+  });
+}
+
+function openRecipe(name) {
+  alert("Opening " + name);
+}
+
+function addToShopping() {
+  alert("Missing ingredients added to shopping list");
+}
+
+function saveRecipe() {
+  alert("Recipe saved and favorite ingredients added to shopping");
+}
+
+function openCalendar() {
+  document.getElementById("calendarModal").style.display = "flex";
+}
+
+function closeCalendar() {
+  document.getElementById("calendarModal").style.display = "none";
+}
+
+function addToDay(day) {
+  alert("Added to " + day);
+  closeCalendar();
+}
