@@ -60,8 +60,18 @@
 
             </div>
         </div>
-        <div id="inventory" class="tabcontent">
+        <div id="inventory" class="tabcontent inventory">
             <h2 class="shop-heading">Inventory</h2>
+            <div class="quantities" style="display: flex;">
+                <div class="quantity">
+                    <div id="items-quant">0</div>
+                    <div id="context">total</div>
+                </div>
+                <div class="quantity">
+                    <div id="exp-quant">0</div>
+                    <div id="context">almost expired</div>
+                </div>
+            </div>
             <div class="shop-filters">
                 <button class="shop-filter active" data-cat="all">All</button>
                 <button class="shop-filter" data-cat="expiring">Expiring Soon</button>
@@ -69,11 +79,14 @@
                 <button class="shop-filter" data-cat="Dairy">Dairy</button>
                 <button class="shop-filter" data-cat="Protein">Protein</button>
                 <button class="shop-filter" data-cat="Pantry">Pantry</button>
+                <div style="margin-left: auto;">
+                    <button id="myBtn" class="dark-button">Add Item</button>
+                </div>
+
             </div>
 
             <ul id="inventoryList" class="shop-list"></ul>
             <div>
-                <button id="myBtn">Add Item</button>
                 <div id="myModal" class="modal">
                     <!-- Modal content -->
                     <div class="modal-content">
@@ -89,114 +102,110 @@
                             <option value="Other">Other</option>
                         </select>
                         <input id="invenExp" type="date"></input>
-                        <button id="addInventoryBtn" type="button">Add</button>
+                        <button id="addInventoryBtn" type="button" class="dark-button">Add</button>
                     </div>
                 </div>
             </div>
         </div>
 
         <div id="profile" class="tabcontent">
-        <div class="profile-page">
-            <div class="profile-topbar">
-                <div class="profile-brand">
-                    <span class="brand-icon">🍽️</span>
-                    <span>Kitchen Kompanion</span>
-                </div>
-            </div>
-
-            <div class="profile-content">
-                <h1 class="profile-title">My Profile</h1>
-                <p class="profile-subtitle">Personalize your kitchen companion experience.</p>
-
-                <div class="profile-card">
-                    <div class="profile-image-section">
-                        <div class="profile-avatar-wrap">
-                            <img
-                                id="profilePreview"
-                                src="https://via.placeholder.com/140x140.png?text=Photo"
-                                alt="Profile picture"
-                                class="profile-avatar"
-                            />
-                        </div>
-
-                        <label for="profileUpload" class="profile-upload-btn">Choose Photo</label>
-                        <input type="file" id="profileUpload" accept="image/*" hidden />
+            <div class="profile-page">
+                <div class="profile-topbar">
+                    <div class="profile-brand">
+                        <span class="brand-icon">🍽️</span>
+                        <span>Kitchen Kompanion</span>
                     </div>
+                </div>
 
-                    <form class="profile-form">
-                        <div class="profile-field">
-                            <label for="profileAge">Age</label>
-                            <input type="number" id="profileAge" placeholder="Enter your age">
+                <div class="profile-content">
+                    <h1 class="profile-title">My Profile</h1>
+                    <p class="profile-subtitle">Personalize your kitchen companion experience.</p>
+
+                    <div class="profile-card">
+                        <div class="profile-image-section">
+                            <div class="profile-avatar-wrap">
+                                <img id="profilePreview" src="https://via.placeholder.com/140x140.png?text=Photo"
+                                    alt="Profile picture" class="profile-avatar" />
+                            </div>
+
+                            <label for="profileUpload" class="profile-upload-btn">Choose Photo</label>
+                            <input type="file" id="profileUpload" accept="image/*" hidden />
                         </div>
 
-                        <div class="profile-field">
-                            <label for="profileGoals">Goals</label>
-                            <select id="profileGoals">
-                                <option value="">Select a goal</option>
-                                <option>Eat healthier</option>
-                                <option>Save money</option>
-                                <option>Meal prep more</option>
-                                <option>Cook faster</option>
-                                <option>Learn new recipes</option>
-                                <option>Eat more protein</option>
-                            </select>
-                        </div>
+                        <form class="profile-form">
+                            <div class="profile-field">
+                                <label for="profileAge">Age</label>
+                                <input type="number" id="profileAge" placeholder="Enter your age">
+                            </div>
 
-                        <div class="profile-field">
-                            <label for="profileSkill">Cooking Skill Level</label>
-                            <select id="profileSkill">
-                                <option value="">Select skill level</option>
-                                <option>Beginner</option>
-                                <option>Intermediate</option>
-                                <option>Advanced</option>
-                            </select>
-                        </div>
+                            <div class="profile-field">
+                                <label for="profileGoals">Goals</label>
+                                <select id="profileGoals">
+                                    <option value="">Select a goal</option>
+                                    <option>Eat healthier</option>
+                                    <option>Save money</option>
+                                    <option>Meal prep more</option>
+                                    <option>Cook faster</option>
+                                    <option>Learn new recipes</option>
+                                    <option>Eat more protein</option>
+                                </select>
+                            </div>
 
-                        <div class="profile-field">
-                            <label for="profileTime">Estimated Time Budgeted for Cooking Per Week</label>
-                            <select id="profileTime">
-                                <option value="">Select time</option>
-                                <option>Less than 2 hours</option>
-                                <option>2–4 hours</option>
-                                <option>5–7 hours</option>
-                                <option>8+ hours</option>
-                            </select>
-                        </div>
+                            <div class="profile-field">
+                                <label for="profileSkill">Cooking Skill Level</label>
+                                <select id="profileSkill">
+                                    <option value="">Select skill level</option>
+                                    <option>Beginner</option>
+                                    <option>Intermediate</option>
+                                    <option>Advanced</option>
+                                </select>
+                            </div>
 
-                        <div class="profile-field">
-                            <label for="profileRestriction">Restrictions</label>
-                            <select id="profileRestriction">
-                                <option value="">Select a restriction</option>
-                                <option>None</option>
-                                <option>Vegetarian</option>
-                                <option>Vegan</option>
-                                <option>Gluten-Free</option>
-                                <option>Dairy-Free</option>
-                                <option>Nut-Free</option>
-                                <option>Halal</option>
-                                <option>Kosher</option>
-                            </select>
-                        </div>
+                            <div class="profile-field">
+                                <label for="profileTime">Estimated Time Budgeted for Cooking Per Week</label>
+                                <select id="profileTime">
+                                    <option value="">Select time</option>
+                                    <option>Less than 2 hours</option>
+                                    <option>2–4 hours</option>
+                                    <option>5–7 hours</option>
+                                    <option>8+ hours</option>
+                                </select>
+                            </div>
 
-                        <div class="profile-field roommate-field">
-                            <label for="roommateMode">Roommate Mode</label>
-                            <label class="switch">
-                                <input type="checkbox" id="roommateMode">
-                                <span class="slider"></span>
-                            </label>
-                        </div>
+                            <div class="profile-field">
+                                <label for="profileRestriction">Restrictions</label>
+                                <select id="profileRestriction">
+                                    <option value="">Select a restriction</option>
+                                    <option>None</option>
+                                    <option>Vegetarian</option>
+                                    <option>Vegan</option>
+                                    <option>Gluten-Free</option>
+                                    <option>Dairy-Free</option>
+                                    <option>Nut-Free</option>
+                                    <option>Halal</option>
+                                    <option>Kosher</option>
+                                </select>
+                            </div>
 
-                        <button type="button" class="profile-save-btn" onclick="saveProfile()">
-                            Save Profile
-                        </button>
+                            <div class="profile-field roommate-field">
+                                <label for="roommateMode">Roommate Mode</label>
+                                <label class="switch">
+                                    <input type="checkbox" id="roommateMode">
+                                    <span class="slider"></span>
+                                </label>
+                            </div>
 
-                        <p id="profileMessage" class="profile-message"></p>
-                    </form>
+                            <button type="button" class="profile-save-btn" onclick="saveProfile()">
+                                Save Profile
+                            </button>
+
+                            <p id="profileMessage" class="profile-message"></p>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-        
+
         <div id="recipes" class="tabcontent">
             <form>
                 <p>Camera mode:</p>
