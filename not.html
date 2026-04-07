@@ -7,7 +7,6 @@
 <body>
 <div class="app-wrapper">
 
-    <!-- INVENTORY (HOME/LANDING) -->
     <div id="inventory" class="tabcontent" style="display:flex;">
         <div class="shop-topbar inventory-topbar">
             <div>
@@ -34,7 +33,6 @@
         </div>
         <ul id="inventoryList" class="shop-list"></ul>
 
-        <!-- Add Item Modal — fix 3: added unit + location fields -->
         <div id="myModal" class="modal">
             <div class="modal-content">
                 <span class="close">&times;</span>
@@ -86,7 +84,6 @@
                 <label class="modal-label">Expiration date</label>
                 <input id="invenExp" type="date" />
 
-                <!-- fix 5: shared/personal toggle in add item -->
                 <div class="modal-toggle-row">
                     <label class="modal-label" style="margin:0;">Mark as shared item</label>
                     <label class="switch">
@@ -110,7 +107,6 @@
         </div>
     </div>
 
-    <!-- RECIPES LIST -->
     <div id="recipes" class="tabcontent">
         <div class="shop-topbar">
             <div>
@@ -206,7 +202,6 @@
         </div>
     </div>
 
-    <!-- RECIPE DETAIL — fix 1: has its own nav bar -->
     <div id="recipe-detail" class="tabcontent">
         <div class="rd-topbar">
             <button class="rd-back-btn" onclick="closeRecipeDetail()">&#8592; Back</button>
@@ -224,7 +219,6 @@
                 Add missing items to shopping list
             </button>
 
-            <!-- fix 4: save to meal plan button opens calendar -->
             <button class="rd-calendar-btn" onclick="openCalendar()">
                 📅 Add to meal plan
             </button>
@@ -234,7 +228,6 @@
         </div>
     </div>
 
-    <!-- SHOPPING LIST -->
     <div id="shopping-list" class="tabcontent">
         <div class="shop-topbar">
             <div>
@@ -265,7 +258,6 @@
         </button>
     </div>
 
-    <!-- PROFILE -->
     <div id="profile" class="tabcontent">
         <div class="profile-page">
             <div class="shop-topbar">
@@ -278,6 +270,31 @@
                 <p class="profile-subtitle">Personalize your kitchen companion experience.</p>
                 <div class="profile-card">
                     <form class="profile-form">
+                        <div class="profile-field">
+                            <label for="profilePhoto">Profile Photo</label>
+                            <input type="file" id="profilePhoto" accept="image/*">
+                            <img id="profilePhotoPreview" class="profile-photo-preview" alt="Profile preview">
+                        </div>
+                        <div class="profile-field">
+                            <label for="profileGoals">Goals</label>
+                            <select id="profileGoals">
+                                <option value="">Select a goal</option>
+                                <option>Save money</option>
+                                <option>Reduce food waste</option>
+                                <option>Cook healthier meals</option>
+                                <option>Meal prep faster</option>
+                            </select>
+                        </div>
+                        <div class="profile-field">
+                            <label for="profileTime">Time budgeted for cooking per week</label>
+                            <select id="profileTime">
+                                <option value="">Select time budget</option>
+                                <option>1-3 hours</option>
+                                <option>4-6 hours</option>
+                                <option>7-10 hours</option>
+                                <option>10+ hours</option>
+                            </select>
+                        </div>
                         <div class="profile-field">
                             <label for="profileSkill">Cooking Skill Level</label>
                             <select id="profileSkill">
@@ -301,7 +318,6 @@
                                 <option>Kosher</option>
                             </select>
                         </div>
-                        <!-- fix 5: roommate mode -->
                         <div class="profile-field roommate-field">
                             <label for="roommateMode">Roommate Mode</label>
                             <label class="switch">
@@ -334,7 +350,7 @@
             <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="1.8"><rect x="5" y="3" width="14" height="18" rx="2"/><line x1="5" y1="9" x2="19" y2="9"/></svg>
             <span>Inventory</span>
         </button>
-        <button class="tablinks" onclick="openTab(event,'recipes')">
+        <button type="button" class="tablinks" id="tab-btn-recipes" onclick="openTab(event,'recipes')">
             <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="1.8"><path d="M3 2h18l-2 7H5L3 2z"/><path d="M5 9v11a2 2 0 002 2h10a2 2 0 002-2V9"/><line x1="9" y1="14" x2="15" y2="14"/></svg>
             <span>Recipes</span>
         </button>
@@ -348,9 +364,6 @@
         </button>
     </div>
 
-</div><!-- end app-wrapper -->
-
-<!-- MODAL: Add shopping item -->
 <div id="addShopModal" class="kk-modal-overlay">
     <div class="kk-modal">
         <div class="kk-modal-header">
@@ -403,7 +416,6 @@
     </div>
 </div>
 
-<!-- MODAL: Done shopping -->
 <div id="doneShopModal" class="kk-modal-overlay">
     <div class="kk-modal">
         <div class="kk-modal-header">
@@ -440,6 +452,13 @@
                 <label>Expiration date</label>
                 <input type="date" id="done-exp">
             </div>
+            <div class="modal-toggle-row" style="margin-top:12px;">
+                <label class="modal-label" style="margin:0;">Mark as shared item</label>
+                <label class="switch">
+                    <input type="checkbox" id="done-shared">
+                    <span class="slider"></span>
+                </label>
+            </div>
         </div>
         <div class="kk-modal-footer">
             <button class="kk-btn-primary" id="done-confirm-btn" onclick="confirmDoneItem()">Confirm &amp; next</button>
@@ -448,7 +467,6 @@
     </div>
 </div>
 
-<!-- fix 4: Calendar modal — shows meal plan after saving -->
 <div id="calendarModal" class="modal">
     <div class="modal-content">
         <span class="close-cal" onclick="closeCalendar()">&times;</span>
@@ -466,6 +484,8 @@
         <div id="meal-plan-list" class="meal-plan-list"></div>
         <button type="button" class="dark-button" style="width:100%;margin-top:10px;" onclick="closeCalendar()">Done</button>
     </div>
+</div>
+
 </div>
 
 <script src="script.js"></script>
