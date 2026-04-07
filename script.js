@@ -1,4 +1,139 @@
 // ─────────────────────────────────────────
+// RECIPE DATA  (hard-coded, all 5 recipes)
+// ─────────────────────────────────────────
+var recipeData = {
+  beef: {
+      title:  "Beef & Broccoli Stir Fry",
+      emoji:  "🥩🥦",
+      time:   "25 min",
+      skill:  "Intermediate",
+      servings: "2 servings",
+      tags:   ["Dairy-free", "High Protein", "Uses expiring items"],
+      ingredients: [
+          { name: "Ground beef",  qty: "0.8 lbs",   inStock: true  },
+          { name: "Broccoli",     qty: "1 head",     inStock: true  },
+          { name: "Garlic",       qty: "3 cloves",   inStock: true  },
+          { name: "Brown rice",   qty: "1 cup",      inStock: true  },
+          { name: "Yellow onion", qty: "½ onion",    inStock: true  },
+          { name: "Soy sauce",    qty: "3 tbsp",     inStock: false },
+      ],
+      steps: [
+          "Cook brown rice per package directions. Set aside.",
+          "Slice beef into thin strips. Season with salt and pepper.",
+          "Heat oil in a wok over high heat. Cook beef 3–4 min until browned. Remove and set aside.",
+          "Add onion and garlic to the same pan. Stir fry 2 minutes.",
+          "Add broccoli and soy sauce. Cook 3–4 min until tender-crisp.",
+          "Return beef to pan, toss everything together, and serve over rice.",
+      ],
+  },
+  pasta: {
+      title:  "Spaghetti Aglio e Olio",
+      emoji:  "🍝🧄",
+      time:   "20 min",
+      skill:  "Beginner",
+      servings: "2 servings",
+      tags:   ["Vegetarian", "Low Cal"],
+      ingredients: [
+          { name: "Spaghetti",    qty: "8 oz",      inStock: true  },
+          { name: "Garlic",       qty: "6 cloves",  inStock: true  },
+          { name: "Olive oil",    qty: "¼ cup",     inStock: true  },
+          { name: "Parsley",      qty: "2 tbsp",    inStock: false },
+          { name: "Parmesan",     qty: "¼ cup",     inStock: false },
+      ],
+      steps: [
+          "Boil salted water and cook spaghetti until al dente. Reserve ½ cup pasta water.",
+          "Thinly slice garlic. Heat olive oil in a large pan over medium-low heat.",
+          "Add garlic and cook gently for 3–4 min until golden — do not burn.",
+          "Add drained pasta and a splash of pasta water. Toss to coat.",
+          "Finish with parsley and parmesan. Serve immediately.",
+      ],
+  },
+  "fried-rice": {
+      title:  "Chicken Fried Rice",
+      emoji:  "🍚🍗",
+      time:   "30 min",
+      skill:  "Beginner",
+      servings: "3 servings",
+      tags:   ["Gluten-free", "High Protein"],
+      ingredients: [
+          { name: "Chicken breast", qty: "1 lb",     inStock: true  },
+          { name: "Brown rice",     qty: "2 cups",   inStock: true  },
+          { name: "Eggs",           qty: "2",        inStock: true  },
+          { name: "Sesame oil",     qty: "1 tbsp",   inStock: true  },
+          { name: "Yellow onion",   qty: "½ onion",  inStock: true  },
+          { name: "Garlic",         qty: "2 cloves", inStock: true  },
+          { name: "Soy sauce",      qty: "2 tbsp",   inStock: false },
+      ],
+      steps: [
+          "Cook rice ahead of time and let cool (day-old rice works best).",
+          "Dice chicken and cook in oil over high heat until cooked through. Set aside.",
+          "In the same pan, scramble eggs until just set. Push to side.",
+          "Add onion and garlic, cook 2 min. Add cold rice and stir fry 3–4 min.",
+          "Add chicken back in. Drizzle with soy sauce and sesame oil. Toss well.",
+          "Taste and adjust seasoning. Serve hot.",
+      ],
+  },
+  eggs: {
+      title:  "Cheesy Scrambled Eggs",
+      emoji:  "🍳🧀",
+      time:   "10 min",
+      skill:  "Beginner",
+      servings: "1 serving",
+      tags:   ["Vegetarian"],
+      ingredients: [
+          { name: "Eggs",           qty: "3",      inStock: true },
+          { name: "Cheddar cheese", qty: "2 oz",   inStock: true },
+          { name: "Whole milk",     qty: "2 tbsp", inStock: true },
+          { name: "Butter",         qty: "1 tbsp", inStock: true },
+      ],
+      steps: [
+          "Crack eggs into a bowl. Add milk and a pinch of salt. Whisk well.",
+          "Melt butter in a non-stick pan over medium-low heat.",
+          "Pour in eggs. Stir slowly and constantly with a spatula.",
+          "When eggs are almost set but still slightly glossy, remove from heat.",
+          "Fold in cheddar cheese. Serve immediately on toast.",
+      ],
+  },
+  "rice-bowl": {
+      title:  "Beef & Rice Bowl",
+      emoji:  "🍲🥩",
+      time:   "35 min",
+      skill:  "Beginner",
+      servings: "2 servings",
+      tags:   ["Gluten-free", "Dairy-free"],
+      ingredients: [
+          { name: "Ground beef",  qty: "0.5 lbs",  inStock: true },
+          { name: "Brown rice",   qty: "1.5 cups", inStock: true },
+          { name: "Yellow onion", qty: "½ onion",  inStock: true },
+          { name: "Garlic",       qty: "2 cloves", inStock: true },
+          { name: "Olive oil",    qty: "1 tbsp",   inStock: true },
+      ],
+      steps: [
+          "Cook brown rice per package directions.",
+          "Dice onion and mince garlic. Heat oil in a pan over medium heat.",
+          "Add onion and cook 3 min until softened. Add garlic, cook 1 min.",
+          "Add ground beef. Cook, breaking up with a spoon, until browned (6–8 min).",
+          "Season with salt and pepper. Serve beef mixture over rice.",
+      ],
+  },
+};
+
+// ─────────────────────────────────────────
+// SEGMENTED CONTROL HELPERS
+// ─────────────────────────────────────────
+function setLocSeg(btn) {
+    const seg = btn.closest(".loc-seg");
+    if (!seg) return;
+    seg.querySelectorAll(".loc-opt").forEach(b => b.classList.remove("active"));
+    btn.classList.add("active");
+}
+
+function getLocSeg() {
+    var btn = document.querySelector("#inv-loc-seg .loc-opt.active");
+    return btn ? btn.textContent.trim() : "Fridge";
+}
+
+// ─────────────────────────────────────────
 // TAB NAVIGATION
 // ─────────────────────────────────────────
 function openTab(evt, tabName) {
@@ -19,23 +154,39 @@ function openTab(evt, tabName) {
 // INVENTORY
 // ─────────────────────────────────────────
 function Inventory() {
-  const list    = document.getElementById("inventoryList");
-  const addBtn  = document.getElementById("addInventoryBtn");
-  const input   = document.getElementById("invenName");
-  const qtyInput= document.getElementById("inventQty");
-  const cat     = document.getElementById("invenCat");
-  const exp     = document.getElementById("invenExp");
-
-  addBtn.addEventListener("click", () =>
-      addInvItem(input.value, qtyInput.value, cat.value, String(exp.value))
-  );
-
+  var list = document.getElementById("inventoryList");
+  var addBtn = document.getElementById("addInventoryBtn");
   var modal = document.getElementById("myModal");
-  var btn   = document.getElementById("myBtn");
-  var span  = document.getElementsByClassName("close")[0];
+  var openModalBtn = document.getElementById("myBtn");
+  var closeModalBtn = document.getElementsByClassName("close")[0];
 
-  btn.onclick  = function () { modal.style.display = "flex"; };
-  span.onclick = function () { modal.style.display = "none"; };
+  function getInventoryFormValues() {
+      return {
+          name: document.getElementById("invenName").value.trim(),
+          qty: parseFloat(document.getElementById("inventQty").value) || 1,
+          unit: document.getElementById("invenUnit").value,
+          cat: document.getElementById("invenCat").value,
+          exp: document.getElementById("invenExp").value,
+          shared: document.getElementById("invenShared").checked,
+          loc: getLocSeg(),
+      };
+  }
+
+  function clearInventoryForm() {
+      document.getElementById("invenName").value = "";
+      document.getElementById("inventQty").value = "1";
+  }
+
+  addBtn.addEventListener("click", function() {
+      var item = getInventoryFormValues();
+      if (!item.name) return;
+      addInvItem(item.name, item.qty, item.unit, item.cat, item.exp, item.loc, item.shared);
+      clearInventoryForm();
+      modal.style.display = "none";
+  });
+
+  openModalBtn.onclick = function () { modal.style.display = "flex"; };
+  closeModalBtn.onclick = function () { modal.style.display = "none"; };
 
   window.onclick = function (event) {
       if (event.target == modal) modal.style.display = "none";
@@ -46,82 +197,113 @@ function Inventory() {
   };
 
   const seedItems = [
-      { name: "Sriracha",       qty: "1 bottle", cat: "Pantry",  expiration: "2026-04-09" },
-      { name: "Broccoli",       qty: "1 head",   cat: "Produce", expiration: "2026-04-11" },
-      { name: "Chicken breast", qty: "2 lbs",    cat: "Protein", expiration: "2026-04-04" },
-      { name: "Ground turkey",  qty: "1 lb",     cat: "Protein", expiration: "2026-04-10" },
-      { name: "Spinach",        qty: "1 bag",    cat: "Produce", expiration: "2026-04-07" },
-      { name: "Apples",         qty: "6",        cat: "Produce", expiration: "2026-04-07" },
-      { name: "Bananas",        qty: "1 bunch",  cat: "Produce", expiration: "2026-05-07" },
-      { name: "Rice",           qty: "2 lbs",    cat: "Pantry",  expiration: "2026-06-07" },
-      { name: "Pasta",          qty: "1 box",    cat: "Pantry",  expiration: "2026-06-07" },
-      { name: "Olive oil",      qty: "1 btl",    cat: "Pantry",  expiration: "2026-08-07" },
-      { name: "Sesame oil",     qty: "1 btl",    cat: "Pantry",  expiration: "2026-08-08" },
+      { name: "Sriracha",       qty: "1 bottle", cat: "Pantry",  expiration: "2026-04-09", loc: "Pantry"  },
+      { name: "Broccoli",       qty: "1 head",   cat: "Produce", expiration: "2026-04-11", loc: "Fridge"  },
+      { name: "Chicken breast", qty: "2 lbs",    cat: "Protein", expiration: "2026-04-04", loc: "Fridge"  },
+      { name: "Ground turkey",  qty: "1 lb",     cat: "Protein", expiration: "2026-04-10", loc: "Freezer" },
+      { name: "Spinach",        qty: "1 bag",    cat: "Produce", expiration: "2026-04-07", loc: "Fridge"  },
+      { name: "Apples",         qty: "6",        cat: "Produce", expiration: "2026-04-07", loc: "Fridge"  },
+      { name: "Bananas",        qty: "1 bunch",  cat: "Produce", expiration: "2026-05-07", loc: "Pantry"  },
+      { name: "Rice",           qty: "2 lbs",    cat: "Pantry",  expiration: "2026-06-07", loc: "Pantry"  },
+      { name: "Pasta",          qty: "1 box",    cat: "Pantry",  expiration: "2026-06-07", loc: "Pantry"  },
+      { name: "Olive oil",      qty: "1 bottle", cat: "Pantry",  expiration: "2026-08-07", loc: "Pantry"  },
+      { name: "Sesame oil",     qty: "1 bottle", cat: "Pantry",  expiration: "2026-08-08", loc: "Pantry"  },
   ];
 
   function expiringSoon(expiration) {
       return (new Date(expiration) - new Date()) / (1000 * 24 * 60 * 60);
   }
 
-  function addInvItem(name, qty, cat, expiration) {
+  function addInvItem(name, qty, unit, cat, expiration, loc, shared) {
       if (!name.trim()) return;
-      const li = document.createElement("li");
+      var li = document.createElement("li");
       li.className = "shop-item";
       li.dataset.cat = cat;
       li.dataset.expiration = expiration;
+      li.dataset.loc = loc;
 
-      let expirationTag = "";
-      const daysLeft = expiringSoon(expiration);
-      if (daysLeft <= 0)      expirationTag = `<span class="expired-tag">Expired</span>`;
-      else if (daysLeft <= 3) expirationTag = `<span class="exp-tag">Expiring Soon</span>`;
+      var daysLeft = expiringSoon(expiration);
+      var expTag = "";
+      if (daysLeft <= 0)      expTag = '<span class="expired-tag">Expired</span>';
+      else if (daysLeft <= 5) expTag = '<span class="exp-tag">Expiring Soon</span>';
 
-      qty = qty.toString();
-      let spaceIdx = qty.indexOf(' ');
-      let num = parseFloat(qty.slice(0, spaceIdx !== -1 ? spaceIdx : qty.length)) || 1;
+      var shareLabel = roommateMode
+          ? '<span class="share-badge ' + (shared ? 'shared' : 'personal') + '">' + (shared ? 'Shared' : 'Personal') + '</span>'
+          : '';
+      var catLabel = cat === "Pantry" ? "" : '<span class="shop-item-cat">' + cat + '</span>';
 
-      li.innerHTML = `
-          <span class="shop-item-name">${name.trim()}</span>
-          ${expirationTag}
-          <span class="shop-item-cat">${cat}</span>
-          <button class="increase-quant">+</button>
-          <span class="shop-item-qty">${qty.trim()}</span>
-          <button class="decrease-quant">−</button>
-      `;
+      li.innerHTML =
+          '<span class="shop-item-name">' + name + '</span>' +
+          expTag +
+          catLabel +
+          '<span class="shop-item-loc">' + loc + '</span>' +
+          shareLabel +
+          '<button class="increase-quant">+</button>' +
+          '<span class="shop-item-qty">' + qty + ' ' + unit + '</span>' +
+          '<button class="decrease-quant">−</button>' +
+          '<button class="delete-item" title="Delete item">✕</button>';
+      var num = qty;
 
-      const suffix = spaceIdx !== -1 ? qty.substring(spaceIdx) : "";
-      li.querySelector(".increase-quant").addEventListener("click", () => {
+      li.querySelector(".increase-quant").addEventListener("click", function() {
           num += 0.5;
-          li.querySelector(".shop-item-qty").textContent = num + suffix;
+          li.querySelector(".shop-item-qty").textContent = num + " " + unit;
       });
-      li.querySelector(".decrease-quant").addEventListener("click", () => {
+      li.querySelector(".decrease-quant").addEventListener("click", function() {
           if (num <= 0.5) { li.remove(); return; }
           num -= 0.5;
-          li.querySelector(".shop-item-qty").textContent = num + suffix;
+          li.querySelector(".shop-item-qty").textContent = num + " " + unit;
+      });
+      li.querySelector(".delete-item").addEventListener("click", function() {
+          li.remove();
       });
 
       list.appendChild(li);
-      input.value = "";
-      qtyInput.value = "";
-      modal.style.display = "none";
   }
 
-  seedItems.forEach(i => addInvItem(i.name, i.qty, i.cat, i.expiration));
+  seedItems.forEach(function(i) {
+      var p = String(i.qty).split(" ");
+      var n = parseFloat(p[0]) || 1;
+      var u = p.slice(1).join(" ") || "count";
+      addInvItem(i.name, n, u, i.cat, i.expiration, i.loc, true);
+  });
 
-  document.querySelectorAll("#inventory .shop-filter").forEach(btn => {
-      btn.addEventListener("click", () => {
-          document.querySelectorAll("#inventory .shop-filter").forEach(b => b.classList.remove("active"));
-          btn.classList.add("active");
-          const c = btn.dataset.cat;
-          list.querySelectorAll(".shop-item").forEach(item => {
-              if (c === "all") {
-                  item.style.display = "";
-              } else if (c === "expiring") {
-                  const d = expiringSoon(item.dataset.expiration);
-                  item.style.display = (d <= 3 && d >= 0) ? "" : "none";
-              } else {
-                  item.style.display = item.dataset.cat === c ? "" : "none";
-              }
-          });
+  var activeType = "";
+  var activeLoc = "";
+  var showAll = true;
+
+  function applyInventoryFilters() {
+      list.querySelectorAll(".shop-item").forEach(function(item) {
+          var matchesType = !activeType || item.dataset.cat === activeType;
+          var matchesLoc = !activeLoc || item.dataset.loc === activeLoc;
+          item.style.display = showAll || (matchesType && matchesLoc) ? "" : "none";
+      });
+  }
+
+  document.querySelectorAll("#inventory .shop-filter").forEach(function(btn) {
+      btn.addEventListener("click", function() {
+          var group = btn.dataset.filterGroup;
+          var value = btn.dataset.filterValue;
+
+          if (group === "all") {
+              showAll = true;
+              activeType = "";
+              activeLoc = "";
+              document.querySelectorAll('#inventory .shop-filter[data-filter-group="type"], #inventory .shop-filter[data-filter-group="loc"]').forEach(function(b) {
+                  b.classList.remove("active");
+              });
+              btn.classList.add("active");
+          } else {
+              showAll = false;
+              var allBtn = document.querySelector('#inventory .shop-filter[data-filter-group="all"]');
+              if (allBtn) allBtn.classList.remove("active");
+              var selector = '#inventory .shop-filter[data-filter-group="' + group + '"]';
+              document.querySelectorAll(selector).forEach(function(b) { b.classList.remove("active"); });
+              btn.classList.add("active");
+              if (group === "type") activeType = value;
+              if (group === "loc") activeLoc = value;
+          }
+
+          applyInventoryFilters();
       });
   });
 }
@@ -132,29 +314,68 @@ document.addEventListener("DOMContentLoaded", Inventory);
 // PROFILE
 // ─────────────────────────────────────────
 function saveProfile() {
-  localStorage.setItem("profileGoals",       document.getElementById("profileGoals").value);
-  localStorage.setItem("profileSkill",       document.getElementById("profileSkill").value);
-  localStorage.setItem("profileTime",        document.getElementById("profileTime").value);
-  localStorage.setItem("profileRestriction", document.getElementById("profileRestriction").value);
-  localStorage.setItem("roommateMode",       document.getElementById("roommateMode").checked);
-  document.getElementById("profileMessage").textContent = "Profile saved!";
+    localStorage.setItem("profileSkill",       document.getElementById("profileSkill").value);
+    localStorage.setItem("profileRestriction", document.getElementById("profileRestriction").value);
+    localStorage.setItem("roommateMode",       document.getElementById("roommateMode").checked);
+    document.getElementById("profileMessage").textContent = "Profile saved!";
+    setTimeout(function() { document.getElementById("profileMessage").textContent = ""; }, 2000);
+    applyRoommateMode();
+}
+
+var roommateMode = false;
+
+function applyRoommateMode() {
+    roommateMode = document.getElementById("roommateMode").checked;
+    var namesDiv = document.getElementById("roommate-names");
+    if (namesDiv) namesDiv.style.display = roommateMode ? "block" : "none";
+    // re-render share badges on all existing inventory rows
+    document.querySelectorAll("#inventoryList .shop-item").forEach(function(li) {
+        var existing = li.querySelector(".share-badge");
+        if (existing) existing.remove();
+        if (roommateMode) {
+            var badge = document.createElement("span");
+            badge.className = "share-badge shared";
+            badge.textContent = "Shared";
+            var loc = li.querySelector(".shop-item-loc");
+            if (loc) li.insertBefore(badge, loc);
+            else li.appendChild(badge);
+        }
+    });
 }
 
 window.addEventListener("DOMContentLoaded", function () {
-  const g = localStorage.getItem("profileGoals");
-  const s = localStorage.getItem("profileSkill");
-  const t = localStorage.getItem("profileTime");
-  const r = localStorage.getItem("profileRestriction");
-  const m = localStorage.getItem("roommateMode");
-  if (g) document.getElementById("profileGoals").value       = g;
-  if (s) document.getElementById("profileSkill").value       = s;
-  if (t) document.getElementById("profileTime").value        = t;
-  if (r) document.getElementById("profileRestriction").value = r;
-  if (m === "true") document.getElementById("roommateMode").checked = true;
+    var s = localStorage.getItem("profileSkill");
+    var r = localStorage.getItem("profileRestriction");
+    var m = localStorage.getItem("roommateMode");
+    if (s) document.getElementById("profileSkill").value       = s;
+    if (r) document.getElementById("profileRestriction").value = r;
+    if (m === "true") {
+        document.getElementById("roommateMode").checked = true;
+        applyRoommateMode();
+    }
+    applyProfileToRecipes();
 });
 
+function applyProfileToRecipes() {
+    var restriction = localStorage.getItem("profileRestriction") || "";
+    var filterMap = {
+        "Vegetarian":  "vegetarian",
+        "Vegan":       "vegetarian",
+        "Gluten-Free": "gluten-free",
+        "Dairy-Free":  "dairy-free",
+    };
+    var filterVal = filterMap[restriction];
+    if (!filterVal) return; // None or unrecognized — show all
+    document.querySelectorAll(".filter").forEach(function(b) { b.classList.remove("active"); });
+    var matchBtn = document.querySelector('.filter[data-filter="' + filterVal + '"]');
+    if (matchBtn) matchBtn.classList.add("active");
+    document.querySelectorAll(".recipe-card").forEach(function(card) {
+        card.style.display = card.dataset.tags.includes(filterVal) ? "flex" : "none";
+    });
+}
+
 // ─────────────────────────────────────────
-// RECIPES
+// RECIPES LIST
 // ─────────────────────────────────────────
 document.addEventListener("DOMContentLoaded", function () {
   document.querySelectorAll(".filter").forEach(btn => {
@@ -186,12 +407,185 @@ function filterInventoryRecipes() {
   });
 }
 
-function openRecipe(name) { alert("Opening recipe: " + name); }
-function addToShopping()  { alert("Missing ingredients added to shopping list"); }
-function saveRecipe()     { alert("Recipe saved"); }
-function openCalendar()   { document.getElementById("calendarModal").style.display = "flex"; }
-function closeCalendar()  { document.getElementById("calendarModal").style.display = "none"; }
-function addToDay(day)    { alert("Added to " + day); closeCalendar(); }
+// ─────────────────────────────────────────
+// RECIPE DETAIL SCREEN
+// ─────────────────────────────────────────
+function openRecipe(key) {
+  var recipe = recipeData[key];
+  if (!recipe) return;
+  currentRecipeKey = key;
+
+  // populate header
+  document.getElementById("rd-title").textContent = recipe.title;
+  document.getElementById("rd-hero").textContent  = recipe.emoji;
+
+  // meta row
+  document.getElementById("rd-meta").innerHTML =
+      '<span class="rd-meta-chip">⏱ ' + recipe.time + '</span>' +
+      '<span class="rd-meta-chip">👤 ' + recipe.servings + '</span>' +
+      '<span class="rd-meta-chip">⭐ ' + recipe.skill + '</span>';
+
+  // tags
+  var tagColors = {
+      "Vegetarian": "green", "Dairy-free": "blue", "Gluten-free": "blue",
+      "High Protein": "purple", "Low Cal": "orange", "Uses expiring items": "warn",
+  };
+  document.getElementById("rd-tags").innerHTML = recipe.tags.map(function(t) {
+      return '<span class="tag ' + (tagColors[t] || "blue") + '">' + t + '</span>';
+  }).join("");
+
+  // ingredients with checkbox state
+  var ingredients = Array.isArray(recipe.ingredients) ? recipe.ingredients : [];
+  var ingrList = document.getElementById("rd-ingr-list");
+  ingrList.innerHTML = "";
+  ingrList.style.display = "block";
+  if (!ingredients.length) {
+      ingrList.innerHTML = '<div class="rd-empty">No ingredients available.</div>';
+  } else {
+      ingredients.forEach(function(ing) {
+          var row = document.createElement("div");
+          row.className = "rd-ingr-row";
+
+          var check = document.createElement("span");
+          check.className = "rd-ingr-check " + (ing.inStock ? "yes" : "no");
+          check.textContent = ing.inStock ? "✓" : "✕";
+
+          var name = document.createElement("span");
+          name.className = "rd-ingr-name";
+          name.textContent = ing.name;
+
+          var qty = document.createElement("span");
+          qty.className = "rd-ingr-qty";
+          qty.textContent = ing.qty;
+
+          row.appendChild(check);
+          row.appendChild(name);
+          row.appendChild(qty);
+          ingrList.appendChild(row);
+      });
+  }
+
+  // show/hide "add missing" button
+  var hasMissing = recipe.ingredients.some(function(i) { return !i.inStock; });
+  document.getElementById("rd-add-missing-btn").style.display = hasMissing ? "block" : "none";
+
+  // steps
+  var stepsHTML = "";
+  recipe.steps.forEach(function(step, idx) {
+      stepsHTML +=
+          '<div class="rd-step">' +
+              '<div class="rd-step-num">' + (idx + 1) + '</div>' +
+              '<div class="rd-step-text">' + step + '</div>' +
+          '</div>';
+  });
+  document.getElementById("rd-steps-list").innerHTML = stepsHTML;
+
+  // hide all tabs, show recipe detail
+  document.querySelectorAll(".tabcontent").forEach(function(t) { t.style.display = "none"; });
+  document.getElementById("recipe-detail").style.display = "flex";
+  // no nav tab active while on detail screen
+  document.querySelectorAll(".tablinks").forEach(function(b) {
+      b.className = b.className.replace(" active", "");
+  });
+}
+
+function closeRecipeDetail() {
+  document.getElementById("recipe-detail").style.display = "none";
+  document.getElementById("recipes").style.display = "flex";
+  // re-activate recipes nav button
+  document.querySelectorAll(".tablinks").forEach(function(btn) {
+      if (btn.getAttribute("onclick") && btn.getAttribute("onclick").includes("recipes")) {
+          btn.classList.add("active");
+      }
+  });
+}
+
+// ─────────────────────────────────────────
+// ADD MISSING TO SHOPPING LIST
+// ─────────────────────────────────────────
+function addMissingToShopping() {
+  var recipe = recipeData[currentRecipeKey];
+  if (!recipe) return;
+
+  var missing = recipe.ingredients.filter(function(i) { return !i.inStock; });
+  missing.forEach(function(ing) {
+      // avoid duplicate
+      var alreadyAdded = shopState.items.some(function(x) {
+          return x.name.toLowerCase() === ing.name.toLowerCase() && x.source === "recipe";
+      });
+      if (!alreadyAdded) {
+          shopState.items.push({
+              id:      shopState.nextId++,
+              name:    ing.name,
+              qty:     parseFloat(ing.qty) || 1,
+              unit:    ing.qty.replace(/[0-9.½¼¾\s]/g, "").trim() || "count",
+              cat:     "Other",
+              source:  "recipe",
+              recipe:  recipe.title,
+              checked: false,
+          });
+      }
+  });
+
+  renderShoppingList();
+  alert(missing.length + " missing item(s) added to your shopping list!");
+}
+
+// ─────────────────────────────────────────
+// CALENDAR
+// ─────────────────────────────────────────
+var mealPlan = {};
+var currentRecipeKey = null;
+
+function openCalendar() {
+    var recipe = currentRecipeKey ? recipeData[currentRecipeKey] : null;
+    var nameEl = document.getElementById("cal-recipe-name");
+    if (nameEl) nameEl.textContent = recipe ? recipe.title : "Meal Plan";
+    renderMealPlan();
+    document.getElementById("calendarModal").style.display = "flex";
+}
+
+function openMealPlanFromRecipes() {
+    currentRecipeKey = null;
+    openCalendar();
+}
+
+function closeCalendar() {
+    document.getElementById("calendarModal").style.display = "none";
+}
+
+function addToDay(day) {
+    var recipe = currentRecipeKey ? recipeData[currentRecipeKey] : null;
+    if (!recipe) return;
+    mealPlan[day] = recipe.title;
+    document.querySelectorAll(".cal-day-btn").forEach(function(b) {
+        b.classList.toggle("cal-day-active", b.textContent === day.slice(0, 3));
+    });
+    renderMealPlan();
+}
+
+function renderMealPlan() {
+    var list = document.getElementById("meal-plan-list");
+    var preview = document.getElementById("recipe-meal-plan-preview");
+    if (!list) return;
+    var days = ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"];
+    var html = "";
+    var previewHtml = "";
+    days.forEach(function(day) {
+        if (mealPlan[day]) {
+            html += '<div class="meal-plan-row">' +
+                '<span class="meal-plan-day">' + day + '</span>' +
+                '<span class="meal-plan-recipe">' + mealPlan[day] + '</span>' +
+                '</div>';
+            previewHtml += '<div class="meal-plan-preview-row">' +
+                '<span class="meal-plan-preview-day">' + day + '</span>' +
+                '<span>' + mealPlan[day] + '</span>' +
+                '</div>';
+        }
+    });
+    list.innerHTML = html || '<p style="font-size:14px;color:#aaa;text-align:center;margin-top:8px;">No meals planned yet</p>';
+    if (preview) preview.innerHTML = previewHtml || 'No meals planned yet';
+}
 
 // ─────────────────────────────────────────
 // SHOPPING LIST STATE
@@ -247,7 +641,6 @@ function makeShopRow(item) {
       var it = shopState.items.find(function(x) { return x.id === item.id; });
       if (it) it.checked = this.checked;
       renderShoppingList();
-      // stay on whichever panel is currently visible
       var activeTab = document.querySelector(".shop-seg-tab.on");
       if (activeTab && activeTab.id === "shop-tab-gotit") {
           document.getElementById("shop-tobuy-panel").style.display = "none";
@@ -261,7 +654,7 @@ function makeShopRow(item) {
 }
 
 // ─────────────────────────────────────────
-// TAB SWITCH (To buy / Got it)
+// SHOP TAB SWITCH
 // ─────────────────────────────────────────
 function switchShopTab(tab, btn) {
   document.querySelectorAll(".shop-seg-tab").forEach(function(b) { b.classList.remove("on"); });
@@ -322,12 +715,12 @@ function submitAddShopItem() {
 }
 
 // ─────────────────────────────────────────
-// DONE SHOPPING FLOW  (Deep Task D2)
+// DONE SHOPPING  (Deep Task D2)
 // ─────────────────────────────────────────
 function openDoneShoppingModal() {
   var checked = shopState.items.filter(function(i) { return i.checked; });
   if (!checked.length) {
-      alert("Check off the items you have bought first.");
+      alert("Check off items you have bought first.");
       return;
   }
   shopState.doneQueue = checked.map(function(i) { return Object.assign({}, i); });
@@ -339,7 +732,6 @@ function openDoneShoppingModal() {
 function loadDoneItem() {
   var q = shopState.doneQueue;
   var i = shopState.doneIndex;
-
   if (i >= q.length) {
       var ids = q.map(function(x) { return x.id; });
       shopState.items = shopState.items.filter(function(x) { return !ids.includes(x.id); });
@@ -348,18 +740,14 @@ function loadDoneItem() {
       alert("All items added to your inventory!");
       return;
   }
-
   var item = q[i];
   document.getElementById("done-progress").textContent  = "Item " + (i + 1) + " of " + q.length;
   document.getElementById("done-item-name").textContent = item.name;
   document.getElementById("done-qty").value  = item.qty;
   document.getElementById("done-unit").value = item.unit;
   document.getElementById("done-exp").value  = "";
-
-  // reset location seg to Fridge
   document.querySelectorAll("#done-loc .kk-seg-opt").forEach(function(b) { b.classList.remove("on"); });
   document.querySelector("#done-loc .kk-seg-opt").classList.add("on");
-
   document.getElementById("done-confirm-btn").textContent =
       i < q.length - 1 ? "Confirm & next" : "Confirm & finish";
 }

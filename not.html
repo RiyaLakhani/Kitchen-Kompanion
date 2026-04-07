@@ -7,10 +7,115 @@
 <body>
 <div class="app-wrapper">
 
-    <!-- RECIPES -->
-    <div id="recipes" class="tabcontent" style="display:flex;">
-        <div class="recipes-header">
-            <h2>Recipes</h2>
+    <!-- INVENTORY (HOME/LANDING) -->
+    <div id="inventory" class="tabcontent" style="display:flex;">
+        <div class="shop-topbar inventory-topbar">
+            <div>
+                <div class="shop-topbar-title">Inventory</div>
+            </div>
+            <button id="myBtn" class="shop-add-btn">Add Item</button>
+        </div>
+        <div class="shop-filters">
+            <div class="shop-filter-row">
+                <button class="shop-filter active" data-filter-group="all" data-filter-value="all">All</button>
+            </div>
+            <div class="shop-filter-row">
+                <span class="shop-filter-label">Type of food</span>
+                <button class="shop-filter" data-filter-group="type" data-filter-value="Protein">Protein</button>
+                <button class="shop-filter" data-filter-group="type" data-filter-value="Produce">Produce</button>
+                <button class="shop-filter" data-filter-group="type" data-filter-value="Dairy">Dairy</button>
+            </div>
+            <div class="shop-filter-row">
+                <span class="shop-filter-label">Location</span>
+                <button class="shop-filter" data-filter-group="loc" data-filter-value="Fridge">Fridge</button>
+                <button class="shop-filter" data-filter-group="loc" data-filter-value="Freezer">Freezer</button>
+                <button class="shop-filter" data-filter-group="loc" data-filter-value="Pantry">Pantry</button>
+            </div>
+        </div>
+        <ul id="inventoryList" class="shop-list"></ul>
+
+        <!-- Add Item Modal — fix 3: added unit + location fields -->
+        <div id="myModal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h3 style="margin:0 0 4px;font-size:16px;color:#0C447C;">Add Item</h3>
+
+                <label class="modal-label">Item name</label>
+                <input id="invenName" type="text" placeholder="e.g. Greek yogurt" />
+
+                <div style="display:flex;gap:8px;">
+                    <div style="flex:1;">
+                        <label class="modal-label">Quantity</label>
+                        <input id="inventQty" type="number" value="1" min="0" step="0.5" style="width:100%;" />
+                    </div>
+                    <div style="flex:1;">
+                        <label class="modal-label">Unit</label>
+                        <select id="invenUnit" style="width:100%;">
+                            <option>count</option>
+                            <option>oz</option>
+                            <option>lbs</option>
+                            <option>cups</option>
+                            <option>slices</option>
+                            <option>tbsp</option>
+                            <option>liters</option>
+                            <option>grams</option>
+                            <option>heads</option>
+                            <option>bunches</option>
+                            <option>bags</option>
+                            <option>bottles</option>
+                        </select>
+                    </div>
+                </div>
+
+                <label class="modal-label">Storage location</label>
+                <div class="loc-seg" id="inv-loc-seg">
+                    <button class="loc-opt active" type="button" onclick="setLocSeg(this)">Fridge</button>
+                    <button class="loc-opt" type="button" onclick="setLocSeg(this)">Freezer</button>
+                    <button class="loc-opt" type="button" onclick="setLocSeg(this)">Pantry</button>
+                </div>
+
+                <label class="modal-label">Category</label>
+                <select id="invenCat">
+                    <option value="Produce">Produce</option>
+                    <option value="Dairy">Dairy</option>
+                    <option value="Protein">Protein</option>
+                    <option value="Frozen">Frozen</option>
+                    <option value="Other">Other</option>
+                </select>
+
+                <label class="modal-label">Expiration date</label>
+                <input id="invenExp" type="date" />
+
+                <!-- fix 5: shared/personal toggle in add item -->
+                <div class="modal-toggle-row">
+                    <label class="modal-label" style="margin:0;">Mark as shared item</label>
+                    <label class="switch">
+                        <input type="checkbox" id="invenShared" checked>
+                        <span class="slider"></span>
+                    </label>
+                </div>
+
+                <div class="kb-wrap">
+                    <div class="kb-lbl">System keyboard</div>
+                    <div class="kb-grid">
+                        <div class="kk-key">q</div><div class="kk-key">w</div><div class="kk-key">e</div><div class="kk-key">r</div><div class="kk-key">t</div><div class="kk-key">y</div><div class="kk-key">u</div><div class="kk-key">i</div><div class="kk-key">o</div><div class="kk-key">p</div>
+                        <div class="kk-key">a</div><div class="kk-key">s</div><div class="kk-key">d</div><div class="kk-key">f</div><div class="kk-key">g</div><div class="kk-key">h</div><div class="kk-key">j</div><div class="kk-key">k</div><div class="kk-key">l</div><div class="kk-key kk-gray">⌫</div>
+                        <div class="kk-key kk-gray" style="grid-column:span 2">⇧</div><div class="kk-key">z</div><div class="kk-key">x</div><div class="kk-key">c</div><div class="kk-key">v</div><div class="kk-key">b</div><div class="kk-key">n</div><div class="kk-key">m</div><div class="kk-key kk-gray">.</div>
+                        <div class="kk-key kk-gray" style="grid-column:span 3">123</div><div class="kk-key kk-gray" style="grid-column:span 5">space</div><div class="kk-key kk-blue" style="grid-column:span 2">return</div>
+                    </div>
+                </div>
+
+                <button id="addInventoryBtn" type="button" class="dark-button" style="margin-top:4px;">Add to kitchen</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- RECIPES LIST -->
+    <div id="recipes" class="tabcontent">
+        <div class="shop-topbar">
+            <div>
+                <div class="shop-topbar-title">Recipes</div>
+            </div>
         </div>
         <div class="recipe-filters">
             <div class="filter-group">
@@ -30,6 +135,13 @@
             <button class="toggle active" type="button" onclick="showAllRecipes()">All recipes</button>
             <button class="toggle" type="button" onclick="filterInventoryRecipes()">Use what I have</button>
         </div>
+        <div class="meal-plan-preview">
+            <div class="meal-plan-preview-head">
+                <span>This week</span>
+                <button type="button" class="meal-plan-preview-btn" onclick="openMealPlanFromRecipes()">View full plan</button>
+            </div>
+            <div id="recipe-meal-plan-preview" class="meal-plan-preview-list">No meals planned yet</div>
+        </div>
         <div class="recipe-list" id="recipeList">
             <div class="recipe-card" onclick="openRecipe('beef')" data-tags="dairy-free high-protein" data-ingredients="5/6">
                 <div class="recipe-left">🥩</div>
@@ -39,6 +151,7 @@
                     <div class="recipe-tags">
                         <span class="tag blue">Dairy-free</span>
                         <span class="tag purple">High Protein</span>
+                        <span class="tag warn">Uses expiring items</span>
                     </div>
                 </div>
                 <div class="recipe-right">5 / 6</div>
@@ -55,7 +168,7 @@
                 </div>
                 <div class="recipe-right">4 / 5</div>
             </div>
-            <div class="recipe-card" onclick="openRecipe('fried-rice')" data-tags="gluten-free high-protein" data-ingredients="6/6">
+            <div class="recipe-card" onclick="openRecipe('fried-rice')" data-tags="gluten-free high-protein dairy-free" data-ingredients="6/6">
                 <div class="recipe-left">🍚</div>
                 <div class="recipe-info">
                     <div class="recipe-title">Chicken Fried Rice</div>
@@ -67,119 +180,57 @@
                 </div>
                 <div class="recipe-right">6 / 6</div>
             </div>
-        </div>
-        <div class="recipe-actions">
-            <button type="button" onclick="addToShopping()">Add Missing → Shopping</button>
-            <button type="button" onclick="saveRecipe()">Save Recipe</button>
-            <button type="button" onclick="openCalendar()">Add to Meal Plan</button>
-        </div>
-    </div>
-
-    <!-- INVENTORY -->
-    <div id="inventory" class="tabcontent inventory">
-        <h2 class="shop-heading">Inventory</h2>
-        <div class="shop-filters">
-            <button class="shop-filter active" data-cat="all">All</button>
-            <button class="shop-filter" data-cat="expiring">Expiring Soon</button>
-            <button class="shop-filter" data-cat="Produce">Produce</button>
-            <button class="shop-filter" data-cat="Dairy">Dairy</button>
-            <button class="shop-filter" data-cat="Protein">Protein</button>
-            <button class="shop-filter" data-cat="Pantry">Pantry</button>
-            <div style="margin-left:auto;">
-                <button id="myBtn" class="dark-button">Add Item</button>
+            <div class="recipe-card" onclick="openRecipe('eggs')" data-tags="vegetarian" data-ingredients="4/4">
+                <div class="recipe-left">🍳</div>
+                <div class="recipe-info">
+                    <div class="recipe-title">Cheesy Scrambled Eggs</div>
+                    <div class="recipe-meta">10 min · Beginner</div>
+                    <div class="recipe-tags">
+                        <span class="tag green">Vegetarian</span>
+                    </div>
+                </div>
+                <div class="recipe-right">4 / 4</div>
             </div>
-        </div>
-        <ul id="inventoryList" class="shop-list"></ul>
-        <div id="myModal" class="modal">
-            <div class="modal-content">
-                <span class="close">&times;</span>
-                <input id="invenName" type="text" placeholder="Item name" />
-                <input id="inventQty" type="text" placeholder="Qty" class="shop-qty-input" />
-                <select id="invenCat">
-                    <option value="Produce">Produce</option>
-                    <option value="Dairy">Dairy</option>
-                    <option value="Protein">Protein</option>
-                    <option value="Pantry">Pantry</option>
-                    <option value="Frozen">Frozen</option>
-                    <option value="Other">Other</option>
-                </select>
-                <input id="invenExp" type="date" />
-                <button id="addInventoryBtn" type="button" class="dark-button">Add</button>
+            <div class="recipe-card" onclick="openRecipe('rice-bowl')" data-tags="gluten-free dairy-free high-protein" data-ingredients="5/5">
+                <div class="recipe-left">🍲</div>
+                <div class="recipe-info">
+                    <div class="recipe-title">Beef &amp; Rice Bowl</div>
+                    <div class="recipe-meta">35 min · Beginner</div>
+                    <div class="recipe-tags">
+                        <span class="tag blue">Gluten-free</span>
+                        <span class="tag blue">Dairy-free</span>
+                    </div>
+                </div>
+                <div class="recipe-right">5 / 5</div>
             </div>
         </div>
     </div>
 
-    <!-- PROFILE -->
-    <div id="profile" class="tabcontent">
-        <div class="profile-page">
-            <div class="profile-topbar">
-                <div class="profile-brand">
-                    <span class="brand-icon">🍽️</span>
-                    <span>Kitchen Kompanion</span>
-                </div>
-            </div>
-            <div class="profile-content">
-                <h1 class="profile-title">My Profile</h1>
-                <p class="profile-subtitle">Personalize your kitchen companion experience.</p>
-                <div class="profile-card">
-                    <form class="profile-form">
-                        <div class="profile-field">
-                            <label for="profileGoals">Goals</label>
-                            <select id="profileGoals">
-                                <option value="">Select a goal</option>
-                                <option>Eat healthier</option>
-                                <option>Save money</option>
-                                <option>Meal prep more</option>
-                                <option>Cook faster</option>
-                                <option>Learn new recipes</option>
-                                <option>Eat more protein</option>
-                            </select>
-                        </div>
-                        <div class="profile-field">
-                            <label for="profileSkill">Cooking Skill Level</label>
-                            <select id="profileSkill">
-                                <option value="">Select skill level</option>
-                                <option>Beginner</option>
-                                <option>Intermediate</option>
-                                <option>Advanced</option>
-                            </select>
-                        </div>
-                        <div class="profile-field">
-                            <label for="profileTime">Estimated Time Budgeted for Cooking Per Week</label>
-                            <select id="profileTime">
-                                <option value="">Select time</option>
-                                <option>Less than 2 hours</option>
-                                <option>2–4 hours</option>
-                                <option>5–7 hours</option>
-                                <option>8+ hours</option>
-                            </select>
-                        </div>
-                        <div class="profile-field">
-                            <label for="profileRestriction">Dietary Restrictions</label>
-                            <select id="profileRestriction">
-                                <option value="">Select a restriction</option>
-                                <option>None</option>
-                                <option>Vegetarian</option>
-                                <option>Vegan</option>
-                                <option>Gluten-Free</option>
-                                <option>Dairy-Free</option>
-                                <option>Nut-Free</option>
-                                <option>Halal</option>
-                                <option>Kosher</option>
-                            </select>
-                        </div>
-                        <div class="profile-field roommate-field">
-                            <label for="roommateMode">Roommate Mode</label>
-                            <label class="switch">
-                                <input type="checkbox" id="roommateMode">
-                                <span class="slider"></span>
-                            </label>
-                        </div>
-                        <button type="button" class="profile-save-btn" onclick="saveProfile()">Save Profile</button>
-                        <p id="profileMessage" class="profile-message"></p>
-                    </form>
-                </div>
-            </div>
+    <!-- RECIPE DETAIL — fix 1: has its own nav bar -->
+    <div id="recipe-detail" class="tabcontent">
+        <div class="rd-topbar">
+            <button class="rd-back-btn" onclick="closeRecipeDetail()">&#8592; Back</button>
+            <span class="rd-topbar-title" id="rd-title">Recipe</span>
+        </div>
+        <div class="rd-body">
+            <div class="rd-hero" id="rd-hero">🍽️</div>
+            <div class="rd-meta-row" id="rd-meta"></div>
+            <div class="rd-tags-row" id="rd-tags"></div>
+
+            <div class="rd-section-label">Ingredients</div>
+            <div class="rd-ingr-list" id="rd-ingr-list"></div>
+
+            <button class="rd-add-missing-btn" id="rd-add-missing-btn" onclick="addMissingToShopping()">
+                Add missing items to shopping list
+            </button>
+
+            <!-- fix 4: save to meal plan button opens calendar -->
+            <button class="rd-calendar-btn" onclick="openCalendar()">
+                📅 Add to meal plan
+            </button>
+
+            <div class="rd-section-label">Steps</div>
+            <div class="rd-steps-list" id="rd-steps-list"></div>
         </div>
     </div>
 
@@ -210,26 +261,89 @@
             <ul id="shopListChecked" class="shop-sub-list"></ul>
         </div>
         <button class="done-shop-btn" onclick="openDoneShoppingModal()">
-            Done shopping — add to inventory
+            Done shopping - add to inventory
         </button>
     </div>
 
-    <!-- NAV BAR -->
+    <!-- PROFILE -->
+    <div id="profile" class="tabcontent">
+        <div class="profile-page">
+            <div class="shop-topbar">
+                <div>
+                    <div class="shop-topbar-title">Profile</div>
+                </div>
+            </div>
+            <div class="profile-content">
+                <h1 class="profile-title">My Profile</h1>
+                <p class="profile-subtitle">Personalize your kitchen companion experience.</p>
+                <div class="profile-card">
+                    <form class="profile-form">
+                        <div class="profile-field">
+                            <label for="profileSkill">Cooking Skill Level</label>
+                            <select id="profileSkill">
+                                <option value="">Select skill level</option>
+                                <option>Beginner</option>
+                                <option>Intermediate</option>
+                                <option>Advanced</option>
+                            </select>
+                        </div>
+                        <div class="profile-field">
+                            <label for="profileRestriction">Dietary Restrictions</label>
+                            <select id="profileRestriction">
+                                <option value="">Select a restriction</option>
+                                <option>None</option>
+                                <option>Vegetarian</option>
+                                <option>Vegan</option>
+                                <option>Gluten-Free</option>
+                                <option>Dairy-Free</option>
+                                <option>Nut-Free</option>
+                                <option>Halal</option>
+                                <option>Kosher</option>
+                            </select>
+                        </div>
+                        <!-- fix 5: roommate mode -->
+                        <div class="profile-field roommate-field">
+                            <label for="roommateMode">Roommate Mode</label>
+                            <label class="switch">
+                                <input type="checkbox" id="roommateMode" onchange="applyRoommateMode()">
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                        <div id="roommate-names" style="display:none;">
+                            <div class="roommate-row">
+                                <span class="roommate-avatar">M</span>
+                                <span class="roommate-name">Marcus</span>
+                                <span class="roommate-tag">Roommate</span>
+                            </div>
+                            <div class="roommate-row">
+                                <span class="roommate-avatar">P</span>
+                                <span class="roommate-name">Priya</span>
+                                <span class="roommate-tag">Roommate</span>
+                            </div>
+                        </div>
+                        <button type="button" class="profile-save-btn" onclick="saveProfile()">Save Profile</button>
+                        <p id="profileMessage" class="profile-message"></p>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="tab">
-        <button class="tablinks active" onclick="openTab(event,'recipes')">
-            <img src="tools-kitchen-2.svg" width="24"><br>
+        <button class="tablinks active" onclick="openTab(event,'inventory')">
+            <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="1.8"><rect x="5" y="3" width="14" height="18" rx="2"/><line x1="5" y1="9" x2="19" y2="9"/></svg>
+            <span>Inventory</span>
+        </button>
+        <button class="tablinks" onclick="openTab(event,'recipes')">
+            <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="1.8"><path d="M3 2h18l-2 7H5L3 2z"/><path d="M5 9v11a2 2 0 002 2h10a2 2 0 002-2V9"/><line x1="9" y1="14" x2="15" y2="14"/></svg>
             <span>Recipes</span>
         </button>
         <button class="tablinks" onclick="openTab(event,'shopping-list')">
-            <img src="list-check.svg" width="24"><br>
+            <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="1.8"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
             <span>Shopping</span>
         </button>
-        <button class="tablinks" onclick="openTab(event,'inventory')">
-            <img src="fridge.svg" width="24"><br>
-            <span>Inventory</span>
-        </button>
         <button class="tablinks" onclick="openTab(event,'profile')">
-            <img src="user.svg" width="24"><br>
+            <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="1.8"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
             <span>Profile</span>
         </button>
     </div>
@@ -334,17 +448,23 @@
     </div>
 </div>
 
-<!-- Calendar modal (original, untouched) -->
+<!-- fix 4: Calendar modal — shows meal plan after saving -->
 <div id="calendarModal" class="modal">
     <div class="modal-content">
-        <h3>Select Day</h3>
-        <button type="button" onclick="addToDay('Monday')">Mon</button>
-        <button type="button" onclick="addToDay('Tuesday')">Tue</button>
-        <button type="button" onclick="addToDay('Wednesday')">Wed</button>
-        <button type="button" onclick="addToDay('Thursday')">Thu</button>
-        <button type="button" onclick="addToDay('Friday')">Fri</button>
-        <br><br>
-        <button type="button" onclick="closeCalendar()">Done</button>
+        <span class="close-cal" onclick="closeCalendar()">&times;</span>
+        <h3 style="margin:0 0 8px;font-size:16px;color:#0C447C;">Add to Meal Plan</h3>
+        <p id="cal-recipe-name" style="font-size:14px;color:#555;margin-bottom:12px;"></p>
+        <div class="cal-days">
+            <button type="button" class="cal-day-btn" onclick="addToDay('Monday')">Mon</button>
+            <button type="button" class="cal-day-btn" onclick="addToDay('Tuesday')">Tue</button>
+            <button type="button" class="cal-day-btn" onclick="addToDay('Wednesday')">Wed</button>
+            <button type="button" class="cal-day-btn" onclick="addToDay('Thursday')">Thu</button>
+            <button type="button" class="cal-day-btn" onclick="addToDay('Friday')">Fri</button>
+            <button type="button" class="cal-day-btn" onclick="addToDay('Saturday')">Sat</button>
+            <button type="button" class="cal-day-btn" onclick="addToDay('Sunday')">Sun</button>
+        </div>
+        <div id="meal-plan-list" class="meal-plan-list"></div>
+        <button type="button" class="dark-button" style="width:100%;margin-top:10px;" onclick="closeCalendar()">Done</button>
     </div>
 </div>
 

@@ -1,242 +1,265 @@
-html,
-body {
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  background-color: black;
+html, body {
+  margin: 0; padding: 0; overflow: hidden; height: 100%;
+  display: flex; justify-content: center; background-color: black;
+  font-family: system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
 }
-
 .app-wrapper {
-  width: 640px;
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-  flex-shrink: 0;
+  position: relative;
+  width: 640px; height: 100vh;
+  display: flex; flex-direction: column;
+  overflow: hidden; flex-shrink: 0;
 }
 
-/* ── Nav bar ── */
+/* ══════════════════════════════════
+ NAV BAR — fix: SVG icons always white
+══════════════════════════════════ */
 .tab {
-  overflow: hidden;
-  width: 640px;
-  background-color: #0C447C;
-  display: flex;
-  justify-content: space-evenly;
-  margin: auto;
-  flex-shrink: 0;
+  width: 640px; background-color: #0C447C;
+  display: flex; justify-content: space-evenly; flex-shrink: 0;
 }
-
 .tab button {
-  background-color: inherit;
-  font-family: system-ui, -apple-system, Arial, sans-serif;
-  border: none;
-  outline: none;
-  cursor: pointer;
-  padding: 10px 16px;
-  transition: 0.2s;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 3px;
-  font-size: 11px;
-  color: rgba(255,255,255,.7);
-  flex: 1;
+  background-color: inherit; border: none; outline: none;
+  cursor: pointer; padding: 10px 16px; transition: 0.2s;
+  display: flex; flex-direction: column; align-items: center;
+  gap: 3px; flex: 1;
+  font-family: inherit;
+  color: rgba(255,255,255,.65);
 }
-
-.tab button img {
-  filter: invert(1);
+.tab button .nav-icon {
   width: 22px;
   height: 22px;
-  opacity: 0.7;
+  min-width: 22px;
+  min-height: 22px;
+  max-width: 22px;
+  max-height: 22px;
+  stroke: #ffffff;
+  fill: none;
+  opacity: 0.65;
+  display: block;
+  flex-shrink: 0;
+  overflow: hidden;
 }
-
-.tab button span {
-  font-size: 11px;
-  color: rgba(255,255,255,.7);
-}
-
-.tab button:hover {
-  background-color: rgba(255,255,255,.1);
-}
-
-.tab button.active {
-  background-color: rgba(255,255,255,.15);
-}
-
-.tab button.active img  { opacity: 1; }
+.tab button.active .nav-icon { opacity: 1; }
+.tab button span { font-size: 12px; color: rgba(255,255,255,0.65); }
 .tab button.active span { color: #fff; font-weight: 700; }
+.tab button:hover { background-color: rgba(255,255,255,.1); }
+.tab button.active { background-color: rgba(255,255,255,.25); position: relative; }
+.tab button.active::after {
+  content: "";
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #fff;
+  position: absolute;
+  bottom: 4px;
+}
 
 /* ── Tab screens ── */
 .tabcontent {
-  display: none;
-  width: 640px;
-  flex: 1;
-  overflow: hidden;
+  display: none; flex-direction: column;
+  width: 640px; flex: 1; overflow: hidden;
   background-color: #f5f5f5;
-  font-family: system-ui, -apple-system, 'Segoe UI', Arial, sans-serif;
-  line-height: 1.4;
-  position: relative;
+  font-family: inherit;
   box-sizing: border-box;
-  flex-direction: column;
 }
 
-/* ── Inventory tab ── */
-.inventory {
-  padding: 16px;
-}
+/* ══════════════════════════════════
+ INVENTORY TAB
+══════════════════════════════════ */
+.inventory { padding: 16px; }
+.shop-heading { margin: 0 0 10px; font-size: 20px; font-weight: 700; color: #222; }
+.inventory-topbar { border-bottom: 1px solid rgba(255,255,255,.15); }
 
-.shop-heading {
-  margin: 0 0 10px;
-  font-size: 20px;
-  font-weight: 700;
-  color: #222;
-}
-
-/* ── Shared filter chips ── */
 .shop-filters {
-  display: flex;
-  gap: 5px;
-  margin-bottom: 10px;
-  flex-wrap: wrap;
-  align-items: center;
+  display: flex; flex-direction: column; gap: 8px;
+  padding: 10px 12px 10px;
+  margin-bottom: 0;
 }
-
+.shop-filter-row {
+  display: flex; gap: 8px; align-items: center; flex-wrap: wrap;
+}
+.shop-filter-label {
+  font-size: 14px; color: #666; font-weight: 700; margin-right: 2px;
+  min-width: 96px;
+}
 .shop-filter {
-  padding: 4px 10px;
-  border: 1px solid #aaa;
-  border-radius: 12px;
-  background: white;
-  font-size: 11px;
-  cursor: pointer;
+  padding: 6px 14px; border: 1px solid #aab7c8;
+  border-radius: 12px; background: white;
+  font-size: 14px; cursor: pointer;
 }
+.shop-filter.active { background: #0C447C; color: white; border-color: #0C447C; }
 
-.shop-filter.active {
-  background: #0C447C;
-  color: white;
-  border-color: #0C447C;
-}
-
-/* ── Inventory list ── */
 .shop-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  overflow-y: auto;
-  max-height: calc(100vh - 200px);
+  list-style: none; padding: 0; margin: 0;
+  overflow-y: auto; flex: 1;
   border-top: 1px solid #eee;
-  scrollbar-width: thin;
-  scrollbar-color: #ccc transparent;
+  scrollbar-width: thin; scrollbar-color: #ccc transparent;
 }
 .shop-list::-webkit-scrollbar { width: 4px; }
 .shop-list::-webkit-scrollbar-thumb { background: #ccc; border-radius: 2px; }
 
 .shop-item {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 8px 6px;
-  border-bottom: 1px solid #eee;
-  background: white;
+  display: flex; align-items: center; gap: 8px;
+  padding: 10px 8px; border-bottom: 1px solid #eee; background: white;
+  flex-wrap: wrap;
 }
-
-.shop-item-name { flex: 1; font-size: 13px; font-weight: 600; color: #222; }
-
-.shop-item-qty  { font-size: 11px; color: #666; min-width: 48px; }
-
-.shop-item-cat {
-  font-size: 10px;
-  padding: 2px 7px;
-  border-radius: 9px;
-  background: #EAF3DE;
-  color: #27500A;
-  white-space: nowrap;
+.shop-item-name { flex: 1; font-size: 14px; font-weight: 600; color: #222; min-width: 100px; }
+.shop-item-qty  { font-size: 14px; color: #666; }
+.shop-item-cat  {
+  font-size: 14px; padding: 3px 9px; border-radius: 9px;
+  background: #EAF3DE; color: #27500A; white-space: nowrap;
 }
+/* fix 5: location badge */
+.shop-item-loc {
+  font-size: 14px; padding: 3px 9px; border-radius: 9px;
+  background: #E6F1FB; color: #0C447C; white-space: nowrap;
+}
+/* fix 5: shared/personal badge */
+.share-badge {
+  font-size: 14px; padding: 3px 9px; border-radius: 9px; white-space: nowrap; font-weight: 600;
+}
+.share-badge.shared   { background: #EAF3DE; color: #27500A; }
+.share-badge.personal { background: #FAEEDA; color: #633806; }
 
-.increase-quant,
-.decrease-quant {
-  width: 24px; height: 24px;
-  border-radius: 50%;
-  border: 1px solid #ddd;
-  background: #f5f5f5;
-  color: #333;
-  font-size: 15px; font-weight: 700;
-  cursor: pointer;
-  display: flex; align-items: center; justify-content: center;
+.increase-quant, .decrease-quant {
+  width: 26px; height: 26px; border-radius: 50%;
+  border: 1px solid #ddd; background: #f5f5f5;
+  color: #333; font-size: 16px; font-weight: 700;
+  cursor: pointer; display: flex; align-items: center; justify-content: center;
   flex-shrink: 0;
 }
-
-.exp-tag {
-  font-size: 10px; padding: 2px 7px; border-radius: 9px;
-  background: #FFF3CD; color: #633806; white-space: nowrap;
+.delete-item {
+  width: 26px; height: 26px; border-radius: 50%;
+  border: 1px solid #e1b4b4; background: #fdeeee;
+  color: #8f2f2f; font-size: 14px; font-weight: 700;
+  cursor: pointer; display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
 }
-.expired-tag {
-  font-size: 10px; padding: 2px 7px; border-radius: 9px;
-  background: #FCEBEB; color: #791F1F; white-space: nowrap;
-}
+.exp-tag     { font-size: 14px; padding: 3px 9px; border-radius: 9px; background: #FFF3CD; color: #633806; white-space: nowrap; }
+.expired-tag { font-size: 14px; padding: 3px 9px; border-radius: 9px; background: #FCEBEB; color: #791F1F; white-space: nowrap; }
 
-/* ── Inventory modal (original) ── */
+/* ── Inventory Add Item modal — fix 3 ── */
 .modal {
-  display: none;
-  position: fixed;
-  z-index: 1;
+  display: none; position: absolute; z-index: 100;
   left: 50%; transform: translateX(-50%);
   top: 0; width: 640px; height: 100%;
-  overflow: auto;
-  background-color: rgba(0,0,0,0.4);
+  background-color: rgba(0,0,0,0.45);
   align-items: center; justify-content: center;
 }
 .modal-content {
-  display: flex; flex-direction: column;
-  background-color: #fefefe;
-  padding: 24px; border-radius: 10px;
-  min-width: 300px; margin: 15% auto;
-  border: 1px solid #888; width: 80%; gap: 7px;
+  display: flex; flex-direction: column; gap: 10px;
+  background-color: #fff; padding: 24px;
+  border-radius: 14px; width: 82%; max-height: 88vh;
+  overflow-y: auto;
+}
+.modal-label {
+  font-size: 14px; font-weight: 700; color: #666;
+  text-transform: uppercase; letter-spacing: .4px;
+  display: block; margin-bottom: 3px;
 }
 .modal-content input,
 .modal-content select {
-  padding: 10px 12px; border: 1px solid #ccc;
-  border-radius: 6px; font-size: 14px;
-  width: 100%; box-sizing: border-box;
+  padding: 10px 12px; border: 1px solid #ddd;
+  border-radius: 10px; font-size: 14px; width: 100%; box-sizing: border-box;
 }
-.close { color: #aaa; float: right; font-size: 28px; font-weight: bold; cursor: pointer; }
+.modal-content input:focus,
+.modal-content select:focus { outline: none; border-color: #0C447C; }
+.close {
+  color: #aaa; float: right; font-size: 28px;
+  font-weight: bold; cursor: pointer; line-height: 1;
+}
 .close:hover { color: black; }
-.dark-button {
-  padding: 7px 12px; background: #0C447C; color: white;
-  border: none; border-radius: 5px; font-size: 13px;
-  cursor: pointer; white-space: nowrap;
+
+/* fix 3: location segmented control in modal */
+.loc-seg { display: flex; gap: 5px; }
+.loc-opt {
+  flex: 1; padding: 8px; border-radius: 9px;
+  border: 1px solid #ddd; font-size: 14px;
+  text-align: center; cursor: pointer; color: #666; background: #fff;
+}
+.loc-opt.active { background: #0C447C; border-color: #0C447C; color: #fff; font-weight: 700; }
+
+/* fix 5: shared toggle row in modal */
+.modal-toggle-row {
+  display: flex; align-items: center;
+  justify-content: space-between; padding: 4px 0;
 }
 
-/* ── Recipe tab ── */
-.recipes-header { padding: 16px 16px 8px; }
+.dark-button {
+  padding: 10px 14px; background: #0C447C; color: white;
+  border: none; border-radius: 8px; font-size: 14px;
+  font-weight: 600; cursor: pointer; white-space: nowrap;
+}
+
+/* ══════════════════════════════════
+ RECIPE LIST TAB
+══════════════════════════════════ */
+.recipes-header { padding: 14px 16px 6px; flex-shrink: 0; }
 .recipes-header h2 { margin: 0; font-size: 20px; font-weight: 700; color: #0C447C; }
 
-.recipe-filters {
-  display: flex; flex-direction: column; gap: 8px;
-  padding: 0 16px 8px;
-}
-.filter-group { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
-.filter-label { font-size: 11px; font-weight: 700; color: #555; margin-right: 2px; }
+.recipe-filters { display: flex; flex-direction: column; gap: 8px; padding: 10px 16px 8px; flex-shrink: 0; }
+.filter-group   { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+.filter-label   { font-size: 14px; font-weight: 700; color: #666; margin-right: 2px; }
 
 .filter {
-  padding: 5px 10px; border: 1px solid #aab7c8;
-  border-radius: 14px; background: white; font-size: 11px; cursor: pointer;
+  padding: 5px 12px; border: 1px solid #aab7c8;
+  border-radius: 14px; background: white; font-size: 14px; cursor: pointer;
 }
 .filter.active { background: #0C447C; color: white; border-color: #0C447C; }
 
-.recipe-toggle { display: flex; gap: 8px; padding: 0 16px 10px; }
+.recipe-toggle { display: flex; gap: 8px; padding: 0 16px 12px; flex-shrink: 0; }
 .toggle {
-  padding: 7px 12px; border: 1px solid #aab7c8;
-  border-radius: 10px; background: white; font-size: 12px; cursor: pointer;
+  padding: 7px 14px; border: 1px solid #aab7c8;
+  border-radius: 10px; background: white; font-size: 14px; cursor: pointer;
 }
 .toggle.active { background: #0C447C; color: white; border-color: #0C447C; }
 
+.meal-plan-preview {
+  margin: 0 16px 10px;
+  background: #fff;
+  border: 1px solid #e6e6e6;
+  border-radius: 12px;
+  padding: 10px 12px;
+  flex-shrink: 0;
+}
+.meal-plan-preview-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 14px;
+  font-weight: 700;
+  color: #0C447C;
+  margin-bottom: 6px;
+}
+.meal-plan-preview-btn {
+  border: 1px solid #0C447C;
+  background: #fff;
+  color: #0C447C;
+  font-size: 12px;
+  border-radius: 999px;
+  padding: 4px 10px;
+  cursor: pointer;
+}
+.meal-plan-preview-list {
+  font-size: 14px;
+  color: #666;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.meal-plan-preview-row {
+  display: flex;
+  gap: 8px;
+}
+.meal-plan-preview-day {
+  min-width: 68px;
+  color: #0C447C;
+  font-weight: 700;
+}
+
 .recipe-list {
   display: flex; flex-direction: column; gap: 8px;
-  max-height: calc(100vh - 310px);
-  overflow-y: auto; padding: 0 16px 4px;
+  flex: 1; overflow-y: auto; padding: 0 16px 12px;
   scrollbar-width: thin; scrollbar-color: #ccc transparent;
 }
 .recipe-list::-webkit-scrollbar { width: 4px; }
@@ -245,157 +268,232 @@ body {
 .recipe-card {
   display: flex; align-items: center; gap: 12px;
   background: white; border: 1px solid #eee;
-  border-radius: 12px; padding: 12px; cursor: pointer;
+  border-radius: 12px; padding: 12px; cursor: pointer; flex-shrink: 0;
 }
 .recipe-left {
-  width: 48px; height: 48px; border-radius: 10px;
+  width: 58px; height: 58px; border-radius: 12px;
   background: #E6F1FB; display: flex; align-items: center;
-  justify-content: center; font-size: 24px; flex-shrink: 0;
+  justify-content: center; font-size: 32px; flex-shrink: 0;
+  box-shadow: inset 0 0 0 1px #d3e5f7;
 }
-.recipe-info { flex: 1; min-width: 0; }
-.recipe-title { font-size: 13px; font-weight: 700; color: #222; }
-.recipe-meta  { font-size: 11px; color: #666; margin-top: 2px; }
+.recipe-info  { flex: 1; min-width: 0; }
+.recipe-title { font-size: 15px; font-weight: 700; color: #222; }
+.recipe-meta  { font-size: 14px; color: #666; margin-top: 2px; }
 .recipe-tags  { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 5px; }
-.recipe-right { font-size: 11px; font-weight: 700; color: #0C447C; white-space: nowrap; }
+.recipe-right { font-size: 14px; font-weight: 700; color: #0C447C; white-space: nowrap; }
 
-.tag { font-size: 10px; padding: 2px 7px; border-radius: 8px; white-space: nowrap; font-weight: 600; }
+/* fix 2: tags minimum 14px */
+.tag { font-size: 14px; padding: 4px 10px; border-radius: 8px; white-space: nowrap; font-weight: 600; }
 .tag.blue   { background: #E6F1FB; color: #0C447C; }
 .tag.green  { background: #EAF3DE; color: #27500A; }
 .tag.purple { background: #EDE9FF; color: #4C3BAA; }
 .tag.orange { background: #FFF3CD; color: #633806; }
 .tag.warn   { background: #FFF3CD; color: #633806; }
 
-.recipe-actions {
-  display: flex; gap: 8px; padding: 10px 16px;
-  flex-wrap: wrap; flex-shrink: 0;
+/* ══════════════════════════════════
+ RECIPE DETAIL — fix 1: own nav bar
+══════════════════════════════════ */
+#recipe-detail.tabcontent { padding: 0; overflow: hidden; background: #f5f5f5; }
+
+.rd-topbar {
+  background: #0C447C; padding: 10px 16px;
+  display: flex; align-items: center; gap: 12px; flex-shrink: 0;
 }
-.recipe-actions button {
-  flex: 1; min-width: 0; padding: 10px 8px;
-  border: none; border-radius: 10px;
-  background: #2D6A4F; color: white;
-  font-size: 11px; cursor: pointer; font-weight: 600;
+.rd-back-btn {
+  background: rgba(255,255,255,.2); border: none; color: #fff;
+  font-size: 14px; font-weight: 600; padding: 6px 14px;
+  border-radius: 8px; cursor: pointer; white-space: nowrap;
+}
+.rd-topbar-title { font-size: 16px; font-weight: 700; color: #fff; flex: 1; }
+
+.rd-body {
+  flex: 1; overflow-y: scroll; padding: 16px;
+  display: flex; flex-direction: column; gap: 10px;
+  scrollbar-width: thin; scrollbar-color: #9aa7b5 #e6e6e6;
+  background: #f5f5f5;
+}
+.rd-body::-webkit-scrollbar { width: 8px; }
+.rd-body::-webkit-scrollbar-track { background: #e6e6e6; border-radius: 8px; }
+.rd-body::-webkit-scrollbar-thumb { background: #9aa7b5; border-radius: 8px; }
+
+.rd-hero {
+  background: #E6F1FB; border-radius: 14px; height: 140px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 48px; flex-shrink: 0;
+}
+.rd-meta-row { display: flex; gap: 8px; flex-wrap: wrap; }
+.rd-meta-chip {
+  font-size: 14px; color: #555;
+  background: #f0f0f0; border-radius: 8px; padding: 4px 12px;
+}
+.rd-tags-row { display: flex; gap: 6px; flex-wrap: wrap; }
+.rd-section-label {
+  font-size: 14px; font-weight: 700; color: #666;
+  text-transform: uppercase; letter-spacing: .6px; margin-top: 4px;
 }
 
-/* ══════════════════════════════════
-   SHOPPING LIST TAB
-══════════════════════════════════ */
-#shopping-list.tabcontent {
-  padding: 0;
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
+.rd-ingr-list {
+  background: #fff; border-radius: 12px;
+  border: 1px solid #eee;
+  overflow-y: scroll;
+  max-height: 240px;
+  min-height: 180px;
+  scrollbar-width: thin; scrollbar-color: #b5b5b5 #f0f0f0;
 }
+.rd-ingr-list::-webkit-scrollbar { width: 7px; }
+.rd-ingr-list::-webkit-scrollbar-track { background: #f0f0f0; }
+.rd-ingr-list::-webkit-scrollbar-thumb { background: #b5b5b5; border-radius: 7px; }
+.rd-empty {
+  padding: 12px 14px;
+  color: #666;
+  font-size: 14px;
+}
+.rd-ingr-row {
+  display: flex; align-items: center; gap: 10px;
+  padding: 12px 14px; border-bottom: 1px solid #f0f0f0;
+}
+.rd-ingr-row:last-child { border-bottom: none; }
+.rd-ingr-check {
+  width: 24px; height: 24px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 13px; font-weight: 700;
+  flex-shrink: 0;
+}
+.rd-ingr-check.yes { background: #EAF3DE; color: #27500A; }
+.rd-ingr-check.no  { background: #FCEBEB; color: #791F1F; }
+.rd-ingr-name { flex: 1; font-size: 15px; color: #222; font-weight: 600; }
+.rd-ingr-qty  { font-size: 14px; color: #666; }
+
+.rd-add-missing-btn {
+  background: #2D6A4F; color: #fff; border: none;
+  border-radius: 12px; padding: 14px;
+  font-size: 14px; font-weight: 700; width: 100%; cursor: pointer; flex-shrink: 0;
+}
+
+/* fix 4: calendar button on recipe detail */
+.rd-calendar-btn {
+  background: #fff; color: #0C447C; border: 1.5px solid #0C447C;
+  border-radius: 12px; padding: 12px;
+  font-size: 14px; font-weight: 700; width: 100%; cursor: pointer; flex-shrink: 0;
+}
+
+.rd-steps-list { display: flex; flex-direction: column; }
+.rd-step {
+  display: flex; gap: 12px; align-items: flex-start;
+  padding: 10px 0; border-bottom: 1px solid #f0f0f0;
+}
+.rd-step:last-child { border-bottom: none; }
+.rd-step-num {
+  width: 28px; height: 28px; border-radius: 50%;
+  background: #0C447C; color: #fff;
+  font-size: 14px; font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; margin-top: 1px;
+}
+.rd-step-text { font-size: 14px; color: #444; line-height: 1.6; }
+
+/* ══════════════════════════════════
+ SHOPPING LIST TAB
+══════════════════════════════════ */
+#shopping-list.tabcontent { padding: 0; flex-direction: column; overflow: hidden; }
 
 .shop-topbar {
   background: #0C447C; padding: 10px 16px;
-  display: flex; align-items: center; justify-content: space-between;
-  flex-shrink: 0;
+  display: flex; align-items: center; justify-content: space-between; flex-shrink: 0;
 }
 .shop-topbar-title { font-size: 18px; font-weight: 700; color: #fff; }
-.shop-topbar-sub   { font-size: 12px; color: rgba(255,255,255,.7); margin-top: 2px; }
+.shop-topbar-sub   { font-size: 14px; color: rgba(255,255,255,.7); margin-top: 2px; }
 .shop-add-btn {
-  background: rgba(255,255,255,.2); border: none;
-  color: #fff; font-size: 13px; font-weight: 600;
-  padding: 5px 12px; border-radius: 8px; cursor: pointer;
+  background: rgba(255,255,255,.2); border: none; color: #fff;
+  font-size: 14px; font-weight: 600; padding: 6px 14px; border-radius: 8px; cursor: pointer;
 }
-
 .shop-seg {
   display: flex; background: #eee;
-  border-radius: 10px; margin: 8px 12px 0;
-  padding: 3px; flex-shrink: 0;
+  border-radius: 10px; margin: 10px 16px 0; padding: 3px; flex-shrink: 0;
 }
 .shop-seg-tab {
-  flex: 1; padding: 7px; text-align: center;
-  font-size: 13px; border-radius: 8px;
-  border: none; background: transparent; color: #888; cursor: pointer;
+  flex: 1; padding: 7px; text-align: center; font-size: 14px;
+  border-radius: 8px; border: none; background: transparent; color: #888; cursor: pointer;
 }
 .shop-seg-tab.on { background: #fff; color: #0C447C; font-weight: 700; }
 
+.shop-panel {
+  flex: 1; overflow-y: auto; overflow-x: hidden;
+  scrollbar-width: thin; scrollbar-color: #ccc transparent; margin-top: 8px;
+}
+.shop-panel::-webkit-scrollbar { width: 4px; }
+.shop-panel::-webkit-scrollbar-thumb { background: #ccc; border-radius: 2px; }
+
 .shop-section-label {
-  font-size: 11px; font-weight: 700; color: #888;
+  font-size: 14px; font-weight: 700; color: #666;
   text-transform: uppercase; letter-spacing: .6px;
   padding: 8px 14px 3px; background: #f5f5f5;
 }
-
 .shop-sub-list { list-style: none; padding: 0; margin: 0; }
-
 .shop-row {
   display: flex; align-items: center; gap: 10px;
-  background: #fff; border-bottom: 1px solid #f0f0f0;
-  padding: 10px 14px;
+  background: #fff; border-bottom: 1px solid #f0f0f0; padding: 11px 14px;
 }
 .shop-row:last-child { border-bottom: none; }
 .shop-row input[type="checkbox"] {
-  width: 18px; height: 18px;
-  accent-color: #0C447C; flex-shrink: 0; cursor: pointer;
+  width: 18px; height: 18px; accent-color: #0C447C; flex-shrink: 0; cursor: pointer;
 }
-.shop-row-info  { flex: 1; min-width: 0; }
-.shop-row-name  { font-size: 13px; font-weight: 700; color: #222; }
-.shop-row-meta  { font-size: 11px; color: #888; margin-top: 1px; }
-.shop-row-cat   {
-  font-size: 10px; padding: 2px 8px; border-radius: 8px;
+.shop-row-info { flex: 1; min-width: 0; }
+.shop-row-name { font-size: 14px; font-weight: 700; color: #222; }
+.shop-row-meta { font-size: 14px; color: #666; margin-top: 1px; }
+.shop-row-cat  {
+  font-size: 14px; padding: 2px 8px; border-radius: 8px;
   background: #f0f0f0; color: #555; white-space: nowrap; flex-shrink: 0;
 }
-.shop-row.checked .shop-row-name { text-decoration: line-through; color: #bbb; }
-.shop-row.checked .shop-row-meta { color: #ccc; }
+.shop-row.checked .shop-row-name { text-decoration: line-through; color: #999; }
+.shop-row.checked .shop-row-meta { color: #888; }
 
 .done-shop-btn {
-  margin: 8px 14px 10px;
-  background: #2D6A4F; color: #fff; border: none;
-  border-radius: 12px; padding: 14px;
-  font-size: 14px; font-weight: 700;
-  width: calc(100% - 28px); cursor: pointer; flex-shrink: 0;
+  margin: 10px 16px 12px; background: #2D6A4F; color: #fff; border: none;
+  border-radius: 12px; padding: 14px; font-size: 14px; font-weight: 700;
+  width: calc(100% - 32px); cursor: pointer; flex-shrink: 0;
 }
+#shopping-list .done-shop-btn { border-top: 1px solid #eee; }
 
 /* ══════════════════════════════════
-   PROFILE TAB
+ PROFILE TAB
 ══════════════════════════════════ */
 #profile.tabcontent { padding: 0; overflow-y: auto; }
-
 .profile-page { background: #f5f5f5; min-height: 100%; padding-bottom: 20px; }
-
-.profile-topbar { padding: 16px 16px 8px; display: flex; justify-content: center; }
-.profile-brand {
-  background: #0C447C; color: white; width: 100%;
-  border-radius: 14px; padding: 14px 20px;
-  font-size: 1.4rem; font-weight: 700;
-  display: flex; align-items: center; justify-content: center;
-  gap: 10px; box-sizing: border-box;
-}
-.brand-icon { font-size: 1.4rem; }
-
-.profile-content { padding: 4px 16px 20px; }
+.profile-content  { padding: 16px 16px 20px; }
 .profile-title    { font-size: 22px; font-weight: 700; color: #111; text-align: center; margin: 10px 0 4px; }
-.profile-subtitle { font-size: 13px; color: #666; text-align: center; margin-bottom: 16px; }
-
-.profile-card {
-  background: white; border-radius: 16px;
-  padding: 20px; border: 1px solid #eee;
-}
-.profile-form   { display: flex; flex-direction: column; gap: 16px; }
-.profile-field  { display: flex; flex-direction: column; gap: 6px; }
-.profile-field label { font-size: 13px; font-weight: 700; color: #333; }
-.profile-field input,
+.profile-subtitle { font-size: 14px; color: #666; text-align: center; margin-bottom: 16px; }
+.profile-card     { background: white; border-radius: 16px; padding: 20px; border: 1px solid #eee; }
+.profile-form     { display: flex; flex-direction: column; gap: 16px; }
+.profile-field    { display: flex; flex-direction: column; gap: 6px; }
+.profile-field label { font-size: 14px; font-weight: 700; color: #333; }
 .profile-field select {
-  width: 100%; padding: 11px 14px;
-  border: 1px solid #ddd; border-radius: 10px;
-  font-size: 14px; box-sizing: border-box; background: #fafafa;
+  width: 100%; padding: 11px 14px; border: 1px solid #ddd;
+  border-radius: 10px; font-size: 14px; box-sizing: border-box; background: #fafafa;
 }
-.profile-field input:focus,
 .profile-field select:focus { outline: none; border-color: #0C447C; background: white; }
-
 .roommate-field { flex-direction: row; justify-content: space-between; align-items: center; }
+
+/* fix 5: roommate names list */
+.roommate-row {
+  display: flex; align-items: center; gap: 10px;
+  padding: 8px 0; border-bottom: 1px solid #f0f0f0;
+}
+.roommate-row:last-child { border-bottom: none; }
+.roommate-avatar {
+  width: 32px; height: 32px; border-radius: 50%;
+  background: #0C447C; color: #fff; font-size: 14px; font-weight: 700;
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+}
+.roommate-name { flex: 1; font-size: 14px; color: #222; font-weight: 600; }
+.roommate-tag  { font-size: 14px; color: #666; }
 
 .switch { position: relative; display: inline-block; width: 48px; height: 26px; }
 .switch input { opacity: 0; width: 0; height: 0; }
-.slider {
-  position: absolute; inset: 0; background: #ccc;
-  border-radius: 26px; cursor: pointer; transition: 0.3s;
-}
+.slider { position: absolute; inset: 0; background: #ccc; border-radius: 26px; cursor: pointer; transition: 0.3s; }
 .slider:before {
-  content: ""; position: absolute;
-  width: 20px; height: 20px; left: 3px; top: 3px;
-  background: white; border-radius: 50%; transition: 0.3s;
+  content: ""; position: absolute; width: 20px; height: 20px;
+  left: 3px; top: 3px; background: white; border-radius: 50%; transition: 0.3s;
 }
 .switch input:checked + .slider { background: #0C447C; }
 .switch input:checked + .slider:before { transform: translateX(22px); }
@@ -405,13 +503,44 @@ body {
   border-radius: 12px; padding: 13px; font-size: 14px;
   font-weight: 700; cursor: pointer; margin-top: 4px;
 }
-.profile-message { min-height: 18px; text-align: center; font-size: 13px; color: #2D6A4F; font-weight: 600; }
+.profile-message { min-height: 18px; text-align: center; font-size: 14px; color: #2D6A4F; font-weight: 600; }
 
 /* ══════════════════════════════════
-   SHARED MODAL STYLES (shopping)
+ CALENDAR MODAL — fix 4
+══════════════════════════════════ */
+#calendarModal .modal-content { max-width: 460px; }
+.close-cal {
+  float: right; font-size: 24px; color: #aaa; cursor: pointer; line-height: 1;
+}
+.close-cal:hover { color: #333; }
+.cal-days { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 12px; }
+.cal-day-btn {
+  flex: 1; min-width: 60px; padding: 10px 6px;
+  border: 1.5px solid #0C447C; border-radius: 10px;
+  background: #fff; color: #0C447C; font-size: 14px;
+  font-weight: 600; cursor: pointer;
+}
+.cal-day-btn:hover, .cal-day-active {
+  background: #0C447C; color: #fff;
+}
+.meal-plan-list { display: flex; flex-direction: column; gap: 4px; margin-top: 8px; }
+.meal-plan-row {
+  display: flex; align-items: center; gap: 10px;
+  background: #f5f5f5; border-radius: 8px; padding: 8px 12px;
+}
+.meal-plan-day    { font-size: 14px; font-weight: 700; color: #0C447C; min-width: 80px; }
+.meal-plan-recipe { font-size: 14px; color: #333; }
+
+/* ══════════════════════════════════
+ SHOPPING MODALS
 ══════════════════════════════════ */
 .kk-modal-overlay {
-  display: none; position: fixed; inset: 0;
+  display: none; position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 640px;
+  height: 100%;
   background: rgba(0,0,0,.45); z-index: 200;
   align-items: center; justify-content: center;
 }
@@ -440,26 +569,26 @@ body {
   display: flex; flex-direction: column; gap: 7px; flex-shrink: 0;
 }
 
+/* fix 2: modal labels minimum 14px */
 .kk-field { display: flex; flex-direction: column; gap: 4px; }
 .kk-field label {
-  font-size: 11px; font-weight: 700; color: #888;
+  font-size: 14px; font-weight: 700; color: #666;
   text-transform: uppercase; letter-spacing: .4px;
 }
 .kk-field input,
 .kk-field select {
   padding: 10px 12px; border: 1px solid #ddd;
-  border-radius: 10px; font-size: 14px; color: #222;
-  background: #fff; width: 100%;
+  border-radius: 10px; font-size: 14px; color: #222; background: #fff; width: 100%;
 }
 .kk-field input:focus,
 .kk-field select:focus { outline: none; border-color: #0C447C; }
 .kk-field-row { display: flex; gap: 8px; }
-.kk-field-err { font-size: 11px; color: #791F1F; min-height: 14px; }
+.kk-field-err { font-size: 14px; color: #791F1F; min-height: 16px; }
 
 .kk-seg { display: flex; gap: 5px; }
 .kk-seg-opt {
   flex: 1; padding: 8px; border-radius: 9px;
-  border: 1px solid #ddd; font-size: 12px;
+  border: 1px solid #ddd; font-size: 14px;
   text-align: center; cursor: pointer; color: #666; background: #fff;
 }
 .kk-seg-opt.on { background: #0C447C; border-color: #0C447C; color: #fff; font-weight: 700; }
@@ -474,20 +603,13 @@ body {
   border-radius: 12px; padding: 13px; font-size: 14px;
   cursor: pointer; width: 100%;
 }
-
-.done-progress {
-  font-size: 11px; font-weight: 700; color: #888;
-  text-transform: uppercase; letter-spacing: .5px;
-}
+.done-progress  { font-size: 14px; font-weight: 700; color: #666; text-transform: uppercase; letter-spacing: .5px; }
 .done-item-name { font-size: 18px; font-weight: 700; color: #222; }
 
-/* keyboard mockup */
+/* Keyboard mockup */
 .kb-wrap { background: #e0e0e0; border-radius: 10px; padding: 8px; margin-top: 2px; }
-.kb-lbl  { font-size: 10px; color: #888; text-align: center; margin-bottom: 6px; }
+.kb-lbl  { font-size: 12px; color: #888; text-align: center; margin-bottom: 6px; }
 .kb-grid { display: grid; grid-template-columns: repeat(10,1fr); gap: 3px; }
-.kk-key  {
-  background: #fff; border: 1px solid #d0d0d0; border-radius: 5px;
-  padding: 6px 2px; font-size: 11px; text-align: center; color: #333;
-}
-.kk-key.gray  { background: #d0d0d0; }
-.kk-key.kk-blue { background: #0C447C; color: #fff; font-weight: 700; }
+.kk-key  { background: #fff; border: 1px solid #bbb; border-radius: 5px; padding: 6px 2px; font-size: 13px; text-align: center; color: #333; }
+.kk-gray { background: #d0d0d0; }
+.kk-blue { background: #0C447C; color: #fff; font-weight: 700; }
