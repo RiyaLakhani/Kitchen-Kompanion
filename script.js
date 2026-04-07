@@ -34,41 +34,6 @@ function displayForm() {
 
 }
 
-
-
-function addFridgeItem() {
-
-  var form = document.getElementById("fridge-input");
-  var item = form.elements["itemName"].value;
-  var date = form.elements["exp-date"].value;
-  const fridgeList = document.getElementById("my-fridge-list");
-  const expList = document.getElementById("my-fridge-expiring-list");
-  // var obj = { 'item': item, 'exp-date': date };
-
-  // localStorage.setItem(item, JSON.stringify(obj)); // is this prone to bugs?
-  // var retrievedObject = localStorage.getItem(item);
-
-  const li = document.createElement("li");
-  li.textContent = `${item} -- Expires ${date}`;
-
-
-  li.addEventListener("click", () => {
-    li.remove();
-  });
-
-  // If it is under three days until expiration, we move it to exp lsit
-  const daysLeft = (new Date(date) - new Date()) / (1000 * 60 * 60 * 24);
-
-  if (daysLeft < 3) {
-    expList.appendChild(li);
-  } else {
-    fridgeList.appendChild(li)
-  }
-
-
-  form.reset()
-}
-
 function Inventory() { // w help from https://www.w3schools.com/howto/howto_css_modals.asp 
   const list = document.getElementById("inventoryList");
 
@@ -102,10 +67,10 @@ function Inventory() { // w help from https://www.w3schools.com/howto/howto_css_
     }
   }
   const seedItems = [
-    { name: "Sriracha", qty: "1 bottle", cat: "Pantry", expiration: "2026-08-09" },
-    { name: "Broccoli", qty: "1 head", cat: "Produce", expiration: "2026-04-07" },
-    { name: "Chicken breast", qty: "2 lbs", cat: "Protein", expiration: "2026-04-07" },
-    { name: "Ground turkey", qty: "1 lb", cat: "Protein", expiration: "2026-07-07" },
+    { name: "Sriracha", qty: "1 bottle", cat: "Pantry", expiration: "2026-04-09" },
+    { name: "Broccoli", qty: "1 head", cat: "Produce", expiration: "2026-04-11" },
+    { name: "Chicken breast", qty: "2 lbs", cat: "Protein", expiration: "2026-04-4" },
+    { name: "Ground turkey", qty: "1 lb", cat: "Protein", expiration: "2026-04-010" },
     { name: "Spinach", qty: "1 bag", cat: "Produce", expiration: "2026-04-07" },
     { name: "Apples", qty: "6", cat: "Produce", expiration: "2026-04-07" },
     { name: "Broccoli", qty: "1 head", cat: "Produce", expiration: "2026-08-07" },
@@ -113,31 +78,52 @@ function Inventory() { // w help from https://www.w3schools.com/howto/howto_css_
     { name: "Rice", qty: "2 lbs", cat: "Pantry", expiration: "2026-04-07" },
     { name: "Pasta", qty: "1 box", cat: "Pantry", expiration: "2026-06-07" },
     { name: "Olive oil", qty: "1 btl", cat: "Pantry", expiration: "2026-04-07" },
+    { name: "Sesame oil", qty: "1 btl", cat: "Pantry", expiration: "2026-04-08" },
   ];
 
   function expiringSoon(expiration) {
-    let diff = (new Date(expiration) - new Date()) / (1000 * 24 * 60 * 60)
-    return diff <= 3 && diff >= 0
+    return (new Date(expiration) - new Date()) / (1000 * 24 * 60 * 60)
   }
 
   function addItem(name, qty, cat, expiration) {
-    if (!name.trim()) return;
     const li = document.createElement("li");
     li.className = "shop-item"; // do i need to change this?
     li.dataset.cat = cat;
     li.dataset.expiration = expiration
-    let expirationTag = expiringSoon(expiration) ? `<span class="exp-tag">Expiring Soon</span>` : ""
-
+    let expirationTag = ""
+    if (expiringSoon(expiration) <= 0) {
+      expirationTag = `<span class="expired-tag">Expired</span>`
+    } else if (expiringSoon(expiration) <= 3) {
+      expirationTag = `<span class="exp-tag">Expiring Soon</span>`
+    }
+    qty = qty.toString()
+    let index = qty.indexOf(' ');
+    let num = parseInt(qty.slice(0, index), 10);
 
     li.innerHTML = `<span ></span>
       <span class="shop-item-name">${name.trim()}</span>
       ${expirationTag} 
       <span class="shop-item-cat">${cat}</span>
-      <button id="increase-quant">+</button>
+      <button class="increase-quant">+</button>
       <span class="shop-item-qty">${qty.trim()}</span>
-      <button id="decrease-quant">-</button>
+      <button class="decrease-quant">-</button>
       `;
 
+    li.querySelector(".increase-quant").addEventListener("click", () => {
+      num += 1
+      li.querySelector(".shop-item-qty").textContent = `${num}${String(qty).substring(index)}`
+    })
+
+    li.querySelector(".decrease-quant").addEventListener("click", () => {
+      if (num == 1) {
+        li.remove();
+      }
+      else {
+        num -= 1
+        li.querySelector(".shop-item-qty").textContent = `${num}${String(qty).substring(1)}`
+      }
+
+    })
     list.appendChild(li);
   }
 
@@ -152,7 +138,7 @@ function Inventory() { // w help from https://www.w3schools.com/howto/howto_css_
         if (cat === "all") {
           item.style.display = "";
         } else if (cat === "expiring") {
-          item.style.display = expiringSoon(item.dataset.expiration) ? "" : "none";
+          item.style.display = expiringSoon(item.dataset.expiration) <= 3 && expiringSoon(item.dataset.expiration) >= 0 ? "" : "none";
         } else {
           item.style.display = item.dataset.cat === cat ? "" : "none";
         }

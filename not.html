@@ -13,7 +13,7 @@
             <div class="recipes-header">
                 <h2>Recipes</h2>
             </div>
-        
+
             <div class="recipe-filters">
                 <div class="filter-group">
                     <span class="filter-label">Diet</span>
@@ -22,27 +22,25 @@
                     <button class="filter" data-filter="gluten-free" type="button">Gluten-free</button>
                     <button class="filter" data-filter="dairy-free" type="button">Dairy-free</button>
                 </div>
-        
+
                 <div class="filter-group">
                     <span class="filter-label">Nutrition</span>
                     <button class="filter" data-filter="low-cal" type="button">Low Cal</button>
                     <button class="filter" data-filter="high-protein" type="button">High Protein</button>
                 </div>
             </div>
-        
+
             <div class="recipe-toggle">
                 <button class="toggle active" type="button" onclick="showAllRecipes()">All recipes</button>
                 <button class="toggle" type="button" onclick="filterInventoryRecipes()">Use what I have</button>
             </div>
-        
+
             <div class="recipe-list" id="recipeList">
-                <div class="recipe-card"
-                    onclick="openRecipe('beef')"
-                    data-tags="dairy-free high-protein"
+                <div class="recipe-card" onclick="openRecipe('beef')" data-tags="dairy-free high-protein"
                     data-ingredients="5/6">
-        
+
                     <div class="recipe-left">🥩</div>
-        
+
                     <div class="recipe-info">
                         <div class="recipe-title">Beef &amp; Broccoli</div>
                         <div class="recipe-meta">25 min · Intermediate</div>
@@ -51,17 +49,15 @@
                             <span class="tag purple">High Protein</span>
                         </div>
                     </div>
-        
+
                     <div class="recipe-right">5 / 6</div>
                 </div>
-        
-                <div class="recipe-card"
-                    onclick="openRecipe('pasta')"
-                    data-tags="vegetarian low-cal"
+
+                <div class="recipe-card" onclick="openRecipe('pasta')" data-tags="vegetarian low-cal"
                     data-ingredients="4/5">
-        
+
                     <div class="recipe-left">🍝</div>
-        
+
                     <div class="recipe-info">
                         <div class="recipe-title">Aglio e Olio</div>
                         <div class="recipe-meta">20 min · Beginner</div>
@@ -70,17 +66,15 @@
                             <span class="tag orange">Low Cal</span>
                         </div>
                     </div>
-        
+
                     <div class="recipe-right">4 / 5</div>
                 </div>
-        
-                <div class="recipe-card"
-                    onclick="openRecipe('fried-rice')"
-                    data-tags="gluten-free high-protein"
+
+                <div class="recipe-card" onclick="openRecipe('fried-rice')" data-tags="gluten-free high-protein"
                     data-ingredients="6/6">
-        
+
                     <div class="recipe-left">🍚</div>
-        
+
                     <div class="recipe-info">
                         <div class="recipe-title">Chicken Fried Rice</div>
                         <div class="recipe-meta">30 min · Beginner</div>
@@ -89,11 +83,11 @@
                             <span class="tag purple">High Protein</span>
                         </div>
                     </div>
-        
+
                     <div class="recipe-right">6 / 6</div>
                 </div>
             </div>
-        
+
             <div class="recipe-actions">
                 <button type="button" onclick="addToShopping()">Add Missing → Shopping</button>
                 <button type="button" onclick="saveRecipe()">Save Recipe</button>
@@ -102,7 +96,7 @@
         </div>
         <div id="inventory" class="tabcontent inventory">
             <h2 class="shop-heading">Inventory</h2>
-            <div class="quantities" style="display: flex;">
+            <!-- <div class="quantities" style="display: flex;">
                 <div class="quantity">
                     <div id="items-quant">0</div>
                     <div id="context">total</div>
@@ -111,7 +105,7 @@
                     <div id="exp-quant">0</div>
                     <div id="context">almost expired</div>
                 </div>
-            </div>
+            </div> -->
             <div class="shop-filters">
                 <button class="shop-filter active" data-cat="all">All</button>
                 <button class="shop-filter" data-cat="expiring">Expiring Soon</button>
@@ -326,7 +320,7 @@
             <button type="button" onclick="addToDay('Wednesday')">Wed</button>
             <button type="button" onclick="addToDay('Thursday')">Thu</button>
             <button type="button" onclick="addToDay('Friday')">Fri</button>
-    
+
             <br><br>
             <button type="button" onclick="closeCalendar()">Done</button>
         </div>
