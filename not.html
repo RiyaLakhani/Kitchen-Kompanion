@@ -8,7 +8,7 @@
 
 <body>
     <div class="app-wrapper">
-        <div id="welcome" class="tabcontent" style="display:block;">
+        <div id="recipes" class="tabcontent" style="display:block;">
 
             <div class="recipes-header">
                 <h2>Recipes</h2>
@@ -240,27 +240,6 @@
             </div>
         </div>
 
-        <div id="recipes" class="tabcontent">
-            <form>
-                <p>Camera mode:</p>
-                <input type="radio" id="choice1" name="selection1">
-                <label for="choice1">Front-facing</label><br>
-                <input type="radio" id="choice2" name="selection1">
-                <label for="choice2">Back-facing</label><br>
-
-                <p>Camera quality: </p>
-                <select id="selection2">
-                    <option value="choice1" selected>400px</option>
-                    <option value="choice2">800px</option>
-                    <option value="choice3">1600px</option>
-                </select>
-            </form><br><br>
-
-
-            <button onclick="displayForm(event)">Show Preferences</button><br><br>
-            <div id="selections"></div>
-        </div>
-
         <div id="shopping-list" class="tabcontent">
             <h2 class="shop-heading">Shopping List</h2>
             <div class="shop-input-row">
@@ -291,10 +270,7 @@
         </div>
 
         <div class="tab">
-            <button class="tablinks active" onclick="openTab(event, 'welcome')">
-                <img src="home.svg" width="24"><br>
-            </button>
-            <button class="tablinks" onclick="openTab(event, 'recipes')">
+            <button class="tablinks active" onclick="openTab(event, 'recipes')">
                 <img src="tools-kitchen-2.svg" width="24"><br>
             </button>
             <button class="tablinks" onclick="openTab(event, 'shopping-list')">
