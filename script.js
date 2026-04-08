@@ -1,7 +1,15 @@
+
+var thumbLetter = {
+  beef: "B",
+  pasta: "A",
+  "fried-rice": "C",
+  eggs: "E",
+  "rice-bowl": "R",
+};
+
 var recipes = {
   beef: {
     title: "Beef & Broccoli Stir Fry",
-    emoji: "🥩🥦",
     time: "25 min",
     skill: "Intermediate",
     servings: "2 servings",
@@ -25,7 +33,6 @@ var recipes = {
   },
   pasta: {
     title: "Spaghetti Aglio e Olio",
-    emoji: "🍝🧄",
     time: "20 min",
     skill: "Beginner",
     servings: "2 servings",
@@ -47,7 +54,6 @@ var recipes = {
   },
   "fried-rice": {
     title: "Chicken Fried Rice",
-    emoji: "🍚🍗",
     time: "30 min",
     skill: "Beginner",
     servings: "3 servings",
@@ -72,7 +78,6 @@ var recipes = {
   },
   eggs: {
     title: "Cheesy Scrambled Eggs",
-    emoji: "🍳🧀",
     time: "10 min",
     skill: "Beginner",
     servings: "1 serving",
@@ -93,7 +98,6 @@ var recipes = {
   },
   "rice-bowl": {
     title: "Beef & Rice Bowl",
-    emoji: "🍲🥩",
     time: "35 min",
     skill: "Beginner",
     servings: "2 servings",
@@ -146,7 +150,7 @@ var seedItems = [
 var doneQueue = [];
 var doneIdx = 0;
 
-function openTab(e, name) {
+function openTab(e, tabId) {
   var all = document.getElementsByClassName("tabcontent");
   for (var i = 0; i < all.length; i++) {
     all[i].style.display = "none";
@@ -155,7 +159,7 @@ function openTab(e, name) {
   for (var i = 0; i < btns.length; i++) {
     btns[i].classList.remove("active");
   }
-  document.getElementById(name).style.display = "flex";
+  document.getElementById(tabId).style.display = "flex";
   e.currentTarget.classList.add("active");
 }
 
@@ -220,8 +224,8 @@ function addInvItem(name, qty, unit, cat, exp, loc, shared) {
     '<span class="locBadge">' + loc + '</span>' + badge +
     '<button class="qtyBtn" onclick="changeQty(this, 0.5)">+</button>' +
     '<span class="qtyVal">' + qty + " " + unit + '</span>' +
-    '<button class="qtyBtn" onclick="changeQty(this, -0.5)">−</button>' +
-    '<button class="delBtn" onclick="this.parentElement.remove()">✕</button>';
+    '<button class="qtyBtn" onclick="changeQty(this, -0.5)">-</button>' +
+    '<button class="delBtn" onclick="this.parentElement.remove()">X</button>';
 
   list.appendChild(li);
 }
@@ -296,22 +300,23 @@ function openRecipe(key) {
   currentRecipe = key;
 
   document.getElementById("rd-title").textContent = r.title;
-  document.getElementById("rd-hero").textContent = r.emoji;
+  document.getElementById("rd-hero").textContent = thumbLetter[key] || "";
 
   document.getElementById("rd-meta").innerHTML =
-    '<span class="metaChip">⏱ ' + r.time + '</span> ' +
-    '<span class="metaChip">👤 ' + r.servings + '</span> ' +
-    '<span class="metaChip">⭐ ' + r.skill + '</span>';
+    '<span class="metaChip">' +
+    r.time +
+    "</span> <span class=\"metaChip\">" +
+    r.servings +
+    "</span> <span class=\"metaChip\">" +
+    r.skill +
+    "</span>";
 
   var tagHtml = "";
   for (var i = 0; i < r.tags.length; i++) {
-    var t = r.tags[i];
-    var cls = "tagBlue";
-    if (t == "Vegetarian") cls = "tagGreen";
-    if (t == "High Protein") cls = "tagPurple";
-    if (t == "Low Cal") cls = "tagOrange";
-    if (t == "Uses expiring items") cls = "tagWarn";
-    tagHtml += '<span class="tag ' + cls + '">' + t + '</span>';
+    tagHtml +=
+      '<span class="tag ' + tagClassForName(r.tags[i]) + '">' +
+      r.tags[i] +
+      "</span>";
   }
   document.getElementById("rd-tags").innerHTML = tagHtml;
 
@@ -324,7 +329,7 @@ function openRecipe(key) {
     var row = document.createElement("div");
     row.className = "ingrRow";
     var checkClass = ing.have ? "ingrYes" : "ingrNo";
-    var checkSymbol = ing.have ? "✓" : "✕";
+    var checkSymbol = ing.have ? "Have" : "Need";
     row.innerHTML = '<span class="ingrCheck ' + checkClass + '">' + checkSymbol + '</span>' +
       '<span class="ingrName">' + ing.name + '</span>' +
       '<span class="ingrQty">' + ing.qty + '</span>';
@@ -363,8 +368,18 @@ function filterLoc(val, btn) {
 function closeRecipe() {
   document.getElementById("recipe-detail").style.display = "none";
   document.getElementById("recipes").style.display = "flex";
-  var rb = document.getElementById("tab-btn-recipes");
-  if (rb) rb.classList.add("active");
+  var links = document.getElementsByClassName("tablinks");
+  for (var i = 0; i < links.length; i++) links[i].classList.remove("active");
+  var recipesTab = document.getElementById("tab-btn-recipes");
+  if (recipesTab) recipesTab.classList.add("active");
+}
+
+function tagClassForName(tagName) {
+  if (tagName == "Vegetarian") return "tagGreen";
+  if (tagName == "High Protein") return "tagPurple";
+  if (tagName == "Low Cal") return "tagOrange";
+  if (tagName == "Uses expiring items") return "tagWarn";
+  return "tagBlue";
 }
 
 function recipeFilter(btn) {
@@ -408,7 +423,6 @@ function addMissingToShopping() {
   alert(count + " item(s) added to shopping list!");
 }
 
-// tried using forEach here but kept breaking so just using for loop
 function renderShopList() {
   var rUL = document.getElementById("shopListRecipe");
   var mUL = document.getElementById("shopListManual");
@@ -570,9 +584,6 @@ function addToDay(day) {
 
 function loadDoneItem() {
   if (doneIdx >= doneQueue.length) {
-    for (var i = 0; i < doneQueue.length; i++) {
-      doneQueue[i]._remove = true;
-    }
     var kept = [];
     for (var i = 0; i < shopItems.length; i++) {
       var shouldRemove = false;
@@ -734,13 +745,14 @@ function loadProfile() {
   });
 }
 
-window.onclick = function(e) {
-  var modals = ["myModal","addShopModal","doneShopModal","calendarModal"];
-  for (var i = 0; i < modals.length; i++) {
-    var m = document.getElementById(modals[i]);
-    if (m && e.target == m) m.style.display = "none";
+function closeModalIfBackdrop(ev) {
+  var ids = ["myModal", "addShopModal", "doneShopModal", "calendarModal"];
+  for (var i = 0; i < ids.length; i++) {
+    var el = document.getElementById(ids[i]);
+    if (el && ev.target === el) el.style.display = "none";
   }
-};
+}
+window.onclick = closeModalIfBackdrop;
 
 loadProfile();
 renderShopList();

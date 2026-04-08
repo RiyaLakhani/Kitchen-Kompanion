@@ -1,10 +1,7 @@
-# Kitchen-Kompanion
+# Kitchen Kompanion
 
-Our tabs r just 6 divs on this one html file
-https://www.geeksforgeeks.org/javascript/create-a-single-page-application-using-html-css-javascript/
+Small single-page prototype for a shared kitchen: inventory, shopping list, recipes, calendar, and a roommate mode toggle. No build step — open `not.html` in a browser (double-click or “Open with…”).
 
-Tabs adapted from
-https://www.w3schools.com/howto/howto_js_tabs.asp
+Tabs are plain show/hide on divs in one HTML file. Tab pattern is loosely based on [W3Schools tabs](https://www.w3schools.com/howto/howto_js_tabs.asp). Some tab content was adapted from a UMD course example.
 
-
-Tab 4 html adapted from UMD code.
+State (profile, shopping rows, etc.) lives in `localStorage` via `script.js`.

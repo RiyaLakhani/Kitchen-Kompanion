@@ -33,7 +33,7 @@
 
     <div id="myModal" class="modalOverlay">
         <div class="modalBox">
-            <span class="closeBtn" id="closeModal">&times;</span>
+            <span class="closeBtn" id="closeModal">X</span>
             <h3 class="modalTitle">Add Item</h3>
 
             <label class="fieldLabel">Item name</label>
@@ -134,7 +134,7 @@
     </div>
     <div id="recipeList" class="recipeList">
         <div class="recipeCard" onclick="openRecipe('beef')" data-tags="dairy-free high-protein" data-ing="5/6">
-            <div class="recipeIcon">🥩</div>
+            <div class="recipeIcon">B</div>
             <div class="recipeInfo">
                 <div class="recipeName">Beef &amp; Broccoli</div>
                 <div class="recipeMeta">25 min · Intermediate</div>
@@ -147,7 +147,7 @@
             <div class="recipeCount">5 / 6</div>
         </div>
         <div class="recipeCard" onclick="openRecipe('pasta')" data-tags="vegetarian low-cal" data-ing="4/5">
-            <div class="recipeIcon">🍝</div>
+            <div class="recipeIcon">A</div>
             <div class="recipeInfo">
                 <div class="recipeName">Aglio e Olio</div>
                 <div class="recipeMeta">20 min · Beginner</div>
@@ -159,7 +159,7 @@
             <div class="recipeCount">4 / 5</div>
         </div>
         <div class="recipeCard" onclick="openRecipe('fried-rice')" data-tags="gluten-free high-protein dairy-free" data-ing="6/6">
-            <div class="recipeIcon">🍚</div>
+            <div class="recipeIcon">C</div>
             <div class="recipeInfo">
                 <div class="recipeName">Chicken Fried Rice</div>
                 <div class="recipeMeta">30 min · Beginner</div>
@@ -171,7 +171,7 @@
             <div class="recipeCount">6 / 6</div>
         </div>
         <div class="recipeCard" onclick="openRecipe('eggs')" data-tags="vegetarian" data-ing="4/4">
-            <div class="recipeIcon">🍳</div>
+            <div class="recipeIcon">E</div>
             <div class="recipeInfo">
                 <div class="recipeName">Cheesy Scrambled Eggs</div>
                 <div class="recipeMeta">10 min · Beginner</div>
@@ -182,7 +182,7 @@
             <div class="recipeCount">4 / 4</div>
         </div>
         <div class="recipeCard" onclick="openRecipe('rice-bowl')" data-tags="gluten-free dairy-free" data-ing="5/5">
-            <div class="recipeIcon">🍲</div>
+            <div class="recipeIcon">R</div>
             <div class="recipeInfo">
                 <div class="recipeName">Beef &amp; Rice Bowl</div>
                 <div class="recipeMeta">35 min · Beginner</div>
@@ -198,7 +198,7 @@
 
 <div id="recipe-detail" class="tabcontent">
     <div class="topbar">
-        <button class="backBtn" onclick="closeRecipe()">&#8592; Back</button>
+        <button class="backBtn" onclick="closeRecipe()">&lt; Back</button>
         <span class="topbar-title" id="rd-title"></span>
     </div>
     <div class="rdBody">
@@ -208,7 +208,7 @@
         <div class="sectionLabel">Ingredients</div>
         <div id="rd-ingr-list" class="ingrList"></div>
         <button class="addMissingBtn" id="rd-add-missing-btn" onclick="addMissingToShopping()">Add missing items to shopping list</button>
-        <button class="addCalBtn" onclick="openCalendar()">📅 Add to meal plan</button>
+        <button class="addCalBtn" onclick="openCalendar()">Add to meal plan</button>
         <div class="sectionLabel">Steps</div>
         <div id="rd-steps-list"></div>
     </div>
@@ -342,7 +342,7 @@
     <div class="modalBox">
         <div class="modalHeader">
             <span>Add to shopping list</span>
-            <button class="closeBtn" onclick="closeModal('addShopModal')">&times;</button>
+            <button class="closeBtn" onclick="closeModal('addShopModal')">X</button>
         </div>
         <div class="modalBody">
             <label class="fieldLabel">Item name</label>
@@ -388,7 +388,7 @@
     <div class="modalBox">
         <div class="modalHeader">
             <span>Add to inventory</span>
-            <button class="closeBtn" onclick="closeModal('doneShopModal')">&times;</button>
+            <button class="closeBtn" onclick="closeModal('doneShopModal')">X</button>
         </div>
         <div class="modalBody">
             <div id="done-progress" class="doneProgress"></div>
@@ -432,7 +432,7 @@
 
 <div id="calendarModal" class="modalOverlay">
     <div class="modalBox">
-        <span class="closeBtn" onclick="closeModal('calendarModal')">&times;</span>
+        <span class="closeBtn" onclick="closeModal('calendarModal')">X</span>
         <h3 class="modalTitle">Add to Meal Plan</h3>
         <p id="cal-recipe-name" class="calRecipeName"></p>
         <div class="calDays">
