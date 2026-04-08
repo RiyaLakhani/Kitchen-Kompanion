@@ -1,11 +1,6 @@
-
-var thumbLetter = {
-  beef: "B",
-  pasta: "A",
-  "fried-rice": "C",
-  eggs: "E",
-  "rice-bowl": "R",
-};
+function recipeImageSrc(title) {
+  return encodeURIComponent(title + ".png");
+}
 
 var recipes = {
   beef: {
@@ -300,7 +295,9 @@ function openRecipe(key) {
   currentRecipe = key;
 
   document.getElementById("rd-title").textContent = r.title;
-  document.getElementById("rd-hero").textContent = thumbLetter[key] || "";
+  var hero = document.getElementById("rd-hero");
+  hero.src = recipeImageSrc(r.title);
+  hero.alt = r.title;
 
   document.getElementById("rd-meta").innerHTML =
     '<span class="metaChip">' +
