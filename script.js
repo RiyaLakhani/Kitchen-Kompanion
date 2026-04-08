@@ -4,18 +4,18 @@ function recipeImageSrc(title) {
 
 var recipes = {
   beef: {
-    title: "Beef & Broccoli Stir Fry",
+    title: "Beef + Broccoli Stir Fry",
     time: "25 min",
     skill: "Intermediate",
     servings: "2 servings",
     tags: ["Dairy-free", "High Protein", "Uses expiring items"],
     ingredients: [
-      {name:"Ground beef", qty:"0.8 lbs", have:true},
-      {name:"Broccoli", qty:"1 head", have:true},
-      {name:"Garlic", qty:"3 cloves", have:true},
-      {name:"Brown rice", qty:"1 cup", have:true},
-      {name:"Yellow onion", qty:"half onion", have:true},
-      {name:"Soy sauce", qty:"3 tbsp", have:false}
+      { name: "Ground beef", qty: "0.8 lbs", have: true },
+      { name: "Broccoli", qty: "1 head", have: true },
+      { name: "Garlic", qty: "3 cloves", have: true },
+      { name: "Brown rice", qty: "1 cup", have: true },
+      { name: "Yellow onion", qty: "half onion", have: true },
+      { name: "Soy sauce", qty: "3 tbsp", have: false }
     ],
     steps: [
       "Cook brown rice per package directions. Set aside.",
@@ -33,11 +33,11 @@ var recipes = {
     servings: "2 servings",
     tags: ["Vegetarian", "Low Cal"],
     ingredients: [
-      {name: "Spaghetti", qty: "8 oz", have: true},
-      {name: "Garlic", qty: "6 cloves", have: true},
-      {name: "Olive oil", qty: "1/4 cup", have: true},
-      {name: "Parsley", qty: "2 tbsp", have: false},
-      {name: "Parmesan", qty: "1/4 cup", have: false}
+      { name: "Spaghetti", qty: "8 oz", have: true },
+      { name: "Garlic", qty: "6 cloves", have: true },
+      { name: "Olive oil", qty: "1/4 cup", have: true },
+      { name: "Parsley", qty: "2 tbsp", have: false },
+      { name: "Parmesan", qty: "1/4 cup", have: false }
     ],
     steps: [
       "Boil salted water and cook spaghetti until al dente. Reserve half cup pasta water.",
@@ -52,15 +52,15 @@ var recipes = {
     time: "30 min",
     skill: "Beginner",
     servings: "3 servings",
-    tags: ["Gluten-free","High Protein"],
+    tags: ["Gluten-free", "High Protein"],
     ingredients: [
-      {name:"Chicken breast", qty:"1 lb", have:true},
-      {name:"Brown rice", qty:"2 cups", have:true},
-      {name:"Eggs", qty:"2", have:true},
-      {name:"Sesame oil", qty:"1 tbsp", have:true},
-      {name:"Yellow onion", qty:"half onion", have: true},
-      {name:"Garlic", qty:"2 cloves", have:true},
-      {name:"Soy sauce", qty:"2 tbsp", have:false}
+      { name: "Chicken breast", qty: "1 lb", have: true },
+      { name: "Brown rice", qty: "2 cups", have: true },
+      { name: "Eggs", qty: "2", have: true },
+      { name: "Sesame oil", qty: "1 tbsp", have: true },
+      { name: "Yellow onion", qty: "half onion", have: true },
+      { name: "Garlic", qty: "2 cloves", have: true },
+      { name: "Soy sauce", qty: "2 tbsp", have: false }
     ],
     steps: [
       "Cook rice ahead of time and let cool.",
@@ -78,10 +78,10 @@ var recipes = {
     servings: "1 serving",
     tags: ["Vegetarian"],
     ingredients: [
-      {name:"Eggs", qty:"3", have:true},
-      {name:"Cheddar cheese", qty:"2 oz", have:true},
-      {name:"Whole milk", qty:"2 tbsp", have:true},
-      {name:"Butter", qty: "1 tbsp", have:true}
+      { name: "Eggs", qty: "3", have: true },
+      { name: "Cheddar cheese", qty: "2 oz", have: true },
+      { name: "Whole milk", qty: "2 tbsp", have: true },
+      { name: "Butter", qty: "1 tbsp", have: true }
     ],
     steps: [
       "Crack eggs into a bowl. Add milk and a pinch of salt. Whisk well.",
@@ -92,17 +92,17 @@ var recipes = {
     ]
   },
   "rice-bowl": {
-    title: "Beef & Rice Bowl",
+    title: "Beef + Rice Bowl",
     time: "35 min",
     skill: "Beginner",
     servings: "2 servings",
     tags: ["Gluten-free", "Dairy-free"],
     ingredients: [
-      {name:"Ground beef", qty:"0.5 lbs", have:true},
-      {name:"Brown rice", qty:"1.5 cups", have:true},
-      {name:"Yellow onion", qty:"half onion", have:true},
-      {name:"Garlic", qty:"2 cloves", have:true},
-      {name:"Olive oil", qty:"1 tbsp", have:true}
+      { name: "Ground beef", qty: "0.5 lbs", have: true },
+      { name: "Brown rice", qty: "1.5 cups", have: true },
+      { name: "Yellow onion", qty: "half onion", have: true },
+      { name: "Garlic", qty: "2 cloves", have: true },
+      { name: "Olive oil", qty: "1 tbsp", have: true }
     ],
     steps: [
       "Cook brown rice per package directions.",
@@ -122,24 +122,24 @@ var typeFilt = "";
 var locFilt = "";
 
 var shopItems = [
-  {id:101, name:"Soy sauce", qty:3, unit:"tbsp", cat:"Condiments", source:"recipe", recipe:"Beef & Broccoli", checked:false},
-  {id:102, name:"Olive oil", qty:1, unit:"bottles", cat:"Oils", source:"manual", recipe:"", checked:false},
-  {id:103, name:"Baby spinach", qty:5, unit:"oz", cat:"Produce", source:"manual", recipe:"", checked:true},
-  {id:104, name:"Cherry tomatoes", qty:1, unit:"count", cat: "Produce", source:"manual", recipe:"", checked:false}
+  { id: 101, name: "Soy sauce", qty: 3, unit: "tbsp", cat: "Condiments", source: "recipe", recipe: "Beef & Broccoli", checked: false },
+  { id: 102, name: "Olive oil", qty: 1, unit: "bottles", cat: "Oils", source: "manual", recipe: "", checked: false },
+  { id: 103, name: "Baby spinach", qty: 5, unit: "oz", cat: "Produce", source: "manual", recipe: "", checked: true },
+  { id: 104, name: "Cherry tomatoes", qty: 1, unit: "count", cat: "Produce", source: "manual", recipe: "", checked: false }
 ];
 
 var seedItems = [
-  {name:"Sriracha", qty:1, unit:"bottle", cat:"Pantry", exp:"2026-04-09", loc:"Pantry", shared:true},
-  {name:"Broccoli", qty:1, unit:"head", cat:"Produce", exp:"2026-04-11", loc:"Fridge", shared:false},
-  {name: "Chicken breast", qty: 2, unit: "lbs", cat: "Protein", exp:"2026-04-04", loc:"Fridge", shared:true},
-  {name:"Ground turkey", qty:1, unit:"lb", cat:"Protein", exp:"2026-04-10", loc:"Freezer", shared:true},
-  {name:"Spinach", qty:1, unit:"bag", cat:"Produce", exp:"2026-04-07", loc:"Fridge", shared:false},
-  {name:"Apples", qty:6, unit:"count", cat:"Produce", exp:"2026-04-07", loc:"Fridge", shared:false},
-  {name:"Bananas", qty:1, unit:"bunch", cat:"Produce", exp:"2026-05-07", loc:"Pantry", shared:true},
-  {name:"Rice", qty:2, unit:"lbs", cat:"Pantry", exp:"2026-06-07", loc:"Pantry", shared:true},
-  {name:"Pasta", qty:1, unit:"box", cat:"Pantry", exp:"2026-06-07", loc: "Pantry", shared:false},
-  {name:"Olive oil", qty:1, unit:"bottle", cat:"Pantry", exp:"2026-08-07", loc:"Pantry", shared:true},
-  {name:"Sesame oil", qty:1, unit:"bottle", cat:"Pantry", exp:"2026-08-08", loc:"Pantry", shared:false}
+  { name: "Sriracha", qty: 1, unit: "bottle", cat: "Pantry", exp: "2026-04-09", loc: "Pantry", shared: true },
+  { name: "Broccoli", qty: 1, unit: "head", cat: "Produce", exp: "2026-04-11", loc: "Fridge", shared: false },
+  { name: "Chicken breast", qty: 2, unit: "lbs", cat: "Protein", exp: "2026-04-04", loc: "Fridge", shared: true },
+  { name: "Ground turkey", qty: 1, unit: "lb", cat: "Protein", exp: "2026-04-10", loc: "Freezer", shared: true },
+  { name: "Spinach", qty: 1, unit: "bag", cat: "Produce", exp: "2026-04-07", loc: "Fridge", shared: false },
+  { name: "Apples", qty: 6, unit: "count", cat: "Produce", exp: "2026-04-07", loc: "Fridge", shared: false },
+  { name: "Bananas", qty: 1, unit: "bunch", cat: "Produce", exp: "2026-05-07", loc: "Pantry", shared: true },
+  { name: "Rice", qty: 2, unit: "lbs", cat: "Pantry", exp: "2026-06-07", loc: "Pantry", shared: true },
+  { name: "Pasta", qty: 1, unit: "box", cat: "Pantry", exp: "2026-06-07", loc: "Pantry", shared: false },
+  { name: "Olive oil", qty: 1, unit: "bottle", cat: "Pantry", exp: "2026-08-07", loc: "Pantry", shared: true },
+  { name: "Sesame oil", qty: 1, unit: "bottle", cat: "Pantry", exp: "2026-08-08", loc: "Pantry", shared: false }
 ];
 
 var doneQueue = [];
@@ -230,15 +230,15 @@ for (var s = 0; s < seedItems.length; s++) {
   addInvItem(si.name, si.qty, si.unit, si.cat, si.exp, si.loc, si.shared);
 }
 
-document.getElementById("myBtn").onclick = function() {
+document.getElementById("myBtn").onclick = function () {
   document.getElementById("myModal").style.display = "flex";
 };
 
-document.getElementById("closeModal").onclick = function() {
+document.getElementById("closeModal").onclick = function () {
   document.getElementById("myModal").style.display = "none";
 };
 
-document.getElementById("addInventoryBtn").onclick = function() {
+document.getElementById("addInventoryBtn").onclick = function () {
   var n = document.getElementById("invenName").value.trim();
   if (n == "") return;
   var q = parseFloat(document.getElementById("inventQty").value);
@@ -327,7 +327,7 @@ function openRecipe(key) {
     row.className = "ingrRow";
     var checkClass = ing.have ? "ingrYes" : "ingrNo";
     var checkSymbol = ing.have ? "Have" : "Need";
-    row.innerHTML = '<span class="ingrCheck ' + checkClass + '">' + checkSymbol + '</span>' +
+    row.innerHTML = '<span class="filt ' + checkClass + '">' + checkSymbol + '</span>' +
       '<span class="ingrName">' + ing.name + '</span>' +
       '<span class="ingrQty">' + ing.qty + '</span>';
     ingrEl.appendChild(row);
@@ -341,7 +341,7 @@ function openRecipe(key) {
 
   var stepsHtml = "";
   for (var i = 0; i < r.steps.length; i++) {
-    stepsHtml += '<div class="stepRow"><div class="stepNum">' + (i+1) + '</div><div class="stepText">' + r.steps[i] + '</div></div>';
+    stepsHtml += '<div class="stepRow"><div class="stepNum">' + (i + 1) + '</div><div class="stepText">' + r.steps[i] + '</div></div>';
   }
   document.getElementById("rd-steps-list").innerHTML = stepsHtml;
 
@@ -410,7 +410,7 @@ function addMissingToShopping() {
         }
       }
       if (!found) {
-        shopItems.push({id:nextId, name:ing.name, qty:1, unit:"count", cat:"Other", source:"recipe", recipe:r.title, checked:false});
+        shopItems.push({ id: nextId, name: ing.name, qty: 1, unit: "count", cat: "Other", source: "recipe", recipe: r.title, checked: false });
         nextId++;
         count++;
       }
@@ -448,7 +448,7 @@ function renderShopList() {
 
     var checkbox = li.querySelector("input");
     var itemId = item.id;
-    checkbox.addEventListener("change", function() {
+    checkbox.addEventListener("change", function () {
       for (var i = 0; i < shopItems.length; i++) {
         if (shopItems[i].id == itemId) {
           shopItems[i].checked = checkbox.checked;
@@ -570,7 +570,7 @@ function addToDay(day) {
   mealPlan[day] = r.title;
   var dayBtns = document.querySelectorAll(".calDayBtn");
   for (var i = 0; i < dayBtns.length; i++) {
-    if (dayBtns[i].textContent == day.slice(0,3)) {
+    if (dayBtns[i].textContent == day.slice(0, 3)) {
       dayBtns[i].classList.add("calDayActive");
     } else {
       dayBtns[i].classList.remove("calDayActive");
@@ -602,7 +602,7 @@ function loadDoneItem() {
 
   var item = doneQueue[doneIdx];
 
-  document.getElementById("done-progress").textContent = "Item " + (doneIdx+1) + " of " + doneQueue.length;
+  document.getElementById("done-progress").textContent = "Item " + (doneIdx + 1) + " of " + doneQueue.length;
   document.getElementById("done-item-name").textContent = item.name;
   document.getElementById("done-qty").value = item.qty;
 
@@ -630,7 +630,7 @@ function loadDoneItem() {
 }
 
 function renderMealPlan() {
-  var days = ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"];
+  var days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
   var html = "";
   var previewHtml = "";
   for (var i = 0; i < days.length; i++) {
@@ -671,7 +671,7 @@ function saveProfile() {
   localStorage.setItem("profileRestriction", document.getElementById("profileRestriction").value);
   localStorage.setItem("roommateMode", document.getElementById("roommateToggle").checked);
   document.getElementById("profileMsg").textContent = "Profile saved!";
-  setTimeout(function() {
+  setTimeout(function () {
     document.getElementById("profileMsg").textContent = "";
   }, 2000);
   applyRoommateMode();
@@ -730,11 +730,11 @@ function loadProfile() {
     document.getElementById("roommateToggle").checked = true;
     applyRoommateMode();
   }
-  document.getElementById("profilePhoto").addEventListener("change", function() {
+  document.getElementById("profilePhoto").addEventListener("change", function () {
     var file = this.files[0];
     if (!file) return;
     var reader = new FileReader();
-    reader.onload = function(e) {
+    reader.onload = function (e) {
       document.getElementById("photoPreview").src = e.target.result;
       document.getElementById("photoPreview").style.display = "block";
     };

@@ -1,4 +1,5 @@
-html, body {
+html,
+body {
   margin: 0;
   padding: 0;
   height: 100%;
@@ -86,12 +87,12 @@ html, body {
 
 .topbarSub {
   font-size: 13px;
-  color: rgba(255,255,255,0.7);
+  color: rgba(255, 255, 255, 0.7);
   margin-top: 2px;
 }
 
 .addBtn {
-  background: rgba(255,255,255,0.2);
+  background: rgba(255, 255, 255, 0.2);
   border: none;
   color: #fff;
   font-size: 14px;
@@ -160,7 +161,11 @@ html, body {
   min-width: 100px;
 }
 
-.locBadge, .catBadge, .expTag, .expiredTag, .shareBadge {
+.locBadge,
+.catBadge,
+.expTag,
+.expiredTag,
+.shareBadge {
   font-size: 13px;
   padding: 3px 9px;
   border-radius: 9px;
@@ -233,7 +238,7 @@ html, body {
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0,0,0,0.45);
+  background: rgba(0, 0, 0, 0.45);
   z-index: 100;
   align-items: center;
   justify-content: center;
@@ -288,7 +293,8 @@ html, body {
   margin-bottom: 3px;
 }
 
-.textInput, .selectInput {
+.textInput,
+.selectInput {
   padding: 10px 12px;
   border: 1px solid #ddd;
   border-radius: 10px;
@@ -401,11 +407,11 @@ html, body {
   border-radius: 50%;
 }
 
-.switch input:checked + .slider {
+.switch input:checked+.slider {
   background: #0c447c;
 }
 
-.switch input:checked + .slider:before {
+.switch input:checked+.slider:before {
   transform: translateX(22px);
 }
 
@@ -447,12 +453,28 @@ html, body {
   font-weight: bold;
 }
 
-.kwide { grid-column: span 2; }
-.k3wide { grid-column: span 3; }
-.k5wide { grid-column: span 5; }
-.k2wide { grid-column: span 2; }
+.kwide {
+  grid-column: span 2;
+}
 
-.darkBtn, .greenBtn, .grayBtn, .saveBtn, .addMissingBtn, .addCalBtn {
+.k3wide {
+  grid-column: span 3;
+}
+
+.k5wide {
+  grid-column: span 5;
+}
+
+.k2wide {
+  grid-column: span 2;
+}
+
+.darkBtn,
+.greenBtn,
+.grayBtn,
+.saveBtn,
+.addMissingBtn,
+.addCalBtn {
   border-radius: 6px;
   padding: 12px;
   font-size: 14px;
@@ -467,7 +489,9 @@ html, body {
   border: 1px solid #083056;
 }
 
-.greenBtn, .saveBtn, .addMissingBtn {
+.greenBtn,
+.saveBtn,
+.addMissingBtn {
   background: #2d6a4f;
   color: #fff;
   border: 1px solid #1b4332;
@@ -588,7 +612,8 @@ html, body {
   color: #4c3baa;
 }
 
-.tagOrange, .tagWarn {
+.tagOrange,
+.tagWarn {
   background: #fff3cd;
   color: #633806;
 }
@@ -684,7 +709,8 @@ html, body {
   border: 1px solid #ccc;
   border-radius: 8px;
   background: #e6f1fb;
-  object-fit: cover;
+  object-fit: contain;
+  padding: 12px;
   display: block;
   box-sizing: border-box;
 }
@@ -751,15 +777,14 @@ html, body {
 }
 
 .ingrCheck {
-  width: 24px;
-  height: 24px;
-  border-radius: 50%;
+  border-radius: 999px;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 13px;
   font-weight: bold;
   flex-shrink: 0;
+  padding: 3px 8px;
 }
 
 .ingrYes {
@@ -820,7 +845,9 @@ html, body {
   margin-top: 8px;
 }
 
-#shopListRecipe, #shopListManual, #shopListChecked {
+#shopListRecipe,
+#shopListManual,
+#shopListChecked {
   list-style: none;
   padding: 0;
   margin: 0;
