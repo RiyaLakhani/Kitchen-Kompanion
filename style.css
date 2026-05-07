@@ -1,1080 +1,431 @@
-html,
-body {
-  margin: 0;
-  padding: 0;
-  height: 100%;
+/*
+  Kitchen Kompanion — Phase 4
+  Device: 640 × 960 CSS px (per CMSC434 device spec)
+  Physical: 8.3" diagonal → ~4.60" wide × 6.91" tall, ~139 PPI
+  3/16" min cap-height → ~26px cap-height → font-size ~36px strict.
+  Practical approach: use 16px+ floor; the spec's intent is no tiny unreadable text.
+  Layout must fit 960px tall — no overflow on normal browser window.
+*/
+
+html, body {
+  margin: 0; padding: 0; height: 100%;
   overflow: hidden;
-  display: flex;
-  justify-content: center;
-  background: black;
-  font-family: Arial, sans-serif;
+  display: flex; justify-content: center; align-items: flex-start;
+  background: #1a1a2e;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
 }
 
 .app-wrapper {
   width: 640px;
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
+  height: 960px;
+  display: flex; flex-direction: column;
   overflow: hidden;
   position: relative;
+  background: #f4f5f7;
+  box-shadow: 0 0 60px rgba(0,0,0,0.7);
 }
 
-.tabcontent {
-  display: none;
-  flex-direction: column;
-  flex: 1;
-  overflow-y: scroll;
-  background: #f5f5f5;
-  box-sizing: border-box;
-}
+.tabcontent { display: none; flex-direction: column; flex: 1; overflow: hidden; box-sizing: border-box; }
+.activeTab  { display: flex; }
 
-.activeTab {
-  display: flex;
-}
-
-.tab {
-  background: #0c447c;
-  display: flex;
-  justify-content: space-evenly;
-  flex-shrink: 0;
-}
-
-.tablinks {
-  background: inherit;
-  border: none;
-  cursor: pointer;
-  padding: 10px 16px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 4px;
-  flex: 1;
-  color: #ccc;
-}
-
-.tablinks span {
-  font-size: 12px;
-}
-
-.tablinks.active {
-  background: #1a5a9e;
-}
-
-.tablinks.active span {
-  color: #fff;
-  font-weight: bold;
-}
-
-.navIcon {
-  width: 24px;
-  height: 24px;
-}
-
+/* ── Top bar ── */
 .topbar {
   background: #0c447c;
   padding: 10px 16px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-shrink: 0;
+  display: flex; align-items: center; justify-content: space-between;
+  flex-shrink: 0; min-height: 48px;
 }
-
-.topbar-title {
-  font-size: 18px;
-  font-weight: bold;
-  color: #fff;
-}
-
-.topbarSub {
-  font-size: 13px;
-  color: rgba(255, 255, 255, 0.7);
-  margin-top: 2px;
-}
-
+.topbar-title { font-size: 18px; font-weight: bold; color: #fff; }
+.topbarSub    { font-size: 13px; color: rgba(255,255,255,0.85); margin-top: 1px; }
 .addBtn {
-  background: rgba(255, 255, 255, 0.2);
-  border: none;
-  color: #fff;
-  font-size: 14px;
-  padding: 6px 14px;
-  border-radius: 8px;
-  cursor: pointer;
+  background: rgba(255,255,255,0.2); border: 1px solid rgba(255,255,255,0.45);
+  color: #fff; font-size: 14px; font-weight: 600;
+  padding: 7px 14px; border-radius: 8px; cursor: pointer; white-space: nowrap;
 }
 
-.filterArea {
-  padding: 10px 12px;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
 
+/* ── Filter bar ── */
+.filterBar {
+  padding: 6px 12px 6px;
+  background: #fff; border-bottom: 1px solid #e0e4ea;
+  flex-shrink: 0; display: flex; flex-direction: column; gap: 5px;
+}
+/* Each row inside filterBar sits horizontally */
 .filterRow {
-  display: flex;
-  gap: 8px;
-  align-items: center;
-  flex-wrap: wrap;
+  display: flex; flex-direction: row; flex-wrap: nowrap;
+  align-items: center; gap: 5px;
+}
+.filterBarWrap { flex-direction: column; }
+.filtDivider { width: 1px; height: 18px; background: #d0d7e0; margin: 0 2px; flex-shrink: 0; }
+.filtGroupLabel {
+  font-size: 11px; font-weight: 800; color: #595959;
+  text-transform: uppercase; letter-spacing: 0.04em;
+  white-space: nowrap; min-width: 58px;
 }
 
-.filterLabel {
-  font-size: 14px;
-  font-weight: 700;
-  color: #666;
-  min-width: 96px;
-}
-
+/* Base filter button */
 .filt {
-  padding: 6px 14px;
-  border: 1px solid #aab7c8;
-  border-radius: 12px;
-  background: white;
-  font-size: 14px;
-  cursor: pointer;
+  padding: 4px 11px; border-radius: 10px;
+  font-size: 13px; cursor: pointer; white-space: nowrap;
+  font-weight: 600; border: 1.5px solid transparent;
 }
 
-.filt.active {
-  background: #0c447c;
-  color: white;
-  border-color: #0c447c;
+/* "All" — neutral dark outline */
+#filtAll, .filtAll {
+  background: #fff; color: #333; border-color: #999;
+}
+#filtAll.active, .filtAll.active {
+  background: #333; color: #fff; border-color: #333;
 }
 
-#inventoryList {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  border-top: 1px solid #ccc;
+/* Type filters — green tint (food categories) */
+.typeFilt {
+  background: #f0faf3; color: #1b5e20; border-color: #81c784;
+}
+.typeFilt.active {
+  background: #1b5e20; color: #fff; border-color: #1b5e20;
 }
 
+/* Location filters — blue tint (where it lives) */
+.locFilt {
+  background: #e8f4fd; color: #0c447c; border-color: #90caf9;
+}
+.locFilt.active {
+  background: #0c447c; color: #fff; border-color: #0c447c;
+}
+
+/* Recipe diet filters — purple tint */
+.dietFilt {
+  background: #f3f0ff; color: #4527a0; border-color: #b39ddb;
+}
+.dietFilt.active {
+  background: #4527a0; color: #fff; border-color: #4527a0;
+}
+
+/* ── Inventory list ── */
+.invList { list-style: none; padding: 0; margin: 0; overflow-y: auto; flex: 1; }
+
+/*
+  Row layout (single line, no wrap):
+  [dot] [name — fixed width] [badges row] [qty block] [actions]
+  Uses grid so columns stay perfectly aligned
+*/
+/*
+  Inventory row layout:
+  [dot] [name + badges stacked] [qty block] [edit] [del]
+  Qty and action buttons always vertically centered regardless of row height.
+*/
 .invItem {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 10px 8px;
-  border-bottom: 1px solid #eee;
-  background: white;
-  flex-wrap: wrap;
-}
-
-.invName {
-  flex: 1;
-  font-size: 14px;
-  font-weight: 600;
-  min-width: 100px;
-}
-
-.locBadge,
-.catBadge,
-.expTag,
-.expiredTag,
-.shareBadge {
-  font-size: 13px;
-  padding: 3px 9px;
-  border-radius: 9px;
-}
-
-.locBadge {
-  background: #e6f1fb;
-  color: #0c447c;
-}
-
-.catBadge {
-  background: #eaf3de;
-  color: #27500a;
-}
-
-.expTag {
-  background: #fff3cd;
-  color: #633806;
-}
-
-.expiredTag {
-  background: #fcebeb;
-  color: #791f1f;
-}
-
-.shareBadge {
-  font-weight: 600;
-}
-
-.sharedItem {
-  background: #eaf3de;
-  color: #27500a;
-}
-
-.personalItem {
-  background: #faeeda;
-  color: #633806;
-}
-
-.qtyBtn {
-  width: 26px;
-  height: 26px;
-  border-radius: 50%;
-  border: 1px solid #ddd;
-  background: #f5f5f5;
-  font-size: 16px;
-  cursor: pointer;
-}
-
-.qtyVal {
-  font-size: 14px;
-  color: #666;
-}
-
-.delBtn {
-  width: 26px;
-  height: 26px;
-  border-radius: 50%;
-  border: 1px solid #e1b4b4;
-  background: #fdeeee;
-  color: #8f2f2f;
-  font-size: 13px;
-  cursor: pointer;
-}
-
-.modalOverlay {
-  display: none;
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.45);
-  z-index: 100;
-  align-items: center;
-  justify-content: center;
-}
-
-.modalBox {
-  background: #fff;
-  border-radius: 8px;
-  width: 82%;
-  max-height: 88vh;
-  overflow-y: auto;
-  padding: 16px;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.modalHeader {
-  background: #0c447c;
-  color: #fff;
-  font-size: 15px;
-  font-weight: bold;
-  padding: 10px 14px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border-radius: 6px 6px 0 0;
-  margin: -16px -16px 0;
-}
-
-.modalTitle {
-  margin: 0 0 4px;
-  font-size: 16px;
-  color: #0c447c;
-}
-
-.closeBtn {
-  background: #fff;
-  border: 1px solid #ccc;
-  font-size: 20px;
-  width: 30px;
-  height: 30px;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-.fieldLabel {
-  font-size: 14px;
-  font-weight: bold;
-  color: #666;
-  display: block;
-  margin-bottom: 3px;
-}
-
-.textInput,
-.selectInput {
-  padding: 10px 12px;
-  border: 1px solid #ddd;
-  border-radius: 10px;
-  font-size: 14px;
-  width: 100%;
-  box-sizing: border-box;
-}
-
-.twoCol {
-  display: flex;
-  gap: 8px;
-}
-
-.colItem {
-  flex: 1;
-}
-
-.modalBody {
-  padding: 10px 0;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.modalFooter {
-  display: flex;
-  flex-direction: column;
-  gap: 7px;
-  padding-top: 8px;
-  border-top: 1px solid #eee;
-}
-
-.segGroup {
-  display: flex;
-  gap: 5px;
-}
-
-.segBtn {
-  flex: 1;
-  padding: 8px;
-  border-radius: 9px;
-  border: 1px solid #ddd;
-  font-size: 14px;
-  cursor: pointer;
-  background: #fff;
-  color: #666;
-}
-
-.segBtn.active {
-  background: #0c447c;
-  border-color: #0c447c;
-  color: #fff;
-  font-weight: bold;
-}
-
-.shopSeg {
-  margin: 10px 16px 0;
-  background: #eee;
-  border-radius: 10px;
-  padding: 3px;
-}
-
-.shopSeg .segBtn {
-  border-radius: 8px;
-  border: none;
-  background: transparent;
-}
-
-.shopSeg .segBtn.active {
-  background: #fff;
-  color: #0c447c;
-  border: none;
-}
-
-.toggleRow {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.switch {
-  position: relative;
-  display: inline-block;
-  width: 48px;
-  height: 26px;
-}
-
-.switch input {
-  opacity: 0;
-  width: 0;
-  height: 0;
-}
-
-.slider {
-  position: absolute;
-  inset: 0;
-  background: #ccc;
-  border-radius: 26px;
-  cursor: pointer;
-}
-
-.slider:before {
-  content: "";
-  position: absolute;
-  width: 20px;
-  height: 20px;
-  left: 3px;
-  top: 3px;
-  background: white;
-  border-radius: 50%;
-}
-
-.switch input:checked+.slider {
-  background: #0c447c;
-}
-
-.switch input:checked+.slider:before {
-  transform: translateX(22px);
-}
-
-.kbWrap {
-  background: #e0e0e0;
-  border-radius: 10px;
-  padding: 8px;
-}
-
-.kbLabel {
-  font-size: 12px;
-  color: #666;
-  text-align: center;
-  margin-bottom: 6px;
-}
-
-.kbGrid {
   display: grid;
-  grid-template-columns: repeat(10, 1fr);
-  gap: 3px;
-}
-
-.kkey {
-  background: #fff;
-  border: 1px solid #bbb;
-  border-radius: 5px;
-  padding: 6px 2px;
-  font-size: 13px;
-  text-align: center;
-}
-
-.kgray {
-  background: #d0d0d0;
-}
-
-.kblue {
-  background: #0c447c;
-  color: #fff;
-  font-weight: bold;
-}
-
-.kwide {
-  grid-column: span 2;
-}
-
-.k3wide {
-  grid-column: span 3;
-}
-
-.k5wide {
-  grid-column: span 5;
-}
-
-.k2wide {
-  grid-column: span 2;
-}
-
-.darkBtn,
-.greenBtn,
-.grayBtn,
-.saveBtn,
-.addMissingBtn,
-.addCalBtn {
-  border-radius: 6px;
-  padding: 12px;
-  font-size: 14px;
-  font-weight: bold;
-  cursor: pointer;
-  width: 100%;
-}
-
-.darkBtn {
-  background: #0c447c;
-  color: white;
-  border: 1px solid #083056;
-}
-
-.greenBtn,
-.saveBtn,
-.addMissingBtn {
-  background: #2d6a4f;
-  color: #fff;
-  border: 1px solid #1b4332;
-}
-
-.grayBtn {
-  background: #eee;
-  color: #333;
-  border: 1px solid #ccc;
-  font-weight: normal;
-}
-
-.addCalBtn {
-  background: #fff;
-  color: #0c447c;
-  border: 1px solid #0c447c;
-}
-
-.saveBtn {
-  width: auto;
-}
-
-.errMsg {
-  font-size: 13px;
-  color: #791f1f;
-}
-
-.doneProgress {
-  font-size: 14px;
-  font-weight: bold;
-  color: #666;
-}
-
-.doneItemName {
-  font-size: 18px;
-  font-weight: bold;
-  color: #222;
-}
-
-.recipeList {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  padding: 0 16px 12px;
-  overflow-y: auto;
-  flex: 1;
-}
-
-.recipeCard {
-  display: flex;
+  grid-template-columns: 10px 1fr auto auto auto;
   align-items: center;
-  gap: 12px;
-  background: white;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  padding: 12px;
-  cursor: pointer;
-}
-
-.recipeIcon {
-  width: 56px;
-  height: 56px;
-  border-radius: 8px;
-  background: #e6f1fb;
-  border: 1px solid #ccc;
-  object-fit: cover;
-  flex-shrink: 0;
-  display: block;
-}
-
-.recipeInfo {
-  flex: 1;
-}
-
-.recipeName {
-  font-size: 15px;
-  font-weight: bold;
-}
-
-.recipeMeta {
-  font-size: 13px;
-  color: #666;
-  margin-top: 2px;
-}
-
-.recipeTags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 5px;
-  margin-top: 5px;
-}
-
-.recipeCount {
-  font-size: 14px;
-  font-weight: bold;
-  color: #0c447c;
-}
-
-.tag {
-  font-size: 13px;
-  padding: 4px 10px;
-  border-radius: 8px;
-  font-weight: 600;
-}
-
-.tagBlue {
-  background: #e6f1fb;
-  color: #0c447c;
-}
-
-.tagGreen {
-  background: #eaf3de;
-  color: #27500a;
-}
-
-.tagPurple {
-  background: #ede9ff;
-  color: #4c3baa;
-}
-
-.tagOrange,
-.tagWarn {
-  background: #fff3cd;
-  color: #633806;
-}
-
-.recipeToggle {
-  display: flex;
-  gap: 8px;
-  padding: 0 16px 12px;
-}
-
-.togBtn {
-  padding: 7px 14px;
-  border: 1px solid #aab7c8;
-  border-radius: 10px;
-  background: white;
-  font-size: 14px;
-  cursor: pointer;
-}
-
-.togBtn.active {
-  background: #0c447c;
-  color: white;
-  border-color: #0c447c;
-}
-
-.mealPreview {
-  margin: 0 16px 10px;
-  background: #fff;
-  border: 1px solid #e6e6e6;
-  border-radius: 12px;
+  gap: 0 10px;
   padding: 10px 12px;
-}
-
-.mealPreviewHead {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-size: 14px;
-  font-weight: bold;
-  color: #0c447c;
-  margin-bottom: 6px;
-}
-
-.viewPlanBtn {
-  border: 1px solid #0c447c;
+  border-bottom: 1px solid #eaecef;
   background: #fff;
-  color: #0c447c;
-  font-size: 12px;
-  border-radius: 4px;
-  padding: 4px 10px;
   cursor: pointer;
+  min-height: 58px;
+}
+.invItem:hover { background: #f8faff; }
+
+/* Dot vertically centered */
+.invDot { width: 9px; height: 9px; border-radius: 50%; align-self: center; }
+
+/* Name cell: name on top, badges below — takes all available horizontal space */
+.invNameCell {
+  display: flex; flex-direction: column; justify-content: center; gap: 5px;
+  min-width: 0; align-self: center;
+}
+.invName {
+  font-size: 16px; font-weight: 700; color: #111;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.invBadges {
+  display: flex; gap: 4px; flex-wrap: wrap; align-items: center;
 }
 
-.mealPreviewBody {
-  font-size: 14px;
-  color: #666;
-}
-
-.mealPreviewRow {
-  display: flex;
-  gap: 8px;
-}
-
-.mealPreviewDay {
-  min-width: 68px;
-  color: #0c447c;
-  font-weight: bold;
-}
-
-.backBtn {
-  background: #fff;
-  border: 1px solid #ccc;
-  color: #0c447c;
-  font-size: 14px;
-  font-weight: bold;
-  padding: 6px 12px;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-.rdBody {
-  flex: 1;
-  overflow-y: scroll;
-  padding: 16px;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.rdHero {
-  width: 100%;
-  height: 120px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  background: #e6f1fb;
-  object-fit: contain;
-  padding: 12px;
-  display: block;
-  box-sizing: border-box;
-}
-
-.rdMetaRow {
-  display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
-}
-
-.metaChip {
-  font-size: 14px;
-  color: #555;
-  background: #f0f0f0;
-  border-radius: 8px;
-  padding: 4px 12px;
-}
-
-.rdTagsRow {
-  display: flex;
-  gap: 6px;
-  flex-wrap: wrap;
-}
-
-.sectionLabel {
-  font-size: 14px;
-  font-weight: bold;
-  color: #666;
-  padding: 8px 14px 3px;
-  background: #f5f5f5;
-}
-
-.ingrList {
-  background: #fff;
-  border-radius: 8px;
-  border: 1px solid #ccc;
-  flex-shrink: 0;
-  height: 280px;
-  overflow-y: auto;
-  box-sizing: border-box;
-}
-
-.ingrRow {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 12px 14px;
-  border-bottom: 1px solid #f0f0f0;
-}
-
-.ingrRow:last-child {
-  border-bottom: none;
-}
-
-#rd-steps-list {
-  flex-shrink: 0;
-  height: 280px;
-  overflow-y: auto;
-  box-sizing: border-box;
-  background: #fff;
-  border-radius: 8px;
-  border: 1px solid #ccc;
-  padding: 4px 12px 12px;
-}
-
-.ingrCheck {
-  border-radius: 999px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 13px;
-  font-weight: bold;
-  flex-shrink: 0;
-  padding: 3px 8px;
-}
-
-.ingrYes {
-  background: #eaf3de;
-  color: #27500a;
-}
-
-.ingrNo {
-  background: #fcebeb;
-  color: #791f1f;
-}
-
-.ingrName {
-  flex: 1;
-  font-size: 15px;
-  font-weight: 600;
-}
-
-.ingrQty {
-  font-size: 14px;
-  color: #666;
-}
-
-.stepRow {
-  display: flex;
-  gap: 12px;
-  padding: 10px 0;
-  border-bottom: 1px solid #f0f0f0;
-}
-
-.stepRow:last-child {
-  border-bottom: none;
-}
-
-.stepNum {
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
-  background: #0c447c;
-  color: #fff;
-  font-size: 14px;
-  font-weight: bold;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+/* Qty pill: − [value] + in one rounded container */
+.invQtyBlock {
+  display: flex; align-items: center;
+  border: 1.5px solid #c8d2dc; border-radius: 8px; overflow: hidden;
   flex-shrink: 0;
 }
-
-.stepText {
-  font-size: 14px;
-  color: #444;
-  line-height: 1.6;
+.qtyBtn {
+  width: 30px; height: 30px; border: none; background: #f0f4f8;
+  font-size: 18px; font-weight: bold; color: #0c447c;
+  cursor: pointer; display: flex; align-items: center; justify-content: center;
+}
+.qtyBtn:hover { background: #dce8f6; }
+.qtyVal {
+  min-width: 58px; text-align: center; font-size: 13px; font-weight: 600;
+  color: #222; padding: 0 4px; background: #fff; line-height: 30px;
+  white-space: nowrap;
 }
 
-.shopPanel {
-  flex: 1;
-  overflow-y: auto;
-  margin-top: 8px;
+.editBtn {
+  width: 30px; height: 30px; border-radius: 7px; border: 1px solid #c0ccd8;
+  background: #f0f4f8; color: #0c447c; font-size: 14px; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+}
+.delBtn {
+  width: 30px; height: 30px; border-radius: 7px; border: 1px solid #e8b4b4;
+  background: #fdf0f0; color: #8f2020; font-size: 14px; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
 }
 
-#shopListRecipe,
-#shopListManual,
-#shopListChecked {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
+/* Badges — all the same compact style */
+.badge { font-size: 12px; padding: 2px 7px; border-radius: 8px; font-weight: 600; white-space: nowrap; flex-shrink: 0; }
+.locBadge      { background: #e4f0fb; color: #0c447c; }
+.catBadge      { background: #e8f5e9; color: #1b5e20; }
+.expiredBadge  { background: #ffebee; color: #b71c1c; }
+.expiringBadge { background: #fff8e1; color: #7a4f00; }
+.sharedBadge   { background: #ede7ff; color: #4527a0; }
+.personalBadge { background: #f0f0f0; color: #444; }
 
-.shopRow {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  background: #fff;
-  border-bottom: 1px solid #f0f0f0;
-  padding: 11px 14px;
+/* Inline delete confirm */
+.delConfirmBar {
+  display: flex; align-items: center; gap: 10px;
+  padding: 8px 12px; background: #fff8e1; border-bottom: 1px solid #ffe082;
+  font-size: 14px; color: #5a3a00;
 }
+.delConfirmBar span { flex: 1; }
+.dcYes { padding: 5px 13px; background: #b91c1c; color: #fff; border: none; border-radius: 6px; font-size: 13px; font-weight: bold; cursor: pointer; }
+.dcNo  { padding: 5px 13px; background: #e0e0e0; color: #333; border: none; border-radius: 6px; font-size: 13px; cursor: pointer; }
 
-.shopRow input[type="checkbox"] {
-  width: 18px;
-  height: 18px;
-  accent-color: #0c447c;
-  cursor: pointer;
+/* ── Modals ── */
+.modalOverlay {
+  display: none; position: absolute; inset: 0;
+  background: rgba(0,0,0,0.52); z-index: 200;
+  align-items: center; justify-content: center;
 }
-
-.shopRowInfo {
-  flex: 1;
+.modalBox {
+  background: #fff; border-radius: 14px; width: 88%;
+  max-height: 88%; overflow-y: auto;
+  display: flex; flex-direction: column;
 }
-
-.shopRowName {
-  font-size: 14px;
-  font-weight: bold;
+.modalHeader {
+  background: #0c447c; color: #fff; font-size: 16px; font-weight: bold;
+  padding: 13px 16px; display: flex; justify-content: space-between; align-items: center;
+  border-radius: 14px 14px 0 0; flex-shrink: 0;
 }
-
-.shopRowMeta {
-  font-size: 13px;
-  color: #666;
+.closeBtn {
+  background: rgba(255,255,255,0.18); border: none; color: #fff;
+  font-size: 18px; width: 32px; height: 32px; border-radius: 7px; cursor: pointer;
 }
+.modalBody   { padding: 14px 16px; display: flex; flex-direction: column; gap: 11px; }
+.modalFooter { padding: 10px 16px 14px; display: flex; flex-direction: column; gap: 8px; border-top: 1px solid #eee; flex-shrink: 0; }
 
-.shopRowCat {
-  font-size: 13px;
-  padding: 2px 8px;
-  border-radius: 8px;
-  background: #f0f0f0;
-  color: #555;
+.fieldLabel { font-size: 14px; font-weight: 700; color: #222; display: block; margin-bottom: 4px; }
+.textInput, .selectInput {
+  padding: 10px 12px; border: 1.5px solid #c8d2dc; border-radius: 9px;
+  font-size: 15px; width: 100%; box-sizing: border-box;
 }
+.twoCol  { display: flex; gap: 10px; }
+.colItem { flex: 1; display: flex; flex-direction: column; }
 
-.rowChecked .shopRowName {
-  text-decoration: line-through;
-  color: #999;
+.segGroup { display: flex; gap: 5px; }
+.segBtn {
+  flex: 1; padding: 9px 4px; border-radius: 8px; border: 1.5px solid #c0ccd8;
+  font-size: 14px; cursor: pointer; background: #fff; color: #444; text-align: center;
 }
+.segBtn.active { background: #0c447c; border-color: #0c447c; color: #fff; font-weight: bold; }
 
-.doneShopBtn {
-  margin: 10px 16px 12px;
-  background: #2d6a4f;
-  color: #fff;
-  border: 1px solid #1b4332;
-  border-radius: 6px;
-  padding: 12px;
-  font-size: 14px;
-  font-weight: bold;
-  cursor: pointer;
-  width: calc(100% - 32px);
+.toggleRow { display: flex; justify-content: space-between; align-items: center; }
+.switch { position: relative; display: inline-block; width: 50px; height: 27px; }
+.switch input { opacity: 0; width: 0; height: 0; }
+.slider { position: absolute; inset: 0; background: #ccc; border-radius: 27px; cursor: pointer; transition: .2s; }
+.slider::before { content: ""; position: absolute; width: 21px; height: 21px; left: 3px; top: 3px; background: #fff; border-radius: 50%; transition: .2s; }
+.switch input:checked + .slider { background: #0c447c; }
+.switch input:checked + .slider::before { transform: translateX(23px); }
+
+/* Buttons */
+.greenBtn { background: #1b5e3b; color: #fff; border: 1px solid #14472d; border-radius: 9px; padding: 12px; font-size: 15px; font-weight: bold; cursor: pointer; width: 100%; }
+.grayBtn  { background: #eee;    color: #333; border: 1px solid #ccc;    border-radius: 9px; padding: 12px; font-size: 15px; cursor: pointer; width: 100%; }
+.redBtn   { background: #b91c1c; color: #fff; border: 1px solid #7f1d1d; border-radius: 9px; padding: 12px; font-size: 15px; font-weight: bold; cursor: pointer; width: 100%; }
+.darkBtn  { background: #0c447c; color: #fff; border: 1px solid #083260; border-radius: 9px; padding: 12px; font-size: 15px; font-weight: bold; cursor: pointer; width: 100%; }
+.errMsg   { font-size: 13px; color: #b91c1c; }
+
+.editQtyRow { display: flex; align-items: center; gap: 14px; justify-content: center; }
+.editQtyBtn { width: 40px; height: 40px; border-radius: 50%; border: 2px solid #0c447c; background: #fff; color: #0c447c; font-size: 26px; font-weight: bold; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+.editQtyVal { font-size: 26px; font-weight: bold; min-width: 65px; text-align: center; }
+
+/* ── Recipe tab ── */
+.searchBar { padding: 7px 11px; background: #fff; border-bottom: 1px solid #e0e4ea; flex-shrink: 0; }
+.searchInput { width: 100%; box-sizing: border-box; padding: 9px 12px; border: 1.5px solid #c8d2dc; border-radius: 9px; font-size: 15px; outline: none; }
+
+.dietaryBanner {
+  background: #e8f0fd; border-bottom: 1px solid #b6cef7;
+  padding: 8px 14px; display: none; align-items: center;
+  justify-content: space-between; font-size: 14px; color: #1a3c6e; flex-shrink: 0;
 }
+.dietaryBanner.show { display: flex; }
+.clearDietBtn { border: 1px solid #1a3c6e; background: transparent; color: #1a3c6e; border-radius: 6px; font-size: 13px; padding: 4px 10px; cursor: pointer; }
 
-.profileContent {
-  padding: 16px;
-}
+.recipeToggle { display: flex; gap: 8px; padding: 8px 11px 4px; flex-shrink: 0; }
+.togBtn { padding: 7px 16px; border: 1.5px solid #b0bcc8; border-radius: 10px; background: #fff; font-size: 14px; cursor: pointer; color: #333; }
+.togBtn.active { background: #0c447c; color: #fff; border-color: #0c447c; font-weight: bold; }
 
-.profileTitle {
-  font-size: 22px;
-  font-weight: bold;
-  text-align: center;
-  margin: 10px 0 4px;
-}
-
-.profileSub {
-  font-size: 14px;
-  color: #666;
-  text-align: center;
-  margin-bottom: 16px;
-}
-
-.profileCard {
-  background: white;
-  border-radius: 16px;
-  padding: 20px;
-  border: 1px solid #eee;
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
-
-.profileField {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-
-.profileField label {
-  font-size: 14px;
-  font-weight: bold;
-  color: #333;
-}
-
-.profileField select {
-  padding: 11px 14px;
-  border: 1px solid #ddd;
-  border-radius: 10px;
-  font-size: 14px;
-  background: #fafafa;
-}
-
-.roommateRow {
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.roommateNames {
-  display: none;
-}
-
-.roommateItem {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 8px 0;
-  border-bottom: 1px solid #f0f0f0;
-}
-
-.roommateItem:last-child {
-  border-bottom: none;
-}
-
-.roommateAvatar {
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  background: #0c447c;
-  color: #fff;
-  font-size: 14px;
-  font-weight: bold;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.roommateName {
-  flex: 1;
-  font-size: 14px;
-  font-weight: 600;
-}
-
-.roommateTag {
-  font-size: 13px;
-  color: #666;
-}
-
-.photoPreview {
-  width: 72px;
-  height: 72px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 1px solid #ddd;
-  display: none;
-}
-
-.profileMsg {
-  text-align: center;
-  font-size: 14px;
-  color: #2d6a4f;
-  min-height: 18px;
-}
-
-.calRecipeName {
-  font-size: 14px;
-  color: #555;
-  margin: 0 0 12px;
-}
-
-.calDays {
-  display: flex;
-  gap: 6px;
-  flex-wrap: wrap;
-  margin-bottom: 12px;
-}
-
-.calDayBtn {
-  flex: 1;
-  min-width: 60px;
-  padding: 10px 6px;
-  border: 1px solid #0c447c;
-  border-radius: 6px;
-  background: #fff;
+.mealPreview { margin: 4px 11px 5px; background: #fff; border: 1px solid #d8e6f5; border-radius: 10px; padding: 8px 11px; flex-shrink: 0; }
+.mealPreviewHead { display: flex; justify-content: space-between; align-items: center; font-size: 14px; font-weight: bold; color: #0c447c; margin-bottom: 3px; }
+.viewPlanBtn { border: 1px solid #0c447c; background: #fff; color: #0c447c; font-size: 13px; border-radius: 6px; padding: 4px 10px; cursor: pointer; }
+.mealPreviewBody { font-size: 13px; color: #444; line-height: 1.5; }
+.mealPreviewRow { display: flex; gap: 8px; font-size: 13px; }
+.mealPreviewDay { min-width: 34px; color: #0c447c; font-weight: bold; }
+.mealPreviewDayBlock { display: flex; gap: 10px; margin-bottom: 6px; }
+.mealPreviewDayBlock:last-child { margin-bottom: 0; }
+.mealPreviewDayHeader {
+  min-width: 34px;
   color: #0c447c;
-  font-size: 14px;
   font-weight: bold;
-  cursor: pointer;
+  font-size: 13px;
+  line-height: 1.4;
 }
+.mealPreviewDayMeals { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.mealPreviewMeal { font-size: 13px; color: #444; line-height: 1.4; }
+.mealPreviewMealType { font-weight: 600; color: #333; }
+.mealPreviewMealTitle { word-break: break-word; }
 
-.calDayActive {
-  background: #0c447c;
-  color: #fff;
+.recipeListScroll { overflow-y: auto; flex: 1; border-top: 1px solid #e0e4ea; }
+.recipeCard {
+  display: flex; align-items: center; gap: 11px;
+  background: #fff; border-bottom: 1px solid #eaecef;
+  padding: 10px 12px; cursor: pointer;
 }
+.recipeCard:hover { background: #f5f9ff; }
+.recipeThumb { width: 62px; height: 62px; object-fit: cover; border-radius: 9px; flex-shrink: 0; border: 1px solid #ddd; background: #e4f0fb; }
+.recipeInfo { flex: 1; min-width: 0; }
+.recipeName { font-size: 16px; font-weight: bold; color: #111; }
+.recipeMeta { font-size: 13px; color: #555; margin-top: 1px; }
 
-.mealPlanList {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  margin-top: 8px;
+.ingBar  { height: 5px; background: #e0e0e0; border-radius: 3px; margin-top: 5px; }
+.ingFill { height: 5px; border-radius: 3px; }
+.ingLabel{ font-size: 12px; color: #555; margin-top: 2px; font-weight: 500; }
+.recipeChevron { font-size: 22px; color: #aab4c0; flex-shrink: 0; }
+.cardMealBtn {
+  width: 32px; height: 32px; border-radius: 7px;
+  border: 1px solid #b6cef7; background: #e8f0fd;
+  color: #0c447c; font-size: 16px; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
 }
+.cardMealBtn:hover { background: #c8ddf5; }
 
-.mealRow {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  background: #f5f5f5;
-  border-radius: 8px;
-  padding: 8px 12px;
-}
+.recipeTags { display: flex; gap: 4px; flex-wrap: wrap; margin-top: 4px; }
+.tag { font-size: 11px; padding: 2px 7px; border-radius: 8px; font-weight: 600; }
+.tagBlue   { background: #e4f0fb; color: #0c447c; }
+.tagGreen  { background: #e8f5e9; color: #1b5e20; }
+.tagPurple { background: #ede7ff; color: #4527a0; }
+.tagOrange { background: #fff8e1; color: #7a4f00; }
+.tagWarn   { background: #fde8cc; color: #92400e; }
 
-.mealDay {
-  font-size: 14px;
-  font-weight: bold;
-  color: #0c447c;
-  min-width: 80px;
-}
+/* ── Recipe detail ── */
+.backBtn { background: rgba(255,255,255,0.2); border: 1px solid rgba(255,255,255,0.4); color: #fff; font-size: 14px; font-weight: bold; padding: 7px 12px; border-radius: 7px; cursor: pointer; }
+.rdBody { flex: 1; overflow-y: auto; padding: 13px; display: flex; flex-direction: column; gap: 10px; }
+.rdHero { width: 100%; height: 140px; object-fit: cover; border-radius: 10px; border: 1px solid #ddd; background: #e4f0fb; display: block; }
+.rdMetaRow { display: flex; gap: 7px; flex-wrap: wrap; }
+.metaChip { font-size: 13px; background: #f0f0f0; border-radius: 8px; padding: 5px 11px; color: #333; }
+.rdTagsRow { display: flex; gap: 5px; flex-wrap: wrap; }
+.sectionLabel { font-size: 15px; font-weight: bold; color: #111; padding: 5px 0 2px; border-bottom: 1px solid #e0e0e0; }
 
-.emptyMsg {
-  font-size: 14px;
-  color: #aaa;
-  text-align: center;
+.ingrList { background: #fff; border-radius: 9px; border: 1px solid #ddd; }
+.ingrRow { display: flex; align-items: center; gap: 10px; padding: 10px 12px; border-bottom: 1px solid #f0f0f0; }
+.ingrRow:last-child { border-bottom: none; }
+.ingrCheck { width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: bold; flex-shrink: 0; }
+.ingrYes { background: #e8f5e9; color: #1b5e20; }
+.ingrNo  { background: #ffebee; color: #b71c1c; }
+.ingrName { flex: 1; font-size: 16px; font-weight: 600; }
+.ingrQty  { font-size: 14px; color: #444; }
+
+.stepsList { display: flex; flex-direction: column; background: #fff; border-radius: 9px; border: 1px solid #ddd; }
+.stepRow { display: flex; gap: 11px; padding: 11px 12px; border-bottom: 1px solid #f0f0f0; }
+.stepRow:last-child { border-bottom: none; }
+.stepNum { width: 27px; height: 27px; border-radius: 50%; background: #0c447c; color: #fff; font-size: 14px; font-weight: bold; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.stepText { font-size: 16px; color: #222; line-height: 1.5; }
+
+.addMissingBtn { background: #1b5e3b; color: #fff; border: 1px solid #14472d; border-radius: 9px; padding: 12px; font-size: 15px; font-weight: bold; cursor: pointer; width: 100%; }
+.addCalBtn     { background: #fff; color: #0c447c; border: 1.5px solid #0c447c; border-radius: 9px; padding: 11px; font-size: 15px; font-weight: bold; cursor: pointer; width: 100%; }
+
+/* ── Meal plan modal ── */
+.calRecipeName { font-size: 15px; font-weight: bold; color: #0c447c; margin: 0; }
+.calDays { display: flex; gap: 5px; margin-bottom: 10px; flex-wrap: wrap; }
+.calDayBtn { flex: 1; min-width: 48px; padding: 9px 3px; border: 1.5px solid #b0bcc8; border-radius: 7px; background: #fff; color: #333; font-size: 14px; font-weight: bold; cursor: pointer; text-align: center; }
+.calDayActive { background: #0c447c; color: #fff; border-color: #0c447c; }
+
+.planPreviewInModal { display: flex; flex-direction: column; gap: 4px; }
+.planRow { display: flex; align-items: center; gap: 8px; background: #f0f6ff; border-radius: 7px; padding: 8px 11px; font-size: 14px; }
+.planRowDay  { font-weight: bold; color: #0c447c; min-width: 30px; }
+.planRowMeal { flex: 1; color: #111; }
+.planRowType { font-size: 13px; color: #666; }
+.planRowDel  { background: transparent; border: none; color: #bbb; font-size: 15px; cursor: pointer; padding: 0; }
+.planRowDel:hover { color: #b91c1c; }
+.emptyMsg { font-size: 15px; color: #999; text-align: center; padding: 10px 0; }
+
+.vpDayRow { display: flex; gap: 10px; padding: 9px 0; border-bottom: 1px solid #f0f0f0; font-size: 15px; }
+.vpDayRow:last-child { border-bottom: none; }
+.vpDayName { font-weight: bold; color: #0c447c; min-width: 90px; }
+.vpMeals { color: #111; }
+
+/* ── Shopping list ── */
+.shopList { list-style: none; padding: 0; margin: 0; overflow-y: auto; flex: 1; }
+.shopRow { display: flex; align-items: center; gap: 10px; background: #fff; border-bottom: 1px solid #eaecef; padding: 10px 14px; }
+.shopRow.checked { background: #fafafa; }
+.shopRow.checked .shopName { text-decoration: line-through; color: #aaa; }
+.shopRow.checked .shopMeta { color: #bbb; }
+
+.shopCheckWrap { cursor: pointer; flex-shrink: 0; }
+.shopCheckWrap input { display: none; }
+.shopCB { width: 24px; height: 24px; border: 2px solid #b0bcc8; border-radius: 6px; background: #fff; display: flex; align-items: center; justify-content: center; font-size: 14px; color: #1b5e3b; font-weight: bold; }
+.shopCheckWrap input:checked ~ .shopCB { background: #1b5e3b; border-color: #1b5e3b; color: #fff; }
+
+.shopInfo { flex: 1; min-width: 0; }
+.shopName    { font-size: 16px; font-weight: bold; color: #111; }
+.shopMeta    { font-size: 13px; color: #555; }
+.shopCatBadge{ font-size: 12px; padding: 3px 9px; border-radius: 8px; background: #f0f0f0; color: #444; flex-shrink: 0; }
+.shopEditBtn { width: 30px; height: 30px; border-radius: 7px; border: 1px solid #c0ccd8; background: #f0f4f8; color: #0c447c; font-size: 14px; cursor: pointer; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.shopDelBtn  { width: 30px; height: 30px; border-radius: 7px; border: 1px solid #e8b4b4; background: #fdf0f0; color: #8f2020; font-size: 14px; cursor: pointer; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.shopSepRow  { padding: 5px 14px; background: #f0f6ff; font-size: 13px; font-weight: bold; color: #0c447c; border-bottom: 1px solid #d8e6f5; list-style: none; }
+.doneShopBtn { margin: 10px 14px 12px; background: #1b5e3b; color: #fff; border: 1px solid #14472d; border-radius: 9px; padding: 13px; font-size: 15px; font-weight: bold; cursor: pointer; width: calc(100% - 28px); flex-shrink: 0; }
+.doneProgress { font-size: 15px; font-weight: bold; color: #444; }
+.doneItemName { font-size: 20px; font-weight: bold; color: #111; }
+
+/* ── Profile ── */
+.profileScroll { flex: 1; overflow-y: auto; }
+.profileContent { padding: 13px; }
+.profileSummaryCard { background: #e8f0fd; border: 1px solid #b6cef7; border-radius: 11px; padding: 12px 14px; margin-bottom: 13px; }
+.summaryRow { display: flex; justify-content: space-between; padding: 5px 0; border-bottom: 1px solid #c8ddf5; font-size: 14px; }
+.summaryRow:last-of-type { border-bottom: none; }
+.summaryLabel { color: #0c447c; font-weight: 600; }
+.summaryVal   { color: #111; font-weight: bold; }
+.summaryNote  { font-size: 12px; color: #444; font-style: italic; margin-top: 7px; }
+.profileCard  { background: #fff; border-radius: 13px; padding: 14px; border: 1px solid #e0e4ea; display: flex; flex-direction: column; gap: 13px; }
+.profileSection { font-size: 13px; font-weight: bold; color: #0c447c; text-transform: uppercase; letter-spacing: .05em; }
+.profileField { display: flex; flex-direction: column; gap: 5px; }
+.profileField label { font-size: 15px; font-weight: bold; color: #111; }
+.profileField select { padding: 10px 12px; border: 1.5px solid #c8d2dc; border-radius: 9px; font-size: 15px; background: #fafafa; }
+.fieldNote { font-size: 12px; color: #555; font-weight: normal; }
+.roommateRow   { flex-direction: row; justify-content: space-between; align-items: center; gap: 10px; }
+.roommateNames { display: none; flex-direction: column; }
+.roommateItem  { display: flex; align-items: center; gap: 10px; padding: 8px 0; border-bottom: 1px solid #f0f0f0; }
+.roommateItem:last-child { border-bottom: none; }
+.roommateAvatar{ width: 32px; height: 32px; border-radius: 50%; background: #0c447c; color: #fff; font-size: 14px; font-weight: bold; display: flex; align-items: center; justify-content: center; }
+.roommateName  { flex: 1; font-size: 15px; font-weight: 600; }
+.roommateTag   { font-size: 13px; color: #666; }
+.profileMsg    { text-align: center; font-size: 15px; min-height: 18px; margin: 0; color: #1b5e3b; font-weight: 600; }
+.saveBtn { background: #1b5e3b; color: #fff; border: 1px solid #14472d; border-radius: 9px; padding: 13px; font-size: 16px; font-weight: bold; cursor: pointer; width: 100%; }
+
+/* ── Bottom nav ── */
+.tab { background: #0c447c; display: flex; flex-shrink: 0; border-top: 1px solid rgba(255,255,255,0.15); height: 58px; }
+.tablinks { flex: 1; background: inherit; border: none; cursor: pointer; padding: 8px 5px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; color: rgba(255,255,255,0.55); }
+.tablinks span { font-size: 12px; }
+.tablinks.active { background: #1458a2; }
+.tablinks.active span { color: #fff; font-weight: bold; }
+.navIcon { width: 24px; height: 24px; }
+
+/* ── Toast ── */
+.toastBar {
+  position: absolute; bottom: 68px; left: 50%; transform: translateX(-50%);
+  background: #111827; color: #fff; padding: 11px 22px; border-radius: 24px;
+  font-size: 14px; opacity: 0; pointer-events: none; transition: opacity .25s;
+  z-index: 999; max-width: 520px; text-align: center; white-space: normal;
 }
+.toastBar.show { opacity: 1; } 

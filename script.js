@@ -1,110 +1,92 @@
-function recipeImageSrc(title) {
-  return encodeURIComponent(title + ".png");
-}
-
+// ─── Recipe data ──────────────────────────────────────────────────────────────
 var recipes = {
   beef: {
-    title: "Beef + Broccoli Stir Fry",
-    time: "25 min",
-    skill: "Intermediate",
-    servings: "2 servings",
-    tags: ["Dairy-free", "High Protein", "Uses expiring items"],
-    ingredients: [
-      { name: "Ground beef", qty: "0.8 lbs", have: true },
-      { name: "Broccoli", qty: "1 head", have: true },
-      { name: "Garlic", qty: "3 cloves", have: true },
-      { name: "Brown rice", qty: "1 cup", have: true },
-      { name: "Yellow onion", qty: "half onion", have: true },
-      { name: "Soy sauce", qty: "3 tbsp", have: false }
+    title:"Beef & Broccoli Stir Fry", time:"25 min", skill:"Intermediate", servings:"2 servings",
+    tags:["Dairy-free","Uses expiring items"],
+    ingredients:[
+      {name:"Ground beef", qty:"1 lb",     have:true},
+      {name:"Broccoli",    qty:"1 head",   have:true},
+      {name:"Garlic",      qty:"3 cloves", have:true},
+      {name:"Brown rice",  qty:"1 cup",    have:true},
+      {name:"Yellow onion",qty:"1 onion",  have:true},
+      {name:"Soy sauce",   qty:"3 tbsp",   have:false}
     ],
-    steps: [
+    steps:[
       "Cook brown rice per package directions. Set aside.",
       "Slice beef into thin strips. Season with salt and pepper.",
-      "Heat oil in a wok over high heat. Cook beef 3-4 min until browned. Remove and set aside.",
+      "Heat oil in a wok over high heat. Cook beef 3–4 min until browned. Remove.",
       "Add onion and garlic to the same pan. Stir fry 2 minutes.",
-      "Add broccoli and soy sauce. Cook 3-4 min until tender-crisp.",
+      "Add broccoli and soy sauce. Cook 3–4 min until tender-crisp.",
       "Return beef to pan, toss everything together, and serve over rice."
     ]
   },
   pasta: {
-    title: "Spaghetti Aglio e Olio",
-    time: "20 min",
-    skill: "Beginner",
-    servings: "2 servings",
-    tags: ["Vegetarian", "Low Cal"],
-    ingredients: [
-      { name: "Spaghetti", qty: "8 oz", have: true },
-      { name: "Garlic", qty: "6 cloves", have: true },
-      { name: "Olive oil", qty: "1/4 cup", have: true },
-      { name: "Parsley", qty: "2 tbsp", have: false },
-      { name: "Parmesan", qty: "1/4 cup", have: false }
+    title:"Spaghetti Aglio e Olio", time:"20 min", skill:"Beginner", servings:"2 servings",
+    tags:["Vegetarian"],
+    ingredients:[
+      {name:"Spaghetti", qty:"8 oz",    have:true},
+      {name:"Garlic",    qty:"6 cloves",have:true},
+      {name:"Olive oil", qty:"1/4 cup", have:true},
+      {name:"Parsley",   qty:"2 tbsp",  have:false},
+      {name:"Parmesan",  qty:"1/4 cup", have:false}
     ],
-    steps: [
+    steps:[
       "Boil salted water and cook spaghetti until al dente. Reserve half cup pasta water.",
       "Thinly slice garlic. Heat olive oil in a large pan over medium-low heat.",
-      "Add garlic and cook gently for 3-4 min until golden.",
+      "Add garlic and cook gently for 3–4 min until golden.",
       "Add drained pasta and splash of pasta water. Toss to coat.",
       "Finish with parsley and parmesan. Serve immediately."
     ]
   },
-  "fried-rice": {
-    title: "Chicken Fried Rice",
-    time: "30 min",
-    skill: "Beginner",
-    servings: "3 servings",
-    tags: ["Gluten-free", "High Protein"],
-    ingredients: [
-      { name: "Chicken breast", qty: "1 lb", have: true },
-      { name: "Brown rice", qty: "2 cups", have: true },
-      { name: "Eggs", qty: "2", have: true },
-      { name: "Sesame oil", qty: "1 tbsp", have: true },
-      { name: "Yellow onion", qty: "half onion", have: true },
-      { name: "Garlic", qty: "2 cloves", have: true },
-      { name: "Soy sauce", qty: "2 tbsp", have: false }
+  "fried-rice":{
+    title:"Chicken Fried Rice", time:"30 min", skill:"Beginner", servings:"3 servings",
+    tags:["Gluten-free","Dairy-free"],
+    ingredients:[
+      {name:"Chicken breast",qty:"1 lb",    have:true},
+      {name:"Brown rice",    qty:"2 cups",  have:true},
+      {name:"Eggs",          qty:"2",       have:true},
+      {name:"Sesame oil",    qty:"1 tbsp",  have:true},
+      {name:"Yellow onion",  qty:"1 onion", have:true},
+      {name:"Garlic",        qty:"2 cloves",have:true},
+      {name:"Soy sauce",     qty:"2 tbsp",  have:false}
     ],
-    steps: [
+    steps:[
       "Cook rice ahead of time and let cool.",
       "Dice chicken and cook in oil over high heat until cooked through. Set aside.",
       "In the same pan scramble eggs until just set. Push to side.",
-      "Add onion and garlic, cook 2 min. Add cold rice and stir fry 3-4 min.",
+      "Add onion and garlic, cook 2 min. Add cold rice and stir fry 3–4 min.",
       "Add chicken back in. Drizzle with soy sauce and sesame oil. Toss well.",
       "Taste and adjust seasoning. Serve hot."
     ]
   },
-  eggs: {
-    title: "Cheesy Scrambled Eggs",
-    time: "10 min",
-    skill: "Beginner",
-    servings: "1 serving",
-    tags: ["Vegetarian"],
-    ingredients: [
-      { name: "Eggs", qty: "3", have: true },
-      { name: "Cheddar cheese", qty: "2 oz", have: true },
-      { name: "Whole milk", qty: "2 tbsp", have: true },
-      { name: "Butter", qty: "1 tbsp", have: true }
+  eggs:{
+    title:"Cheesy Scrambled Eggs", time:"10 min", skill:"Beginner", servings:"1 serving",
+    tags:["Vegetarian"],
+    ingredients:[
+      {name:"Eggs",          qty:"3",     have:true},
+      {name:"Cheddar cheese",qty:"2 oz",  have:true},
+      {name:"Whole milk",    qty:"2 tbsp",have:true},
+      {name:"Butter",        qty:"1 tbsp",have:true}
     ],
-    steps: [
+    steps:[
       "Crack eggs into a bowl. Add milk and a pinch of salt. Whisk well.",
       "Melt butter in a non-stick pan over medium-low heat.",
       "Pour in eggs. Stir slowly and constantly with a spatula.",
-      "When eggs are almost set but still slightly glossy remove from heat.",
+      "When eggs are almost set but still slightly glossy, remove from heat.",
       "Fold in cheddar cheese. Serve immediately on toast."
     ]
   },
-  "rice-bowl": {
-    title: "Beef + Rice Bowl",
-    time: "35 min",
-    skill: "Beginner",
-    servings: "2 servings",
-    tags: ["Gluten-free", "Dairy-free"],
-    ingredients: [
-      { name: "Ground beef", qty: "0.5 lbs", have: true },
-      { name: "Brown rice", qty: "1.5 cups", have: true },
-      { name: "Yellow onion", qty: "half onion", have: true },
-      { name: "Garlic", qty: "2 cloves", have: true },
-      { name: "Olive oil", qty: "1 tbsp", have: true }
+  "rice-bowl":{
+    title:"Beef & Rice Bowl", time:"35 min", skill:"Beginner", servings:"2 servings",
+    tags:["Gluten-free","Dairy-free"],
+    ingredients:[
+      {name:"Ground beef",  qty:"1 lb",    have:true},
+      {name:"Brown rice",   qty:"1.5 cups",have:true},
+      {name:"Yellow onion", qty:"1 onion", have:true},
+      {name:"Garlic",       qty:"2 cloves",have:true},
+      {name:"Olive oil",    qty:"1 tbsp",  have:true}
     ],
-    steps: [
+    steps:[
       "Cook brown rice per package directions.",
       "Dice onion and mince garlic. Heat oil in a pan over medium heat.",
       "Add onion and cook 3 min until softened. Add garlic cook 1 min.",
@@ -114,642 +96,628 @@ var recipes = {
   }
 };
 
-var mealPlan = {};
-var currentRecipe = null;
-var roommateOn = false;
-var nextId = 200;
-var typeFilt = "";
-var locFilt = "";
+// ─── State ────────────────────────────────────────────────────────────────────
+var invItems    = [];   // {id, name, qty, unit, cat, exp, loc, shared}
+var invNextId   = 100;
+var deleteTargetId = null;
 
-var shopItems = [
-  { id: 101, name: "Soy sauce", qty: 3, unit: "tbsp", cat: "Condiments", source: "recipe", recipe: "Beef & Broccoli", checked: false },
-  { id: 102, name: "Olive oil", qty: 1, unit: "bottles", cat: "Oils", source: "manual", recipe: "", checked: false },
-  { id: 103, name: "Baby spinach", qty: 5, unit: "oz", cat: "Produce", source: "manual", recipe: "", checked: true },
-  { id: 104, name: "Cherry tomatoes", qty: 1, unit: "count", cat: "Produce", source: "manual", recipe: "", checked: false }
+var shopItems   = [
+  {id:500, name:"Soy sauce",        qty:1,  unit:"bottle", cat:"Condiments", src:"recipe", recipe:"Beef & Broccoli Stir Fry", checked:false},
+  {id:501, name:"Parsley",          qty:1,  unit:"bunch",  cat:"Produce",    src:"recipe", recipe:"Spaghetti Aglio e Olio",   checked:false},
+  {id:502, name:"Parmesan",         qty:4,  unit:"oz",     cat:"Dairy",      src:"recipe", recipe:"Spaghetti Aglio e Olio",   checked:false},
+  {id:503, name:"Cherry tomatoes",  qty:1,  unit:"pint",   cat:"Produce",    src:"manual", recipe:"",                          checked:false},
+  {id:504, name:"Greek yogurt",     qty:2,  unit:"cups",   cat:"Dairy",      src:"manual", recipe:"",                          checked:false},
+  {id:505, name:"Sriracha",         qty:1,  unit:"bottle", cat:"Condiments", src:"manual", recipe:"",                          checked:false},
+  {id:506, name:"Lemon",            qty:3,  unit:"count",  cat:"Produce",    src:"manual", recipe:"",                          checked:false},
+  {id:507, name:"Whole wheat bread",qty:1,  unit:"loaf",   cat:"Grain",      src:"manual", recipe:"",                          checked:false},
+  {id:508, name:"Peanut butter",    qty:1,  unit:"jar",    cat:"Other",      src:"manual", recipe:"",                          checked:true},
+  {id:509, name:"Oat milk",         qty:1,  unit:"carton", cat:"Dairy",      src:"manual", recipe:"",                          checked:true}
 ];
+var shopNextId  = 600;
+
+var mealPlan    = {
+  "Monday":    [{title:"Cheesy Scrambled Eggs",      mealType:"Breakfast"}, {title:"Chicken Fried Rice",       mealType:"Dinner"}],
+  "Tuesday":   [{title:"Beef & Broccoli Stir Fry",   mealType:"Dinner"}],
+  "Wednesday": [{title:"Spaghetti Aglio e Olio",     mealType:"Dinner"}],
+  "Thursday":  [{title:"Cheesy Scrambled Eggs",      mealType:"Breakfast"}, {title:"Beef & Rice Bowl",          mealType:"Dinner"}],
+  "Friday":    [{title:"Chicken Fried Rice",          mealType:"Dinner"}],
+  "Saturday":  [{title:"Beef & Broccoli Stir Fry",   mealType:"Lunch"},   {title:"Beef & Rice Bowl",          mealType:"Dinner"}],
+  "Sunday":    [{title:"Cheesy Scrambled Eggs",      mealType:"Breakfast"}]
+};  // {day: [{title, mealType}]}
+var currentRecipe = null;
+var roommateOn  = false;
+var typeFiltActive = "";
+var locFiltActive  = "";
+
+var doneQueue   = [];
+var doneIdx     = 0;
 
 var seedItems = [
-  { name: "Sriracha", qty: 1, unit: "bottle", cat: "Pantry", exp: "2026-04-09", loc: "Pantry", shared: true },
-  { name: "Broccoli", qty: 1, unit: "head", cat: "Produce", exp: "2026-04-11", loc: "Fridge", shared: false },
-  { name: "Chicken breast", qty: 2, unit: "lbs", cat: "Protein", exp: "2026-04-04", loc: "Fridge", shared: true },
-  { name: "Ground turkey", qty: 1, unit: "lb", cat: "Protein", exp: "2026-04-10", loc: "Freezer", shared: true },
-  { name: "Spinach", qty: 1, unit: "bag", cat: "Produce", exp: "2026-04-07", loc: "Fridge", shared: false },
-  { name: "Apples", qty: 6, unit: "count", cat: "Produce", exp: "2026-04-07", loc: "Fridge", shared: false },
-  { name: "Bananas", qty: 1, unit: "bunch", cat: "Produce", exp: "2026-05-07", loc: "Pantry", shared: true },
-  { name: "Rice", qty: 2, unit: "lbs", cat: "Pantry", exp: "2026-06-07", loc: "Pantry", shared: true },
-  { name: "Pasta", qty: 1, unit: "box", cat: "Pantry", exp: "2026-06-07", loc: "Pantry", shared: false },
-  { name: "Olive oil", qty: 1, unit: "bottle", cat: "Pantry", exp: "2026-08-07", loc: "Pantry", shared: true },
-  { name: "Sesame oil", qty: 1, unit: "bottle", cat: "Pantry", exp: "2026-08-08", loc: "Pantry", shared: false }
+  {name:"Chicken breast", qty:2,  unit:"lbs",    cat:"Protein", exp:"2026-05-08", loc:"Fridge",  shared:true},
+  {name:"Ground beef",    qty:1,  unit:"lb",     cat:"Protein", exp:"2026-05-09", loc:"Fridge",  shared:true},
+  {name:"Eggs",           qty:12, unit:"count",  cat:"Protein", exp:"2026-05-20", loc:"Fridge",  shared:false},
+  {name:"Cheddar cheese", qty:8,  unit:"oz",     cat:"Dairy",   exp:"2026-05-18", loc:"Fridge",  shared:true},
+  {name:"Whole milk",     qty:1,  unit:"gallon", cat:"Dairy",   exp:"2026-05-10", loc:"Fridge",  shared:true},
+  {name:"Butter",         qty:2,  unit:"count",  cat:"Dairy",   exp:"2026-07-01", loc:"Fridge",  shared:true},
+  {name:"Broccoli",       qty:1,  unit:"head",   cat:"Produce", exp:"2026-05-08", loc:"Fridge",  shared:false},
+  {name:"Spinach",        qty:1,  unit:"bag",    cat:"Produce", exp:"2026-05-07", loc:"Fridge",  shared:false},
+  {name:"Apples",         qty:6,  unit:"count",  cat:"Produce", exp:"2026-05-14", loc:"Fridge",  shared:false},
+  {name:"Bananas",        qty:5,  unit:"count",  cat:"Produce", exp:"2026-05-09", loc:"Pantry",  shared:true},
+  {name:"Garlic",         qty:1,  unit:"head",   cat:"Produce", exp:"2026-06-01", loc:"Pantry",  shared:true},
+  {name:"Yellow onion",   qty:3,  unit:"count",  cat:"Produce", exp:"2026-06-01", loc:"Pantry",  shared:true},
+  {name:"Brown rice",     qty:2,  unit:"lbs",    cat:"Grain",  exp:"2027-01-01", loc:"Pantry",  shared:true},
+  {name:"Spaghetti",      qty:1,  unit:"box",    cat:"Grain",  exp:"2027-03-01", loc:"Pantry",  shared:false},
+  {name:"Olive oil",      qty:1,  unit:"bottle", cat:"Other",  exp:"2026-12-01", loc:"Pantry",  shared:true},
+  {name:"Sesame oil",     qty:1,  unit:"bottle", cat:"Other",  exp:"2026-11-01", loc:"Pantry",  shared:false},
+  {name:"Soy sauce",      qty:1,  unit:"bottle", cat:"Other",  exp:"2026-10-01", loc:"Pantry",  shared:true},
+  {name:"Ground turkey",  qty:1,  unit:"lb",     cat:"Protein", exp:"2026-05-15", loc:"Freezer", shared:true},
+  {name:"Frozen peas",    qty:2,  unit:"cups",   cat:"Produce", exp:"2026-12-01", loc:"Freezer", shared:false},
+  {name:"Frozen shrimp",  qty:1,  unit:"lb",     cat:"Protein", exp:"2026-10-01", loc:"Freezer", shared:true},
+  {name:"Yogurt",         qty:3,  unit:"count",  cat:"Dairy",   exp:"2026-05-12", loc:"Fridge",  shared:false},
+  {name:"Bell pepper",    qty:2,  unit:"count",  cat:"Produce", exp:"2026-05-11", loc:"Fridge",  shared:true},
+  {name:"Carrots",        qty:1,  unit:"bag",    cat:"Produce", exp:"2026-05-20", loc:"Fridge",  shared:true},
+  {name:"Oat milk",       qty:1,  unit:"carton", cat:"Dairy",   exp:"2026-05-16", loc:"Fridge",  shared:true},
+  {name:"Bread",          qty:1,  unit:"loaf",   cat:"Grain",   exp:"2026-05-10", loc:"Pantry",  shared:true},
+  {name:"Peanut butter",  qty:1,  unit:"jar",    cat:"Other",   exp:"2026-11-01", loc:"Pantry",  shared:false},
+  {name:"Honey",          qty:1,  unit:"bottle", cat:"Other",   exp:"2027-01-01", loc:"Pantry",  shared:true},
+  {name:"Black beans",    qty:2,  unit:"cans",   cat:"Protein", exp:"2027-06-01", loc:"Pantry",  shared:true},
+  {name:"Diced tomatoes", qty:2,  unit:"cans",   cat:"Produce", exp:"2027-06-01", loc:"Pantry",  shared:true}
 ];
 
-var doneQueue = [];
-var doneIdx = 0;
+// ─── Toast (no window.alert / confirm ever) ───────────────────────────────────
+function showToast(msg) {
+  var t = document.getElementById("toastBar");
+  t.textContent = msg;
+  t.classList.add("show");
+  setTimeout(function() { t.classList.remove("show"); }, 2800);
+}
 
+// ─── Tab switching ────────────────────────────────────────────────────────────
 function openTab(e, tabId) {
-  var all = document.getElementsByClassName("tabcontent");
-  for (var i = 0; i < all.length; i++) {
-    all[i].style.display = "none";
-  }
-  var btns = document.getElementsByClassName("tablinks");
-  for (var i = 0; i < btns.length; i++) {
-    btns[i].classList.remove("active");
-  }
-  document.getElementById(tabId).style.display = "flex";
+  document.querySelectorAll(".tabcontent").forEach(function(t){ t.style.display="none"; });
+  document.querySelectorAll(".tablinks").forEach(function(b){ b.classList.remove("active"); });
+  document.getElementById(tabId).style.display="flex";
   e.currentTarget.classList.add("active");
+  if (tabId === "recipes") applyDietaryPref();
 }
 
 function pickSeg(btn, groupId) {
-  var grp = document.getElementById(groupId);
-  var opts = grp.querySelectorAll(".segBtn");
-  for (var i = 0; i < opts.length; i++) {
-    opts[i].classList.remove("active");
-  }
+  document.querySelectorAll("#"+groupId+" .segBtn").forEach(function(b){ b.classList.remove("active"); });
   btn.classList.add("active");
 }
-
 function getSegVal(groupId) {
-  var b = document.querySelector("#" + groupId + " .segBtn.active");
-  if (b) return b.textContent.trim();
-  return "";
+  var b = document.querySelector("#"+groupId+" .segBtn.active");
+  return b ? b.textContent.trim() : "";
 }
 
-function filterAll(btn) {
-  typeFilt = "";
-  locFilt = "";
-  var filts = document.querySelectorAll("#inventory .filt");
-  for (var i = 0; i < filts.length; i++) filts[i].classList.remove("active");
-  btn.classList.add("active");
-  var items = document.querySelectorAll("#inventoryList .invItem");
-  for (var i = 0; i < items.length; i++) items[i].style.display = "";
-}
+// ─── Inventory rendering ─────────────────────────────────────────────────────
+function renderInv() {
+  var ul = document.getElementById("inventoryList");
+  ul.innerHTML = "";
+  var today = new Date();
+  invItems.forEach(function(item) {
+    if (typeFiltActive && item.cat !== typeFiltActive) return;
+    if (locFiltActive  && item.loc !== locFiltActive)  return;
 
-function addInvItem(name, qty, unit, cat, exp, loc, shared) {
-  var list = document.getElementById("inventoryList");
-  var li = document.createElement("li");
-  li.className = "invItem";
-  li.dataset.cat = cat;
-  li.dataset.loc = loc;
-  li.dataset.shared = shared ? "1" : "0";
-  li._qty = qty;
-  li._unit = unit;
+    var daysLeft = item.exp ? (new Date(item.exp) - today) / 86400000 : 999;
+    var expBadge = "";
+    if (item.exp && daysLeft <= 0)   expBadge = '<span class="badge expiredBadge">Expired</span>';
+    else if (item.exp && daysLeft<=5) expBadge = '<span class="badge expiringBadge">Expiring</span>';
 
-  var days = (new Date(exp) - new Date()) / 86400000;
-  var expTag = "";
-  if (exp && days <= 0) {
-    expTag = '<span class="expiredTag">Expired</span>';
-  } else if (exp && days <= 5) {
-    expTag = '<span class="expTag">Expiring Soon</span>';
-  }
-
-  var badge = "";
-  if (roommateOn) {
-    if (shared) {
-      badge = '<span class="shareBadge sharedItem">Shared</span>';
-    } else {
-      badge = '<span class="shareBadge personalItem">Personal</span>';
+    var shareBadge = "";
+    if (roommateOn) {
+      shareBadge = item.shared
+        ? '<span class="badge sharedBadge">Shared</span>'
+        : '<span class="badge personalBadge">Personal</span>';
     }
-  }
 
-  var catBadge = "";
-  if (cat != "Pantry") {
-    catBadge = '<span class="catBadge">' + cat + "</span>";
-  }
-
-  li.innerHTML = '<span class="invName">' + name + '</span>' + expTag + catBadge +
-    '<span class="locBadge">' + loc + '</span>' + badge +
-    '<button class="qtyBtn" onclick="changeQty(this, 0.5)">+</button>' +
-    '<span class="qtyVal">' + qty + " " + unit + '</span>' +
-    '<button class="qtyBtn" onclick="changeQty(this, -0.5)">-</button>' +
-    '<button class="delBtn" onclick="this.parentElement.remove()">X</button>';
-
-  list.appendChild(li);
+    var dotColor = daysLeft <= 0 ? "#b91c1c" : daysLeft <= 5 ? "#b45309" : "#1b5e3b";
+    var li = document.createElement("li");
+    li.className = "invItem";
+    li.innerHTML =
+      '<span class="invDot" style="background:'+dotColor+'"></span>'+
+      '<div class="invNameCell">'+
+        '<span class="invName">'+item.name+'</span>'+
+        '<span class="invBadges">'+
+          '<span class="badge locBadge">'+item.loc+'</span>'+
+          '<span class="badge catBadge">'+item.cat+'</span>'+
+          expBadge+shareBadge+
+        '</span>'+
+      '</div>'+
+      '<span class="invQtyBlock">'+
+        '<button class="qtyBtn" onclick="changeInvQty('+item.id+',-1)">&#8722;</button>'+
+        '<span class="qtyVal">'+item.qty+' '+item.unit+'</span>'+
+        '<button class="qtyBtn" onclick="changeInvQty('+item.id+',1)">+</button>'+
+      '</span>'+
+      '<button class="editBtn" onclick="openEditItem('+item.id+')" title="Edit">&#9998;</button>'+
+      '<button class="delBtn" onclick="promptDelete('+item.id+')" title="Remove">&#10005;</button>';
+    ul.appendChild(li);
+  });
 }
 
-for (var s = 0; s < seedItems.length; s++) {
-  var si = seedItems[s];
-  addInvItem(si.name, si.qty, si.unit, si.cat, si.exp, si.loc, si.shared);
+function changeInvQty(id, delta) {
+  var item = invItems.find(function(x){ return x.id===id; });
+  if (!item) return;
+  var nq = item.qty + delta;
+  if (nq < 1) { promptDelete(id); return; }  // confirm before removing
+  item.qty = nq;
+  renderInv();
 }
 
-document.getElementById("myBtn").onclick = function () {
-  document.getElementById("myModal").style.display = "flex";
-};
+// In-app delete confirmation (never window.confirm)
+function promptDelete(id) {
+  var item = invItems.find(function(x){ return x.id===id; });
+  if (!item) return;
+  deleteTargetId = id;
+  document.getElementById("deleteItemName").textContent = item.name;
+  document.getElementById("deleteModal").style.display = "flex";
+}
+function confirmDelete() {
+  invItems = invItems.filter(function(x){ return x.id!==deleteTargetId; });
+  closeModal("deleteModal");
+  renderInv();
+  showToast("Item removed from inventory.");
+}
 
-document.getElementById("closeModal").onclick = function () {
-  document.getElementById("myModal").style.display = "none";
-};
+// Edit item
+function openEditItem(id) {
+  var item = invItems.find(function(x){ return x.id===id; });
+  if (!item) return;
+  document.getElementById("editItemId").value = id;
+  document.getElementById("editName").value   = item.name;
+  document.getElementById("editQty").value    = item.qty;
+  document.getElementById("editUnit").value   = item.unit;
+  document.getElementById("editCat").value    = item.cat;
+  document.getElementById("editExp").value    = item.exp || "";
+  document.getElementById("editShared").checked = item.shared;
+  var lBtns = document.querySelectorAll("#editLocSeg .segBtn");
+  lBtns.forEach(function(b){ b.classList.toggle("active", b.textContent.trim()===item.loc); });
+  document.getElementById("editModal").style.display = "flex";
+}
+function saveEditItem() {
+  var id   = parseInt(document.getElementById("editItemId").value);
+  var item = invItems.find(function(x){ return x.id===id; });
+  if (!item) return;
+  item.name   = document.getElementById("editName").value.trim() || item.name;
+  item.qty    = Math.max(1, parseInt(document.getElementById("editQty").value)||1);
+  item.unit   = document.getElementById("editUnit").value;
+  item.cat    = document.getElementById("editCat").value;
+  item.exp    = document.getElementById("editExp").value;
+  item.loc    = getSegVal("editLocSeg") || item.loc;
+  item.shared = document.getElementById("editShared").checked;
+  closeModal("editModal");
+  renderInv();
+  showToast("Item updated.");
+}
 
-document.getElementById("addInventoryBtn").onclick = function () {
+// Seed
+seedItems.forEach(function(s){
+  invItems.push({id:invNextId++, name:s.name, qty:s.qty, unit:s.unit,
+    cat:s.cat, exp:s.exp, loc:s.loc, shared:s.shared});
+});
+renderInv();
+
+// Add Item
+document.getElementById("myBtn").onclick = function() {
+  document.getElementById("invenName").value="";
+  document.getElementById("inventQty").value="1";
+  document.getElementById("invenExp").value="";
+  document.getElementById("inven-err").textContent="";
+  document.getElementById("myModal").style.display="flex";
+};
+document.getElementById("closeModal").onclick = function(){ closeModal("myModal"); };
+document.getElementById("addInventoryBtn").onclick = function() {
   var n = document.getElementById("invenName").value.trim();
-  if (n == "") return;
-  var q = parseFloat(document.getElementById("inventQty").value);
-  if (!q) q = 1;
-  var u = document.getElementById("invenUnit").value;
-  var c = document.getElementById("invenCat").value;
+  if (!n) { document.getElementById("inven-err").textContent="Please enter a name."; return; }
+  var q  = Math.max(1, parseInt(document.getElementById("inventQty").value)||1);
+  var u  = document.getElementById("invenUnit").value;
+  var c  = document.getElementById("invenCat").value;
   var ex = document.getElementById("invenExp").value;
-  var lc = getSegVal("locSeg");
-  if (!lc) lc = "Fridge";
+  var lc = getSegVal("locSeg")||"Fridge";
   var sh = document.getElementById("invenShared").checked;
-  addInvItem(n, q, u, c, ex, lc, sh);
-  document.getElementById("invenName").value = "";
-  document.getElementById("inventQty").value = "1";
-  document.getElementById("myModal").style.display = "none";
+  invItems.push({id:invNextId++, name:n, qty:q, unit:u, cat:c, exp:ex, loc:lc, shared:sh});
+  closeModal("myModal");
+  renderInv();
+  showToast(n+" added to your kitchen!");
 };
 
-function changeQty(btn, delta) {
-  var li = btn.parentElement;
-  li._qty = li._qty + delta;
-  if (li._qty <= 0) {
-    li.remove();
-    return;
-  }
-  li.querySelector(".qtyVal").textContent = li._qty + " " + li._unit;
-}
-
-function filterType(val, btn) {
-  typeFilt = val;
-  locFilt = "";
-  var filts = document.querySelectorAll("#inventory .filt");
-  for (var i = 0; i < filts.length; i++) filts[i].classList.remove("active");
+// ─── Inventory filters (type AND loc simultaneously; toggle off on second tap) ──
+function filterAll(btn) {
+  typeFiltActive=""; locFiltActive="";
+  document.querySelectorAll(".filt.typeFilt,.filt.locFilt").forEach(function(f){ f.classList.remove("active"); });
   btn.classList.add("active");
-  runFilter();
+  renderInv();
+}
+function toggleTypeFilt(val, btn) {
+  if (typeFiltActive===val) { typeFiltActive=""; btn.classList.remove("active"); }
+  else { typeFiltActive=val; document.querySelectorAll(".filt.typeFilt").forEach(function(f){ f.classList.remove("active"); }); btn.classList.add("active"); }
+  document.getElementById("filtAll").classList.remove("active");
+  renderInv();
+}
+function toggleLocFilt(val, btn) {
+  if (locFiltActive===val) { locFiltActive=""; btn.classList.remove("active"); }
+  else { locFiltActive=val; document.querySelectorAll(".filt.locFilt").forEach(function(f){ f.classList.remove("active"); }); btn.classList.add("active"); }
+  document.getElementById("filtAll").classList.remove("active");
+  renderInv();
 }
 
-function runFilter() {
-  var items = document.querySelectorAll("#inventoryList .invItem");
-  for (var i = 0; i < items.length; i++) {
-    var item = items[i];
-    var show = true;
-    if (typeFilt != "" && item.dataset.cat != typeFilt) show = false;
-    if (locFilt != "" && item.dataset.loc != locFilt) show = false;
-    if (show) {
-      item.style.display = "";
-    } else {
-      item.style.display = "none";
-    }
+// ─── Recipe filters ───────────────────────────────────────────────────────────
+var activeDietFilter = "all";
+function recipeFilterBtn(btn) {
+  document.querySelectorAll("#recipeList .recipeCard").forEach(function(c){ c.style.display="flex"; });
+  document.querySelectorAll("#recipes .filterBar .filt").forEach(function(f){ f.classList.remove("active"); });
+  btn.classList.add("active");
+  activeDietFilter = btn.dataset.filter;
+  applyRecipeFilters();
+}
+function applyRecipeFilters() {
+  var search = (document.getElementById("recipeSearch").value||"").toLowerCase().trim();
+  var owned  = document.getElementById("togOwned").classList.contains("active");
+  document.querySelectorAll(".recipeCard").forEach(function(c){
+    var matchDiet   = (!activeDietFilter || activeDietFilter==="all" || c.dataset.tags.indexOf(activeDietFilter)!==-1);
+    var matchSearch = !search || c.querySelector(".recipeName").textContent.toLowerCase().indexOf(search)!==-1;
+    var matchOwned  = !owned  || (function(){ var p=c.dataset.ing.split("/"); return p[0]===p[1]; })();
+    c.style.display = (matchDiet && matchSearch && matchOwned) ? "flex" : "none";
+  });
+}
+function showAll(btn) {
+  document.querySelectorAll(".togBtn").forEach(function(b){ b.classList.remove("active"); });
+  btn.classList.add("active");
+  applyRecipeFilters();
+}
+function showOwned(btn) {
+  document.querySelectorAll(".togBtn").forEach(function(b){ b.classList.remove("active"); });
+  btn.classList.add("active");
+  applyRecipeFilters();
+}
+
+// Dietary preference from profile auto-applied
+function applyDietaryPref() {
+  var pref = localStorage.getItem("profileRestriction")||"";
+  var banner = document.getElementById("dietaryBanner");
+  var map = {vegetarian:"vegetarian",vegan:"vegetarian","gluten-free":"gluten-free","dairy-free":"dairy-free"};
+  var fKey = map[pref];
+  if (fKey) {
+    document.getElementById("dietaryBannerText").textContent = "Filtered by your profile: "+pref.charAt(0).toUpperCase()+pref.slice(1);
+    banner.style.display="flex";
+    activeDietFilter = fKey;
+    document.querySelectorAll("#recipes .filterBar .filt").forEach(function(f){
+      f.classList.toggle("active", f.dataset.filter===fKey);
+    });
+    applyRecipeFilters();
+  } else {
+    banner.style.display="none";
   }
 }
+function clearDietaryFilter() {
+  document.getElementById("dietaryBanner").style.display="none";
+  activeDietFilter="all";
+  document.querySelectorAll("#recipes .filterBar .filt").forEach(function(f){ f.classList.toggle("active", f.dataset.filter==="all"); });
+  applyRecipeFilters();
+}
 
+// ─── Recipe detail ────────────────────────────────────────────────────────────
 function openRecipe(key) {
   var r = recipes[key];
   if (!r) return;
   currentRecipe = key;
-
   document.getElementById("rd-title").textContent = r.title;
   var hero = document.getElementById("rd-hero");
-  hero.src = recipeImageSrc(r.title);
-  hero.alt = r.title;
-
+  hero.src = encodeURIComponent(r.title+".png"); hero.alt = r.title;
   document.getElementById("rd-meta").innerHTML =
-    '<span class="metaChip">' +
-    r.time +
-    "</span> <span class=\"metaChip\">" +
-    r.servings +
-    "</span> <span class=\"metaChip\">" +
-    r.skill +
-    "</span>";
-
-  var tagHtml = "";
-  for (var i = 0; i < r.tags.length; i++) {
-    tagHtml +=
-      '<span class="tag ' + tagClassForName(r.tags[i]) + '">' +
-      r.tags[i] +
-      "</span>";
-  }
-  document.getElementById("rd-tags").innerHTML = tagHtml;
+    '<span class="metaChip">&#x23F1; '+r.time+'</span>'+
+    '<span class="metaChip">&#x1F374; '+r.servings+'</span>'+
+    '<span class="metaChip">&#x1F52A; '+r.skill+'</span>';
+  var tagHtml="";
+  r.tags.forEach(function(t){ tagHtml+='<span class="tag '+tagClass(t)+'">'+t+'</span>'; });
+  document.getElementById("rd-tags").innerHTML=tagHtml;
 
   var ingrEl = document.getElementById("rd-ingr-list");
-  ingrEl.innerHTML = "";
-  var hasMissing = false;
-  for (var i = 0; i < r.ingredients.length; i++) {
-    var ing = r.ingredients[i];
-    if (!ing.have) hasMissing = true;
-    var row = document.createElement("div");
-    row.className = "ingrRow";
-    var checkClass = ing.have ? "ingrYes" : "ingrNo";
-    var checkSymbol = ing.have ? "Have" : "Need";
-    row.innerHTML = '<span class="filt ' + checkClass + '">' + checkSymbol + '</span>' +
-      '<span class="ingrName">' + ing.name + '</span>' +
-      '<span class="ingrQty">' + ing.qty + '</span>';
+  ingrEl.innerHTML="";
+  var hasMissing=false;
+  r.ingredients.forEach(function(ing){
+    if (!ing.have) hasMissing=true;
+    var row=document.createElement("div"); row.className="ingrRow";
+    row.innerHTML='<span class="ingrCheck '+(ing.have?"ingrYes":"ingrNo")+'">'+(ing.have?"&#x2713;":"&#x2717;")+'</span>'+
+      '<span class="ingrName">'+ing.name+'</span><span class="ingrQty">'+ing.qty+'</span>';
     ingrEl.appendChild(row);
-  }
+  });
+  document.getElementById("rd-add-missing-btn").style.display = hasMissing?"block":"none";
 
-  if (hasMissing) {
-    document.getElementById("rd-add-missing-btn").style.display = "block";
-  } else {
-    document.getElementById("rd-add-missing-btn").style.display = "none";
-  }
-
-  var stepsHtml = "";
-  for (var i = 0; i < r.steps.length; i++) {
-    stepsHtml += '<div class="stepRow"><div class="stepNum">' + (i + 1) + '</div><div class="stepText">' + r.steps[i] + '</div></div>';
-  }
-  document.getElementById("rd-steps-list").innerHTML = stepsHtml;
-
-  var tabs = document.getElementsByClassName("tabcontent");
-  for (var i = 0; i < tabs.length; i++) tabs[i].style.display = "none";
-  document.getElementById("recipe-detail").style.display = "flex";
-
-  var navBtns = document.getElementsByClassName("tablinks");
-  for (var i = 0; i < navBtns.length; i++) navBtns[i].classList.remove("active");
+  var stepsEl = document.getElementById("rd-steps-list");
+  stepsEl.innerHTML="";
+  r.steps.forEach(function(step,i){
+    var row=document.createElement("div"); row.className="stepRow";
+    row.innerHTML='<div class="stepNum">'+(i+1)+'</div><div class="stepText">'+step+'</div>';
+    stepsEl.appendChild(row);
+  });
+  document.querySelectorAll(".tabcontent").forEach(function(t){ t.style.display="none"; });
+  document.getElementById("recipe-detail").style.display="flex";
+  document.querySelectorAll(".tablinks").forEach(function(b){ b.classList.remove("active"); });
 }
-
-function filterLoc(val, btn) {
-  locFilt = val;
-  typeFilt = "";
-  var filts = document.querySelectorAll("#inventory .filt");
-  for (var i = 0; i < filts.length; i++) filts[i].classList.remove("active");
-  btn.classList.add("active");
-  runFilter();
-}
-
 function closeRecipe() {
-  document.getElementById("recipe-detail").style.display = "none";
-  document.getElementById("recipes").style.display = "flex";
-  var links = document.getElementsByClassName("tablinks");
-  for (var i = 0; i < links.length; i++) links[i].classList.remove("active");
-  var recipesTab = document.getElementById("tab-btn-recipes");
-  if (recipesTab) recipesTab.classList.add("active");
+  document.getElementById("recipe-detail").style.display="none";
+  document.getElementById("recipes").style.display="flex";
+  document.querySelectorAll(".tablinks").forEach(function(b){ b.classList.remove("active"); });
+  var rb = document.getElementById("tab-btn-recipes"); if (rb) rb.classList.add("active");
 }
-
-function tagClassForName(tagName) {
-  if (tagName == "Vegetarian") return "tagGreen";
-  if (tagName == "High Protein") return "tagPurple";
-  if (tagName == "Low Cal") return "tagOrange";
-  if (tagName == "Uses expiring items") return "tagWarn";
+function tagClass(t) {
+  if (t==="Vegetarian") return "tagGreen";
+  if (t==="Uses expiring items") return "tagWarn";
   return "tagBlue";
 }
 
-function recipeFilter(btn) {
-  var allFilts = document.querySelectorAll("#recipes .filt");
-  for (var i = 0; i < allFilts.length; i++) allFilts[i].classList.remove("active");
-  btn.classList.add("active");
-  var f = btn.dataset.filter;
-  var cards = document.querySelectorAll(".recipeCard");
-  for (var i = 0; i < cards.length; i++) {
-    var c = cards[i];
-    if (!f || f == "all" || c.dataset.tags.indexOf(f) != -1) {
-      c.style.display = "flex";
-    } else {
-      c.style.display = "none";
-    }
-  }
-}
-
 function addMissingToShopping() {
-  var r = recipes[currentRecipe];
-  if (!r) return;
-  var count = 0;
-  for (var i = 0; i < r.ingredients.length; i++) {
-    var ing = r.ingredients[i];
-    if (!ing.have) {
-      var found = false;
-      for (var j = 0; j < shopItems.length; j++) {
-        if (shopItems[j].name.toLowerCase() == ing.name.toLowerCase()) {
-          found = true;
-          break;
-        }
-      }
-      if (!found) {
-        shopItems.push({ id: nextId, name: ing.name, qty: 1, unit: "count", cat: "Other", source: "recipe", recipe: r.title, checked: false });
-        nextId++;
-        count++;
-      }
+  var r=recipes[currentRecipe]; if (!r) return;
+  var count=0;
+  r.ingredients.forEach(function(ing){
+    if (!ing.have && !shopItems.some(function(s){ return s.name.toLowerCase()===ing.name.toLowerCase(); })) {
+      shopItems.push({id:shopNextId++, name:ing.name, qty:1, unit:"count", cat:"Other",
+        src:"recipe", recipe:r.title, checked:false});
+      count++;
     }
-  }
-  renderShopList();
-  alert(count + " item(s) added to shopping list!");
-}
-
-function renderShopList() {
-  var rUL = document.getElementById("shopListRecipe");
-  var mUL = document.getElementById("shopListManual");
-  var cUL = document.getElementById("shopListChecked");
-  rUL.innerHTML = "";
-  mUL.innerHTML = "";
-  cUL.innerHTML = "";
-
-  var toBuyCount = 0;
-  var gotItCount = 0;
-
-  for (var i = 0; i < shopItems.length; i++) {
-    var item = shopItems[i];
-
-    var li = document.createElement("li");
-    li.className = "shopRow";
-    if (item.checked) li.className += " rowChecked";
-
-    var metaText = item.qty + " " + item.unit;
-    if (item.recipe != "") metaText += " · " + item.recipe;
-
-    li.innerHTML = '<input type="checkbox"' + (item.checked ? " checked" : "") + '>' +
-      '<div class="shopRowInfo"><div class="shopRowName">' + item.name + '</div>' +
-      '<div class="shopRowMeta">' + metaText + '</div></div>' +
-      '<span class="shopRowCat">' + item.cat + '</span>';
-
-    var checkbox = li.querySelector("input");
-    var itemId = item.id;
-    checkbox.addEventListener("change", function () {
-      for (var i = 0; i < shopItems.length; i++) {
-        if (shopItems[i].id == itemId) {
-          shopItems[i].checked = checkbox.checked;
-          break;
-        }
-      }
-      renderShopList();
-      var gotItOn = document.getElementById("tab-gotit").classList.contains("active");
-      if (gotItOn) {
-        document.getElementById("panel-tobuy").style.display = "none";
-        document.getElementById("panel-gotit").style.display = "block";
-      }
-    });
-
-    if (item.checked) {
-      cUL.appendChild(li);
-      gotItCount++;
-    } else {
-      if (item.source == "recipe") {
-        rUL.appendChild(li);
-      } else {
-        mUL.appendChild(li);
-      }
-      toBuyCount++;
-    }
-  }
-
-  document.getElementById("tobuy-count").textContent = toBuyCount;
-  document.getElementById("gotit-count").textContent = gotItCount;
-  document.getElementById("shop-subtitle").textContent = shopItems.length + " items · " + gotItCount + " checked";
-}
-
-function showAll(btn) {
-  var togs = document.querySelectorAll(".togBtn");
-  for (var i = 0; i < togs.length; i++) togs[i].classList.remove("active");
-  btn.classList.add("active");
-  var cards = document.querySelectorAll(".recipeCard");
-  for (var i = 0; i < cards.length; i++) cards[i].style.display = "flex";
-}
-
-function showOwned(btn) {
-  var togs = document.querySelectorAll(".togBtn");
-  for (var i = 0; i < togs.length; i++) togs[i].classList.remove("active");
-  btn.classList.add("active");
-  var cards = document.querySelectorAll(".recipeCard");
-  for (var i = 0; i < cards.length; i++) {
-    var parts = cards[i].dataset.ing.split("/");
-    if (parts[0] == parts[1]) {
-      cards[i].style.display = "flex";
-    } else {
-      cards[i].style.display = "none";
-    }
-  }
-}
-
-function openAddShop() {
-  document.getElementById("shop-inp-name").value = "";
-  document.getElementById("shop-inp-qty").value = "1";
-  document.getElementById("shop-inp-err").textContent = "";
-  document.getElementById("addShopModal").style.display = "flex";
-}
-
-function submitShopItem() {
-  var name = document.getElementById("shop-inp-name").value.trim();
-  if (name == "") {
-    document.getElementById("shop-inp-err").textContent = "Please enter an item name.";
-    return;
-  }
-  var qty = parseFloat(document.getElementById("shop-inp-qty").value);
-  if (!qty) qty = 1;
-  shopItems.push({
-    id: nextId,
-    name: name,
-    qty: qty,
-    unit: document.getElementById("shop-inp-unit").value,
-    cat: document.getElementById("shop-inp-cat").value,
-    source: "manual",
-    recipe: "",
-    checked: false
   });
-  nextId++;
+  renderShopList();
+  showToast(count>0 ? count+" item(s) added to your shopping list." : "All missing items already on your list.");
+}
+
+// ─── Meal plan ────────────────────────────────────────────────────────────────
+function quickAddMealPlan(key) {
+  currentRecipe = key;
+  openAddToMealPlan();
+}
+function openAddToMealPlan() {
+  var r = currentRecipe ? recipes[currentRecipe] : null;
+  document.getElementById("cal-recipe-name").textContent = r ? r.title : "";
+  document.querySelectorAll(".calDayBtn").forEach(function(b){ b.classList.remove("calDayActive"); });
+  renderPlanPreview();
+  document.getElementById("addMealModal").style.display="flex";
+}
+function toggleDay(btn) {
+  btn.classList.toggle("calDayActive");
+  renderPlanPreview();
+}
+function renderPlanPreview() {
+  var el = document.getElementById("planPreviewInModal");
+  var html="";
+  var days=["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"];
+  days.forEach(function(d){
+    if (mealPlan[d]) mealPlan[d].forEach(function(entry){
+      var safeD=d.replace(/'/g,"\\'"), safeT=entry.title.replace(/'/g,"\\'"), safeMT=entry.mealType.replace(/'/g,"\\'");
+      html+='<div class="planRow"><span class="planRowDay">'+d.slice(0,3)+'</span>'+
+        '<span class="planRowMeal">'+entry.title+'</span>'+
+        '<span class="planRowType">'+entry.mealType+'</span>'+
+        '<button class="planRowDel" onclick="removePlanEntry(\''+safeD+'\',\''+safeT+'\',\''+safeMT+'\')">&#x2715;</button></div>';
+    });
+  });
+  el.innerHTML = html || '<p class="emptyMsg">No meals planned yet</p>';
+}
+function removePlanEntry(day, title, mealType) {
+  if (mealPlan[day]) {
+    mealPlan[day] = mealPlan[day].filter(function(e){ return !(e.title===title && e.mealType===mealType); });
+    if (!mealPlan[day].length) delete mealPlan[day];
+  }
+  renderPlanPreview();
+  renderWeekPreview();
+}
+function confirmMealPlan() {
+  var r = currentRecipe ? recipes[currentRecipe] : null;
+  if (!r) return;
+  var mealType = getSegVal("mealTypeSeg")||"Dinner";
+  var selected = document.querySelectorAll(".calDayBtn.calDayActive");
+  if (!selected.length) { showToast("Please tap at least one day."); return; }
+  selected.forEach(function(btn){
+    var day = btn.dataset.day;
+    if (!mealPlan[day]) mealPlan[day]=[];
+    var dup = mealPlan[day].some(function(e){ return e.title===r.title && e.mealType===mealType; });
+    if (!dup) mealPlan[day].push({title:r.title, mealType:mealType});
+  });
+  renderWeekPreview();
+  renderPlanPreview();
+  closeModal("addMealModal");
+  showToast("Added to your meal plan!");
+}
+function renderWeekPreview() {
+  var days = ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"];
+  var html = "";
+  days.forEach(function(d){
+    if (mealPlan[d] && mealPlan[d].length) {
+      var mealsHtml = "";
+      mealPlan[d].forEach(function(e){
+        mealsHtml += '<div class="mealPreviewMeal"><span class="mealPreviewMealType">'+e.mealType+':</span> <span class="mealPreviewMealTitle">'+e.title+'</span></div>';
+      });
+      html += '<div class="mealPreviewDayBlock"><div class="mealPreviewDayHeader">'+d.slice(0,3)+'</div><div class="mealPreviewDayMeals">'+mealsHtml+'</div></div>';
+    }
+  });
+  document.getElementById("weekPreview").innerHTML = html || "No meals planned yet";
+}
+function openViewPlan() {
+  var days=["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"];
+  var html="";
+  days.forEach(function(d){
+    html+='<div class="vpDayRow"><span class="vpDayName">'+d+'</span><span class="vpMeals">';
+    if (mealPlan[d] && mealPlan[d].length) {
+      html += mealPlan[d].map(function(e){ return e.mealType+": "+e.title; }).join("<br>");
+    } else { html+='<span style="color:#bbb">&#x2014;</span>'; }
+    html+='</span></div>';
+  });
+  document.getElementById("viewPlanList").innerHTML = html;
+  document.getElementById("viewPlanModal").style.display="flex";
+}
+
+// ─── Shopping list ────────────────────────────────────────────────────────────
+function renderShopList() {
+  var ul = document.getElementById("shopList");
+  ul.innerHTML="";
+  var unchecked = shopItems.filter(function(x){ return !x.checked; });
+  var checked   = shopItems.filter(function(x){ return  x.checked; });
+
+  function makeRow(item) {
+    var li = document.createElement("li");
+    li.className = "shopRow" + (item.checked?" checked":"");
+    var meta = item.qty+" "+item.unit + (item.recipe?" · "+item.recipe:"");
+    li.innerHTML =
+      '<label class="shopCheckWrap">'+
+        '<input type="checkbox"'+(item.checked?" checked":"")+'>'+
+        '<span class="shopCB">'+(item.checked?"&#x2713;":"")+'</span>'+
+      '</label>'+
+      '<div class="shopInfo">'+
+        '<div class="shopName">'+item.name+'</div>'+
+        '<div class="shopMeta">'+meta+'</div>'+
+      '</div>'+
+      '<span class="shopCatBadge">'+item.cat+'</span>'+
+      '<button class="shopEditBtn" onclick="openEditShop('+item.id+')" title="Edit">&#9998;</button>'+
+      '<button class="shopDelBtn" onclick="deleteShopItem('+item.id+')" title="Remove">&#x2715;</button>';
+    var cb = li.querySelector("input[type=checkbox]");
+    var id = item.id;
+    cb.addEventListener("change", function(){
+      var s = shopItems.find(function(x){ return x.id===id; });
+      if (s) s.checked = cb.checked;
+      renderShopList();
+    });
+    return li;
+  }
+
+  unchecked.forEach(function(item){ ul.appendChild(makeRow(item)); });
+  if (checked.length && unchecked.length) {
+    var sep=document.createElement("li"); sep.className="shopSepRow"; sep.textContent="Got it ("+checked.length+")";
+    ul.appendChild(sep);
+  }
+  checked.forEach(function(item){ ul.appendChild(makeRow(item)); });
+
+  document.getElementById("shop-subtitle").textContent = shopItems.length+" items · "+checked.length+" checked";
+}
+
+function deleteShopItem(id) {
+  shopItems = shopItems.filter(function(x){ return x.id!==id; });
+  renderShopList();
+  showToast("Item removed from list.");
+}
+function openEditShop(id) {
+  var item = shopItems.find(function(x){ return x.id===id; });
+  if (!item) return;
+  document.getElementById("editShop-id").value   = id;
+  document.getElementById("editShop-name").value = item.name;
+  document.getElementById("editShop-qty").value  = item.qty;
+  document.getElementById("editShop-unit").value = item.unit;
+  document.getElementById("editShop-cat").value  = item.cat;
+  document.getElementById("editShopModal").style.display="flex";
+}
+function saveShopEdit() {
+  var id   = parseInt(document.getElementById("editShop-id").value);
+  var item = shopItems.find(function(x){ return x.id===id; });
+  if (!item) return;
+  item.name = document.getElementById("editShop-name").value.trim()||item.name;
+  item.qty  = Math.max(1, parseInt(document.getElementById("editShop-qty").value)||1);
+  item.unit = document.getElementById("editShop-unit").value;
+  item.cat  = document.getElementById("editShop-cat").value;
+  closeModal("editShopModal");
+  renderShopList();
+  showToast("Item updated.");
+}
+function openAddShop() {
+  document.getElementById("shop-inp-name").value="";
+  document.getElementById("shop-inp-qty").value="1";
+  document.getElementById("shop-inp-err").textContent="";
+  document.getElementById("addShopModal").style.display="flex";
+}
+function submitShopItem() {
+  var name=document.getElementById("shop-inp-name").value.trim();
+  if (!name) { document.getElementById("shop-inp-err").textContent="Please enter an item name."; return; }
+  var qty=Math.max(1, parseInt(document.getElementById("shop-inp-qty").value)||1);
+  shopItems.push({id:shopNextId++, name:name, qty:qty,
+    unit:document.getElementById("shop-inp-unit").value,
+    cat:document.getElementById("shop-inp-cat").value,
+    src:"manual", recipe:"", checked:false});
   closeModal("addShopModal");
   renderShopList();
+  showToast(name+" added to your list.");
 }
-
-function openCalendar() {
-  var r = currentRecipe ? recipes[currentRecipe] : null;
-  if (r) {
-    document.getElementById("cal-recipe-name").textContent = r.title;
-  } else {
-    document.getElementById("cal-recipe-name").textContent = "";
-  }
-  renderMealPlan();
-  document.getElementById("calendarModal").style.display = "flex";
-}
-
-function closeModal(id) {
-  document.getElementById(id).style.display = "none";
-}
-
 function openDoneShopping() {
-  var checked = [];
-  for (var i = 0; i < shopItems.length; i++) {
-    if (shopItems[i].checked) checked.push(shopItems[i]);
-  }
-  if (checked.length == 0) {
-    alert("Check off items you bought first.");
-    return;
-  }
-  doneQueue = checked.slice();
-  doneIdx = 0;
+  var checked=shopItems.filter(function(x){ return x.checked; });
+  if (!checked.length) { showToast("Check off items you've bought first."); return; }
+  doneQueue=checked.slice(); doneIdx=0;
   loadDoneItem();
-  document.getElementById("doneShopModal").style.display = "flex";
+  document.getElementById("doneShopModal").style.display="flex";
 }
-
-function addToDay(day) {
-  var r = currentRecipe ? recipes[currentRecipe] : null;
-  if (!r) return;
-  mealPlan[day] = r.title;
-  var dayBtns = document.querySelectorAll(".calDayBtn");
-  for (var i = 0; i < dayBtns.length; i++) {
-    if (dayBtns[i].textContent == day.slice(0, 3)) {
-      dayBtns[i].classList.add("calDayActive");
-    } else {
-      dayBtns[i].classList.remove("calDayActive");
-    }
-  }
-  renderMealPlan();
-}
-
 function loadDoneItem() {
-  if (doneIdx >= doneQueue.length) {
-    var kept = [];
-    for (var i = 0; i < shopItems.length; i++) {
-      var shouldRemove = false;
-      for (var j = 0; j < doneQueue.length; j++) {
-        if (shopItems[i].id == doneQueue[j].id) {
-          shouldRemove = true;
-        }
-      }
-      if (!shouldRemove) {
-        kept.push(shopItems[i]);
-      }
-    }
-    shopItems = kept;
+  if (doneIdx>=doneQueue.length) {
+    var ids=doneQueue.map(function(x){ return x.id; });
+    shopItems=shopItems.filter(function(x){ return ids.indexOf(x.id)===-1; });
     closeModal("doneShopModal");
     renderShopList();
-    alert("All items added to inventory!");
+    showToast("Purchased items added to your inventory!");
     return;
   }
-
-  var item = doneQueue[doneIdx];
-
-  document.getElementById("done-progress").textContent = "Item " + (doneIdx + 1) + " of " + doneQueue.length;
-  document.getElementById("done-item-name").textContent = item.name;
-  document.getElementById("done-qty").value = item.qty;
-
-  var unitDrop = document.getElementById("done-unit");
-  unitDrop.value = item.unit;
-  if (unitDrop.value != item.unit) {
-    unitDrop.value = "count";
-  }
-
-  document.getElementById("done-exp").value = "";
-  document.getElementById("done-shared").checked = item.source == "recipe";
-
-  var locBtns = document.querySelectorAll("#done-loc .segBtn");
-  for (var i = 0; i < locBtns.length; i++) {
-    locBtns[i].classList.remove("active");
-  }
-  locBtns[0].classList.add("active");
-
-  var confirmBtn = document.getElementById("done-confirm-btn");
-  if (doneIdx == doneQueue.length - 1) {
-    confirmBtn.textContent = "Confirm & finish";
-  } else {
-    confirmBtn.textContent = "Confirm & next";
-  }
+  var item=doneQueue[doneIdx];
+  document.getElementById("done-progress").textContent="Item "+(doneIdx+1)+" of "+doneQueue.length;
+  document.getElementById("done-item-name").textContent=item.name;
+  document.getElementById("done-qty").value=item.qty;
+  document.getElementById("done-unit").value=item.unit;
+  document.getElementById("done-exp").value="";
+  document.getElementById("done-shared").checked=false;
+  document.querySelectorAll("#done-loc .segBtn").forEach(function(b,i){ b.classList.toggle("active",i===0); });
+  document.getElementById("done-confirm-btn").textContent=
+    doneIdx===doneQueue.length-1?"Confirm & finish":"Confirm & next";
 }
-
-function renderMealPlan() {
-  var days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
-  var html = "";
-  var previewHtml = "";
-  for (var i = 0; i < days.length; i++) {
-    var d = days[i];
-    if (mealPlan[d]) {
-      html += '<div class="mealRow"><span class="mealDay">' + d + '</span><span>' + mealPlan[d] + '</span></div>';
-      previewHtml += '<div class="mealPreviewRow"><span class="mealPreviewDay">' + d + '</span><span>' + mealPlan[d] + '</span></div>';
-    }
-  }
-  if (html == "") html = '<p class="emptyMsg">No meals planned yet</p>';
-  document.getElementById("mealPlanList").innerHTML = html;
-  var prev = document.getElementById("weekPreview");
-  if (previewHtml == "") {
-    prev.innerHTML = "No meals planned yet";
-  } else {
-    prev.innerHTML = previewHtml;
-  }
-}
-
 function confirmDoneItem() {
-  var item = doneQueue[doneIdx];
-  var qty = parseFloat(document.getElementById("done-qty").value);
-  if (!qty) qty = 1;
-  var unit = document.getElementById("done-unit").value;
-  var exp = document.getElementById("done-exp").value;
-  var loc = getSegVal("done-loc");
-  if (!loc) loc = "Fridge";
-  var shared = document.getElementById("done-shared").checked;
-  addInvItem(item.name, qty, unit, "Other", exp, loc, shared);
+  var item=doneQueue[doneIdx];
+  var qty=Math.max(1,parseInt(document.getElementById("done-qty").value)||1);
+  invItems.push({id:invNextId++, name:item.name, qty:qty,
+    unit:document.getElementById("done-unit").value,
+    cat:"Other", exp:document.getElementById("done-exp").value,
+    loc:getSegVal("done-loc")||"Fridge",
+    shared:document.getElementById("done-shared").checked});
+  renderInv();
   doneIdx++;
   loadDoneItem();
 }
 
+// ─── Profile ──────────────────────────────────────────────────────────────────
 function saveProfile() {
-  localStorage.setItem("profileGoals", document.getElementById("profileGoals").value);
-  localStorage.setItem("profileTime", document.getElementById("profileTime").value);
-  localStorage.setItem("profileSkill", document.getElementById("profileSkill").value);
-  localStorage.setItem("profileRestriction", document.getElementById("profileRestriction").value);
-  localStorage.setItem("roommateMode", document.getElementById("roommateToggle").checked);
-  document.getElementById("profileMsg").textContent = "Profile saved!";
-  setTimeout(function () {
-    document.getElementById("profileMsg").textContent = "";
-  }, 2000);
+  var r=document.getElementById("profileRestriction").value;
+  var s=document.getElementById("profileSkill").value;
+  var t=document.getElementById("profileTime").value;
+  localStorage.setItem("profileRestriction",r);
+  localStorage.setItem("profileSkill",s);
+  localStorage.setItem("profileTime",t);
+  // Update summary card
+  document.getElementById("summDiet").textContent  = r ? r.charAt(0).toUpperCase()+r.slice(1) : "None";
+  document.getElementById("summSkill").textContent = s || "Not set";
+  document.getElementById("summTime").textContent  = t || "Not set";
+  applyDietaryPref();
   applyRoommateMode();
+  var msg=document.getElementById("profileMsg");
+  msg.style.color="#1b5e3b";
+  msg.textContent="&#x2713; Preferences saved. Recipe tab updated.";
+  setTimeout(function(){ msg.textContent=""; },3000);
 }
-
 function applyRoommateMode() {
   roommateOn = document.getElementById("roommateToggle").checked;
-  if (roommateOn) {
-    document.getElementById("roommateNames").style.display = "block";
-  } else {
-    document.getElementById("roommateNames").style.display = "none";
-  }
-  var items = document.querySelectorAll("#inventoryList .invItem");
-  for (var i = 0; i < items.length; i++) {
-    var li = items[i];
-    var old = li.querySelector(".shareBadge");
-    if (old) old.remove();
-    if (roommateOn) {
-      var badge = document.createElement("span");
-      if (li.dataset.shared == "1") {
-        badge.className = "shareBadge sharedItem";
-        badge.textContent = "Shared";
-      } else {
-        badge.className = "shareBadge personalItem";
-        badge.textContent = "Personal";
-      }
-      li.appendChild(badge);
-    }
-  }
+  document.getElementById("roommateNames").style.display = roommateOn?"flex":"none";
+  renderInv();
 }
-
-function shopTab(tab, btn) {
-  var segs = document.querySelectorAll(".shopSeg .segBtn");
-  for (var i = 0; i < segs.length; i++) segs[i].classList.remove("active");
-  btn.classList.add("active");
-  if (tab == "tobuy") {
-    document.getElementById("panel-tobuy").style.display = "block";
-    document.getElementById("panel-gotit").style.display = "none";
-  } else {
-    document.getElementById("panel-tobuy").style.display = "none";
-    document.getElementById("panel-gotit").style.display = "block";
-  }
-}
-
 function loadProfile() {
-  var g = localStorage.getItem("profileGoals");
-  var t = localStorage.getItem("profileTime");
-  var s = localStorage.getItem("profileSkill");
-  var r = localStorage.getItem("profileRestriction");
-  var m = localStorage.getItem("roommateMode");
-  if (g) document.getElementById("profileGoals").value = g;
-  if (t) document.getElementById("profileTime").value = t;
-  if (s) document.getElementById("profileSkill").value = s;
-  if (r) document.getElementById("profileRestriction").value = r;
-  if (m == "true") {
-    document.getElementById("roommateToggle").checked = true;
-    applyRoommateMode();
-  }
-  document.getElementById("profilePhoto").addEventListener("change", function () {
-    var file = this.files[0];
-    if (!file) return;
-    var reader = new FileReader();
-    reader.onload = function (e) {
-      document.getElementById("photoPreview").src = e.target.result;
-      document.getElementById("photoPreview").style.display = "block";
-    };
-    reader.readAsDataURL(file);
+  var r=localStorage.getItem("profileRestriction");
+  var s=localStorage.getItem("profileSkill");
+  var t=localStorage.getItem("profileTime");
+  var m=localStorage.getItem("roommateMode");
+  if (r) { document.getElementById("profileRestriction").value=r; document.getElementById("summDiet").textContent=r.charAt(0).toUpperCase()+r.slice(1); }
+  if (s) { document.getElementById("profileSkill").value=s; document.getElementById("summSkill").textContent=s; }
+  if (t) { document.getElementById("profileTime").value=t; document.getElementById("summTime").textContent=t; }
+  if (m==="true") { document.getElementById("roommateToggle").checked=true; applyRoommateMode(); }
+}
+
+// ─── Modal utilities ──────────────────────────────────────────────────────────
+function closeModal(id) { document.getElementById(id).style.display="none"; }
+window.onclick = function(ev) {
+  ["myModal","editModal","deleteModal","addShopModal","editShopModal","doneShopModal","addMealModal","viewPlanModal"].forEach(function(id){
+    var el=document.getElementById(id);
+    if (el && ev.target===el) el.style.display="none";
   });
-}
+};
 
-function closeModalIfBackdrop(ev) {
-  var ids = ["myModal", "addShopModal", "doneShopModal", "calendarModal"];
-  for (var i = 0; i < ids.length; i++) {
-    var el = document.getElementById(ids[i]);
-    if (el && ev.target === el) el.style.display = "none";
-  }
-}
-window.onclick = closeModalIfBackdrop;
-
+// ─── Init ─────────────────────────────────────────────────────────────────────
 loadProfile();
 renderShopList();
+renderWeekPreview();

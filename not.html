@@ -1,551 +1,468 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <title>Kitchen Kompanion</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <title>Kitchen Kompanion</title>
+  <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
-    <div class="app-wrapper">
+<div class="app-wrapper">
 
-        <div id="inventory" class="tabcontent activeTab">
-            <div class="topbar">
-                <div class="topbar-title">Inventory</div>
-                <button id="myBtn" class="addBtn">Add Item</button>
-            </div>
-            <div class="filterArea">
-                <div class="filterRow">
-                    <button class="filt active" onclick="filterAll(this)">All</button>
-                </div>
-                <div class="filterRow">
-                    <span class="filterLabel">Type of food</span>
-                    <button class="filt" onclick="filterType('Protein',this)">Protein</button>
-                    <button class="filt" onclick="filterType('Produce',this)">Produce</button>
-                    <button class="filt" onclick="filterType('Dairy',this)">Dairy</button>
-                </div>
-                <div class="filterRow">
-                    <span class="filterLabel">Location</span>
-                    <button class="filt" onclick="filterLoc('Fridge',this)">Fridge</button>
-                    <button class="filt" onclick="filterLoc('Freezer',this)">Freezer</button>
-                    <button class="filt" onclick="filterLoc('Pantry',this)">Pantry</button>
-                </div>
-            </div>
-            <ul id="inventoryList"></ul>
-
-            <div id="myModal" class="modalOverlay">
-                <div class="modalBox">
-                    <span class="closeBtn" id="closeModal">X</span>
-                    <h3 class="modalTitle">Add Item</h3>
-
-                    <label class="fieldLabel">Item name</label>
-                    <input id="invenName" type="text" class="textInput" placeholder="e.g. Greek yogurt" />
-
-                    <div class="twoCol">
-                        <div class="colItem">
-                            <label class="fieldLabel">Quantity</label>
-                            <input id="inventQty" type="number" class="textInput" value="1" min="0" step="0.5" />
-                        </div>
-                        <div class="colItem">
-                            <label class="fieldLabel">Unit</label>
-                            <select id="invenUnit" class="selectInput">
-                                <option>count</option>
-                                <option>oz</option>
-                                <option>lbs</option>
-                                <option>cups</option>
-                                <option>slices</option>
-                                <option>tbsp</option>
-                                <option>liters</option>
-                                <option>grams</option>
-                                <option>bags</option>
-                                <option>bottles</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <label class="fieldLabel">Storage location</label>
-                    <div class="segGroup" id="locSeg">
-                        <button class="segBtn active" type="button" onclick="pickSeg(this,'locSeg')">Fridge</button>
-                        <button class="segBtn" type="button" onclick="pickSeg(this,'locSeg')">Freezer</button>
-                        <button class="segBtn" type="button" onclick="pickSeg(this,'locSeg')">Pantry</button>
-                    </div>
-
-                    <label class="fieldLabel">Category</label>
-                    <select id="invenCat" class="selectInput">
-                        <option>Produce</option>
-                        <option>Dairy</option>
-                        <option>Protein</option>
-                        <option>Frozen</option>
-                        <option>Other</option>
-                    </select>
-
-                    <label class="fieldLabel">Expiration date</label>
-                    <input id="invenExp" type="date" class="textInput" />
-
-                    <div class="toggleRow">
-                        <label class="fieldLabel">Mark as shared item</label>
-                        <label class="switch">
-                            <input type="checkbox" id="invenShared" checked>
-                            <span class="slider"></span>
-                        </label>
-                    </div>
-
-                    <div class="kbWrap">
-                        <div class="kbLabel">System keyboard</div>
-                        <div class="kbGrid">
-                            <div class="kkey">q</div>
-                            <div class="kkey">w</div>
-                            <div class="kkey">e</div>
-                            <div class="kkey">r</div>
-                            <div class="kkey">t</div>
-                            <div class="kkey">y</div>
-                            <div class="kkey">u</div>
-                            <div class="kkey">i</div>
-                            <div class="kkey">o</div>
-                            <div class="kkey">p</div>
-                            <div class="kkey">a</div>
-                            <div class="kkey">s</div>
-                            <div class="kkey">d</div>
-                            <div class="kkey">f</div>
-                            <div class="kkey">g</div>
-                            <div class="kkey">h</div>
-                            <div class="kkey">j</div>
-                            <div class="kkey">k</div>
-                            <div class="kkey">l</div>
-                            <div class="kkey kgray">⌫</div>
-                            <div class="kkey kgray kwide">⇧</div>
-                            <div class="kkey">z</div>
-                            <div class="kkey">x</div>
-                            <div class="kkey">c</div>
-                            <div class="kkey">v</div>
-                            <div class="kkey">b</div>
-                            <div class="kkey">n</div>
-                            <div class="kkey">m</div>
-                            <div class="kkey kgray">.</div>
-                            <div class="kkey kgray k3wide">123</div>
-                            <div class="kkey kgray k5wide">space</div>
-                            <div class="kkey kblue k2wide">return</div>
-                        </div>
-                    </div>
-
-                    <button id="addInventoryBtn" type="button" class="darkBtn">Add to kitchen</button>
-                </div>
-            </div>
-        </div>
-
-        <div id="recipes" class="tabcontent">
-            <div class="topbar">
-                <div class="topbar-title">Recipes</div>
-            </div>
-            <div class="filterArea">
-                <div class="filterRow">
-                    <span class="filterLabel">Diet</span>
-                    <button class="filt active" data-filter="all" onclick="recipeFilter(this)">All</button>
-                    <button class="filt" data-filter="vegetarian" onclick="recipeFilter(this)">Vegetarian</button>
-                    <button class="filt" data-filter="gluten-free" onclick="recipeFilter(this)">Gluten-free</button>
-                    <button class="filt" data-filter="dairy-free" onclick="recipeFilter(this)">Dairy-free</button>
-                </div>
-                <div class="filterRow">
-                    <span class="filterLabel">Nutrition</span>
-                    <button class="filt" data-filter="low-cal" onclick="recipeFilter(this)">Low Cal</button>
-                    <button class="filt" data-filter="high-protein" onclick="recipeFilter(this)">High Protein</button>
-                </div>
-            </div>
-            <div class="recipeToggle">
-                <button class="togBtn active" onclick="showAll(this)">All recipes</button>
-                <button class="togBtn" onclick="showOwned(this)">Use what I have</button>
-            </div>
-            <div class="mealPreview">
-                <div class="mealPreviewHead">
-                    <span>This week</span>
-                    <button class="viewPlanBtn" onclick="openCalendar()">View full plan</button>
-                </div>
-                <div id="weekPreview" class="mealPreviewBody">No meals planned yet</div>
-            </div>
-            <div id="recipeList" class="recipeList">
-                <div class="recipeCard" onclick="openRecipe('beef')" data-tags="dairy-free high-protein" data-ing="5/6">
-                    <img class="recipeIcon" src="Beef + Broccoli Stir Fry.png" alt="Beef + Broccoli Stir Fry">
-                    <div class="recipeInfo">
-                        <div class="recipeName">Beef + Broccoli</div>
-                        <div class="recipeMeta">25 min · Intermediate</div>
-                        <div class="recipeTags">
-                            <span class="tag tagBlue">Dairy-free</span>
-                            <span class="tag tagPurple">High Protein</span>
-                            <span class="tag tagWarn">Uses expiring items</span>
-                        </div>
-                    </div>
-                    <div class="recipeCount">5 / 6</div>
-                </div>
-                <div class="recipeCard" onclick="openRecipe('pasta')" data-tags="vegetarian low-cal" data-ing="4/5">
-                    <img class="recipeIcon" src="Spaghetti%20Aglio%20e%20Olio.png" alt="Spaghetti Aglio e Olio">
-                    <div class="recipeInfo">
-                        <div class="recipeName">Aglio e Olio</div>
-                        <div class="recipeMeta">20 min · Beginner</div>
-                        <div class="recipeTags">
-                            <span class="tag tagGreen">Vegetarian</span>
-                            <span class="tag tagOrange">Low Cal</span>
-                        </div>
-                    </div>
-                    <div class="recipeCount">4 / 5</div>
-                </div>
-                <div class="recipeCard" onclick="openRecipe('fried-rice')"
-                    data-tags="gluten-free high-protein dairy-free" data-ing="6/6">
-                    <img class="recipeIcon" src="Chicken%20Fried%20Rice.png" alt="Chicken Fried Rice">
-                    <div class="recipeInfo">
-                        <div class="recipeName">Chicken Fried Rice</div>
-                        <div class="recipeMeta">30 min · Beginner</div>
-                        <div class="recipeTags">
-                            <span class="tag tagBlue">Gluten-free</span>
-                            <span class="tag tagPurple">High Protein</span>
-                        </div>
-                    </div>
-                    <div class="recipeCount">6 / 6</div>
-                </div>
-                <div class="recipeCard" onclick="openRecipe('eggs')" data-tags="vegetarian" data-ing="4/4">
-                    <img class="recipeIcon" src="Cheesy%20Scrambled%20Eggs.png" alt="Cheesy Scrambled Eggs">
-                    <div class="recipeInfo">
-                        <div class="recipeName">Cheesy Scrambled Eggs</div>
-                        <div class="recipeMeta">10 min · Beginner</div>
-                        <div class="recipeTags">
-                            <span class="tag tagGreen">Vegetarian</span>
-                        </div>
-                    </div>
-                    <div class="recipeCount">4 / 4</div>
-                </div>
-                <div class="recipeCard" onclick="openRecipe('rice-bowl')" data-tags="gluten-free dairy-free"
-                    data-ing="5/5">
-                    <img class="recipeIcon" src="Beef + Rice Bowl.png" alt="Beef + Rice Bowl">
-                    <div class="recipeInfo">
-                        <div class="recipeName">Beef + Rice Bowl</div>
-                        <div class="recipeMeta">35 min · Beginner</div>
-                        <div class="recipeTags">
-                            <span class="tag tagBlue">Gluten-free</span>
-                            <span class="tag tagBlue">Dairy-free</span>
-                        </div>
-                    </div>
-                    <div class="recipeCount">5 / 5</div>
-                </div>
-            </div>
-        </div>
-
-        <div id="recipe-detail" class="tabcontent">
-            <div class="topbar">
-                <button class="backBtn" onclick="closeRecipe()">&lt; Back</button>
-                <span class="topbar-title" id="rd-title"></span>
-            </div>
-            <div class="rdBody">
-                <img class="rdHero" id="rd-hero" src="" alt="">
-                <div class="rdMetaRow" id="rd-meta"></div>
-                <div class="rdTagsRow" id="rd-tags"></div>
-                <div class="sectionLabel">Ingredients</div>
-                <div id="rd-ingr-list" class="ingrList"></div>
-                <button class="addMissingBtn" id="rd-add-missing-btn" onclick="addMissingToShopping()">Add missing items
-                    to shopping list</button>
-                <button class="addCalBtn" onclick="openCalendar()">Add to meal plan</button>
-                <div class="sectionLabel">Steps</div>
-                <div id="rd-steps-list"></div>
-            </div>
-        </div>
-
-        <div id="shopping-list" class="tabcontent">
-            <div class="topbar">
-                <div>
-                    <div class="topbar-title">Shopping list</div>
-                    <div id="shop-subtitle" class="topbarSub">4 items · 1 checked</div>
-                </div>
-                <button class="addBtn" onclick="openAddShop()">+ Add</button>
-            </div>
-            <div class="segGroup shopSeg">
-                <button class="segBtn active" id="tab-tobuy" onclick="shopTab('tobuy',this)">To buy (<span
-                        id="tobuy-count">3</span>)</button>
-                <button class="segBtn" id="tab-gotit" onclick="shopTab('gotit',this)">Got it (<span
-                        id="gotit-count">1</span>)</button>
-            </div>
-            <div id="panel-tobuy" class="shopPanel">
-                <div class="sectionLabel">From recipe</div>
-                <ul id="shopListRecipe"></ul>
-                <div class="sectionLabel">Manual items</div>
-                <ul id="shopListManual"></ul>
-            </div>
-            <div id="panel-gotit" class="shopPanel" style="display:none;">
-                <ul id="shopListChecked"></ul>
-            </div>
-            <button class="doneShopBtn" onclick="openDoneShopping()">Done shopping - add to inventory</button>
-        </div>
-
-        <div id="profile" class="tabcontent">
-            <div class="topbar">
-                <div class="topbar-title">Profile</div>
-            </div>
-            <div class="profileContent">
-                <h1 class="profileTitle">My Profile</h1>
-                <p class="profileSub">Personalize your kitchen companion experience.</p>
-                <div class="profileCard">
-                    <div class="profileField">
-                        <label>Profile Photo</label>
-                        <input type="file" id="profilePhoto" accept="image/*">
-                        <img id="photoPreview" class="photoPreview" alt="">
-                    </div>
-                    <div class="profileField">
-                        <label>Goals</label>
-                        <select id="profileGoals">
-                            <option value="">Select a goal</option>
-                            <option>Save money</option>
-                            <option>Reduce food waste</option>
-                            <option>Cook healthier meals</option>
-                            <option>Meal prep faster</option>
-                        </select>
-                    </div>
-                    <div class="profileField">
-                        <label>Time budgeted for cooking per week</label>
-                        <select id="profileTime">
-                            <option value="">Select time budget</option>
-                            <option>1-3 hours</option>
-                            <option>4-6 hours</option>
-                            <option>7-10 hours</option>
-                            <option>10+ hours</option>
-                        </select>
-                    </div>
-                    <div class="profileField">
-                        <label>Cooking Skill Level</label>
-                        <select id="profileSkill">
-                            <option value="">Select skill level</option>
-                            <option>Beginner</option>
-                            <option>Intermediate</option>
-                            <option>Advanced</option>
-                        </select>
-                    </div>
-                    <div class="profileField">
-                        <label>Dietary Restrictions</label>
-                        <select id="profileRestriction">
-                            <option value="">Select a restriction</option>
-                            <option>None</option>
-                            <option>Vegetarian</option>
-                            <option>Vegan</option>
-                            <option>Gluten-Free</option>
-                            <option>Dairy-Free</option>
-                            <option>Nut-Free</option>
-                            <option>Halal</option>
-                            <option>Kosher</option>
-                        </select>
-                    </div>
-                    <div class="profileField roommateRow">
-                        <label>Roommate Mode</label>
-                        <label class="switch">
-                            <input type="checkbox" id="roommateToggle" onchange="applyRoommateMode()">
-                            <span class="slider"></span>
-                        </label>
-                    </div>
-                    <div id="roommateNames" class="roommateNames">
-                        <div class="roommateItem">
-                            <span class="roommateAvatar">M</span>
-                            <span class="roommateName">Marcus</span>
-                            <span class="roommateTag">Roommate</span>
-                        </div>
-                        <div class="roommateItem">
-                            <span class="roommateAvatar">P</span>
-                            <span class="roommateName">Priya</span>
-                            <span class="roommateTag">Roommate</span>
-                        </div>
-                    </div>
-                    <button type="button" class="saveBtn" onclick="saveProfile()">Save Profile</button>
-                    <p id="profileMsg" class="profileMsg"></p>
-                </div>
-            </div>
-        </div>
-
-        <div class="tab">
-            <button class="tablinks active" onclick="openTab(event,'inventory')">
-                <svg class="navIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <rect x="5" y="3" width="14" height="18" rx="2" />
-                    <line x1="5" y1="9" x2="19" y2="9" />
-                </svg>
-                <span>Inventory</span>
-            </button>
-            <button class="tablinks" id="tab-btn-recipes" onclick="openTab(event,'recipes')">
-                <svg class="navIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M3 2h18l-2 7H5L3 2z" />
-                    <path d="M5 9v11a2 2 0 002 2h10a2 2 0 002-2V9" />
-                    <line x1="9" y1="14" x2="15" y2="14" />
-                </svg>
-                <span>Recipes</span>
-            </button>
-            <button class="tablinks" onclick="openTab(event,'shopping-list')">
-                <svg class="navIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z" />
-                    <line x1="3" y1="6" x2="21" y2="6" />
-                    <path d="M16 10a4 4 0 01-8 0" />
-                </svg>
-                <span>Shopping</span>
-            </button>
-            <button class="tablinks" onclick="openTab(event,'profile')">
-                <svg class="navIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2" />
-                    <circle cx="12" cy="7" r="4" />
-                </svg>
-                <span>Profile</span>
-            </button>
-        </div>
-
-        <div id="addShopModal" class="modalOverlay">
-            <div class="modalBox">
-                <div class="modalHeader">
-                    <span>Add to shopping list</span>
-                    <button class="closeBtn" onclick="closeModal('addShopModal')">X</button>
-                </div>
-                <div class="modalBody">
-                    <label class="fieldLabel">Item name</label>
-                    <input type="text" id="shop-inp-name" class="textInput" placeholder="e.g. Feta cheese">
-                    <span class="errMsg" id="shop-inp-err"></span>
-                    <div class="twoCol">
-                        <div class="colItem">
-                            <label class="fieldLabel">Quantity</label>
-                            <input type="number" id="shop-inp-qty" class="textInput" value="1" min="0" step="0.5">
-                        </div>
-                        <div class="colItem">
-                            <label class="fieldLabel">Unit</label>
-                            <select id="shop-inp-unit" class="selectInput">
-                                <option>count</option>
-                                <option>oz</option>
-                                <option>lbs</option>
-                                <option>cups</option>
-                                <option>tbsp</option>
-                                <option>liters</option>
-                                <option>grams</option>
-                                <option>bags</option>
-                                <option>bottles</option>
-                            </select>
-                        </div>
-                    </div>
-                    <label class="fieldLabel">Category</label>
-                    <select id="shop-inp-cat" class="selectInput">
-                        <option>Produce</option>
-                        <option>Dairy</option>
-                        <option>Protein</option>
-                        <option>Pantry</option>
-                        <option>Condiments</option>
-                        <option>Frozen</option>
-                        <option>Other</option>
-                    </select>
-                    <div class="kbWrap">
-                        <div class="kbLabel">System keyboard</div>
-                        <div class="kbGrid">
-                            <div class="kkey">q</div>
-                            <div class="kkey">w</div>
-                            <div class="kkey">e</div>
-                            <div class="kkey">r</div>
-                            <div class="kkey">t</div>
-                            <div class="kkey">y</div>
-                            <div class="kkey">u</div>
-                            <div class="kkey">i</div>
-                            <div class="kkey">o</div>
-                            <div class="kkey">p</div>
-                            <div class="kkey">a</div>
-                            <div class="kkey">s</div>
-                            <div class="kkey">d</div>
-                            <div class="kkey">f</div>
-                            <div class="kkey">g</div>
-                            <div class="kkey">h</div>
-                            <div class="kkey">j</div>
-                            <div class="kkey">k</div>
-                            <div class="kkey">l</div>
-                            <div class="kkey kgray">⌫</div>
-                            <div class="kkey kgray kwide">⇧</div>
-                            <div class="kkey">z</div>
-                            <div class="kkey">x</div>
-                            <div class="kkey">c</div>
-                            <div class="kkey">v</div>
-                            <div class="kkey">b</div>
-                            <div class="kkey">n</div>
-                            <div class="kkey">m</div>
-                            <div class="kkey kgray">.</div>
-                            <div class="kkey kgray k3wide">123</div>
-                            <div class="kkey kgray k5wide">space</div>
-                            <div class="kkey kblue k2wide">return</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="modalFooter">
-                    <button class="greenBtn" onclick="submitShopItem()">Add to list</button>
-                    <button class="grayBtn" onclick="closeModal('addShopModal')">Cancel</button>
-                </div>
-            </div>
-        </div>
-
-        <div id="doneShopModal" class="modalOverlay">
-            <div class="modalBox">
-                <div class="modalHeader">
-                    <span>Add to inventory</span>
-                    <button class="closeBtn" onclick="closeModal('doneShopModal')">X</button>
-                </div>
-                <div class="modalBody">
-                    <div id="done-progress" class="doneProgress"></div>
-                    <div id="done-item-name" class="doneItemName"></div>
-                    <div class="twoCol">
-                        <div class="colItem">
-                            <label class="fieldLabel">Quantity</label>
-                            <input type="number" id="done-qty" class="textInput" step="0.5">
-                        </div>
-                        <div class="colItem">
-                            <label class="fieldLabel">Unit</label>
-                            <select id="done-unit" class="selectInput">
-                                <option>count</option>
-                                <option>oz</option>
-                                <option>lbs</option>
-                                <option>cups</option>
-                                <option>tbsp</option>
-                                <option>liters</option>
-                                <option>grams</option>
-                                <option>bags</option>
-                                <option>bottles</option>
-                            </select>
-                        </div>
-                    </div>
-                    <label class="fieldLabel">Storage location</label>
-                    <div class="segGroup" id="done-loc">
-                        <button class="segBtn active" onclick="pickSeg(this,'done-loc')">Fridge</button>
-                        <button class="segBtn" onclick="pickSeg(this,'done-loc')">Freezer</button>
-                        <button class="segBtn" onclick="pickSeg(this,'done-loc')">Pantry</button>
-                    </div>
-                    <label class="fieldLabel">Expiration date</label>
-                    <input type="date" id="done-exp" class="textInput">
-                    <div class="toggleRow">
-                        <label class="fieldLabel">Mark as shared item</label>
-                        <label class="switch">
-                            <input type="checkbox" id="done-shared">
-                            <span class="slider"></span>
-                        </label>
-                    </div>
-                </div>
-                <div class="modalFooter">
-                    <button class="greenBtn" id="done-confirm-btn" onclick="confirmDoneItem()">Confirm &amp;
-                        next</button>
-                    <button class="grayBtn" onclick="closeModal('doneShopModal')">Cancel</button>
-                </div>
-            </div>
-        </div>
-
-        <div id="calendarModal" class="modalOverlay">
-            <div class="modalBox">
-                <span class="closeBtn" onclick="closeModal('calendarModal')">X</span>
-                <h3 class="modalTitle">Add to Meal Plan</h3>
-                <p id="cal-recipe-name" class="calRecipeName"></p>
-                <div class="calDays">
-                    <button class="calDayBtn" onclick="addToDay('Monday')">Mon</button>
-                    <button class="calDayBtn" onclick="addToDay('Tuesday')">Tue</button>
-                    <button class="calDayBtn" onclick="addToDay('Wednesday')">Wed</button>
-                    <button class="calDayBtn" onclick="addToDay('Thursday')">Thu</button>
-                    <button class="calDayBtn" onclick="addToDay('Friday')">Fri</button>
-                    <button class="calDayBtn" onclick="addToDay('Saturday')">Sat</button>
-                    <button class="calDayBtn" onclick="addToDay('Sunday')">Sun</button>
-                </div>
-                <div id="mealPlanList" class="mealPlanList"></div>
-                <button class="darkBtn" onclick="closeModal('calendarModal')">Done</button>
-            </div>
-        </div>
-
+<!-- ═══ INVENTORY TAB ═══ -->
+<div id="inventory" class="tabcontent activeTab">
+  <div class="topbar">
+    <div class="topbar-title">Inventory</div>
+    <button id="myBtn" class="addBtn">+ Add Item</button>
+  </div>
+  <!-- Filters: two separate rows — type (green) and location (blue) -->
+  <div class="filterBar">
+    <div class="filterRow">
+      <span class="filtGroupLabel">Type</span>
+      <button id="filtAll" class="filt filtAll active" onclick="filterAll(this)">All</button>
+      <button class="filt typeFilt" onclick="toggleTypeFilt('Protein',this)">Protein</button>
+      <button class="filt typeFilt" onclick="toggleTypeFilt('Produce',this)">Produce</button>
+      <button class="filt typeFilt" onclick="toggleTypeFilt('Dairy',this)">Dairy</button>
+      <button class="filt typeFilt" onclick="toggleTypeFilt('Grain',this)">Grain</button>
+      <button class="filt typeFilt" onclick="toggleTypeFilt('Other',this)">Other</button>
     </div>
-    <script src="script.js"></script>
-</body>
+    <div class="filterRow">
+      <span class="filtGroupLabel">Location</span>
+      <button class="filt locFilt" onclick="toggleLocFilt('Fridge',this)">Fridge</button>
+      <button class="filt locFilt" onclick="toggleLocFilt('Freezer',this)">Freezer</button>
+      <button class="filt locFilt" onclick="toggleLocFilt('Pantry',this)">Pantry</button>
+    </div>
+  </div>
+  <ul id="inventoryList" class="invList"></ul>
 
+  <!-- Add Item Modal -->
+  <div id="myModal" class="modalOverlay">
+    <div class="modalBox">
+      <div class="modalHeader"><span>Add Item</span><button class="closeBtn" id="closeModal">&#x2715;</button></div>
+      <div class="modalBody">
+        <label class="fieldLabel">Item name</label>
+        <input id="invenName" type="text" class="textInput" placeholder="e.g. Greek yogurt">
+        <div class="twoCol">
+          <div class="colItem"><label class="fieldLabel">Quantity</label><input id="inventQty" type="number" class="textInput" value="1" min="1" step="1"></div>
+          <div class="colItem"><label class="fieldLabel">Unit</label>
+            <select id="invenUnit" class="selectInput">
+              <option>count</option><option>oz</option><option>lbs</option><option>cups</option>
+              <option>tbsp</option><option>bag</option><option>bottle</option><option>box</option>
+              <option>bunch</option><option>head</option><option>gallon</option><option>can</option><option>jar</option>
+            </select>
+          </div>
+        </div>
+        <label class="fieldLabel">Location</label>
+        <div class="segGroup" id="locSeg">
+          <button class="segBtn active" onclick="pickSeg(this,'locSeg')">Fridge</button>
+          <button class="segBtn" onclick="pickSeg(this,'locSeg')">Freezer</button>
+          <button class="segBtn" onclick="pickSeg(this,'locSeg')">Pantry</button>
+        </div>
+        <label class="fieldLabel">Category</label>
+        <select id="invenCat" class="selectInput">
+          <option>Produce</option><option>Dairy</option><option>Protein</option><option>Grain</option><option>Other</option>
+        </select>
+        <label class="fieldLabel">Expiration date</label>
+        <input id="invenExp" type="date" class="textInput">
+        <div class="toggleRow">
+          <label class="fieldLabel" style="margin:0">Shared item</label>
+          <label class="switch"><input type="checkbox" id="invenShared" checked><span class="slider"></span></label>
+        </div>
+        <span class="errMsg" id="inven-err"></span>
+      </div>
+      <div class="modalFooter">
+        <button id="addInventoryBtn" class="greenBtn">Add to Kitchen</button>
+        <button class="grayBtn" onclick="closeModal('myModal')">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Edit Item Modal -->
+  <div id="editModal" class="modalOverlay">
+    <div class="modalBox">
+      <div class="modalHeader"><span>Edit Item</span><button class="closeBtn" onclick="closeModal('editModal')">&#x2715;</button></div>
+      <div class="modalBody">
+        <input type="hidden" id="editItemId">
+        <label class="fieldLabel">Item name</label>
+        <input id="editName" type="text" class="textInput">
+        <div class="twoCol">
+          <div class="colItem"><label class="fieldLabel">Quantity</label><input id="editQty" type="number" class="textInput" min="1" step="1"></div>
+          <div class="colItem"><label class="fieldLabel">Unit</label>
+            <select id="editUnit" class="selectInput">
+              <option>count</option><option>oz</option><option>lbs</option><option>cups</option>
+              <option>tbsp</option><option>bag</option><option>bottle</option><option>box</option>
+              <option>bunch</option><option>head</option><option>gallon</option><option>can</option><option>jar</option>
+            </select>
+          </div>
+        </div>
+        <label class="fieldLabel">Location</label>
+        <div class="segGroup" id="editLocSeg">
+          <button class="segBtn" onclick="pickSeg(this,'editLocSeg')">Fridge</button>
+          <button class="segBtn" onclick="pickSeg(this,'editLocSeg')">Freezer</button>
+          <button class="segBtn" onclick="pickSeg(this,'editLocSeg')">Pantry</button>
+        </div>
+        <label class="fieldLabel">Category</label>
+        <select id="editCat" class="selectInput">
+          <option>Produce</option><option>Dairy</option><option>Protein</option><option>Grain</option><option>Other</option>
+        </select>
+        <label class="fieldLabel">Expiration date</label>
+        <input id="editExp" type="date" class="textInput">
+        <div class="toggleRow">
+          <label class="fieldLabel" style="margin:0">Shared item</label>
+          <label class="switch"><input type="checkbox" id="editShared"><span class="slider"></span></label>
+        </div>
+      </div>
+      <div class="modalFooter">
+        <button class="greenBtn" onclick="saveEditItem()">Save Changes</button>
+        <button class="grayBtn" onclick="closeModal('editModal')">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Delete Confirm Modal -->
+  <div id="deleteModal" class="modalOverlay">
+    <div class="modalBox">
+      <div class="modalHeader"><span>Remove item?</span><button class="closeBtn" onclick="closeModal('deleteModal')">&#x2715;</button></div>
+      <div class="modalBody">
+        <p class="confirmText">Remove <strong id="deleteItemName"></strong> from your inventory? This cannot be undone.</p>
+      </div>
+      <div class="modalFooter">
+        <button class="redBtn" onclick="confirmDelete()">Yes, remove</button>
+        <button class="grayBtn" onclick="closeModal('deleteModal')">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ RECIPES TAB ═══ -->
+<div id="recipes" class="tabcontent">
+  <div class="topbar"><div class="topbar-title">Recipes</div></div>
+  <div class="searchBar">
+    <input type="text" id="recipeSearch" class="searchInput" placeholder="Search recipes&#x2026;" oninput="applyRecipeFilters()">
+  </div>
+  <div id="dietaryBanner" class="dietaryBanner" style="display:none">
+    <span id="dietaryBannerText"></span>
+    <button class="clearDietBtn" onclick="clearDietaryFilter()">Show all</button>
+  </div>
+  <div class="filterBar filterBarWrap">
+    <div class="filterRow">
+      <span class="filtGroupLabel">Diet</span>
+      <button class="filt filtAll active" data-filter="all" onclick="recipeFilterBtn(this)">All</button>
+      <button class="filt dietFilt" data-filter="vegetarian" onclick="recipeFilterBtn(this)">Vegetarian</button>
+      <button class="filt dietFilt" data-filter="gluten-free" onclick="recipeFilterBtn(this)">Gluten-free</button>
+      <button class="filt dietFilt" data-filter="dairy-free" onclick="recipeFilterBtn(this)">Dairy-free</button>
+    </div>
+  </div>
+  <div class="recipeToggle">
+    <button class="togBtn active" id="togAll" onclick="showAll(this)">All recipes</button>
+    <button class="togBtn" id="togOwned" onclick="showOwned(this)">Use what I have</button>
+  </div>
+  <div class="mealPreview">
+    <div class="mealPreviewHead">
+      <span>This week</span>
+      <button class="viewPlanBtn" onclick="openViewPlan()">View full plan</button>
+    </div>
+    <div id="weekPreview" class="mealPreviewBody">No meals planned yet</div>
+  </div>
+  <div class="recipeListScroll" id="recipeList">
+    <div class="recipeCard" onclick="openRecipe('beef')" data-tags="dairy-free" data-ing="5/6" data-key="beef">
+      <img class="recipeThumb" src="Beef%20%26%20Broccoli%20Stir%20Fry.png" alt="">
+      <div class="recipeInfo">
+        <div class="recipeName">Beef &amp; Broccoli Stir Fry</div>
+        <div class="recipeMeta">25 min &middot; Intermediate</div>
+        <div class="ingBar"><div class="ingFill" style="width:83%"></div></div>
+        <div class="ingLabel">5 of 6 ingredients on hand</div>
+      </div>
+      <button class="cardMealBtn" onclick="event.stopPropagation(); quickAddMealPlan('beef')" title="Add to meal plan">&#x1F4C5;</button>
+      <span class="recipeChevron">&#x203A;</span>
+    </div>
+    <div class="recipeCard" onclick="openRecipe('pasta')" data-tags="vegetarian" data-ing="3/5" data-key="pasta">
+      <img class="recipeThumb" src="Spaghetti%20Aglio%20e%20Olio.png" alt="">
+      <div class="recipeInfo">
+        <div class="recipeName">Spaghetti Aglio e Olio</div>
+        <div class="recipeMeta">20 min &middot; Beginner</div>
+        <div class="ingBar"><div class="ingFill" style="width:60%"></div></div>
+        <div class="ingLabel">3 of 5 ingredients on hand</div>
+      </div>
+      <button class="cardMealBtn" onclick="event.stopPropagation(); quickAddMealPlan('pasta')" title="Add to meal plan">&#x1F4C5;</button>
+      <span class="recipeChevron">&#x203A;</span>
+    </div>
+    <div class="recipeCard" onclick="openRecipe('fried-rice')" data-tags="gluten-free dairy-free" data-ing="6/7" data-key="fried-rice">
+      <img class="recipeThumb" src="Chicken%20Fried%20Rice.png" alt="">
+      <div class="recipeInfo">
+        <div class="recipeName">Chicken Fried Rice</div>
+        <div class="recipeMeta">30 min &middot; Beginner</div>
+        <div class="ingBar"><div class="ingFill" style="width:86%"></div></div>
+        <div class="ingLabel">6 of 7 ingredients on hand</div>
+      </div>
+      <button class="cardMealBtn" onclick="event.stopPropagation(); quickAddMealPlan('fried-rice')" title="Add to meal plan">&#x1F4C5;</button>
+      <span class="recipeChevron">&#x203A;</span>
+    </div>
+    <div class="recipeCard" onclick="openRecipe('eggs')" data-tags="vegetarian" data-ing="4/4" data-key="eggs">
+      <img class="recipeThumb" src="Cheesy%20Scrambled%20Eggs.png" alt="">
+      <div class="recipeInfo">
+        <div class="recipeName">Cheesy Scrambled Eggs</div>
+        <div class="recipeMeta">10 min &middot; Beginner</div>
+        <div class="ingBar"><div class="ingFill ingFull" style="width:100%"></div></div>
+        <div class="ingLabel">All 4 ingredients on hand &#x2713;</div>
+      </div>
+      <button class="cardMealBtn" onclick="event.stopPropagation(); quickAddMealPlan('eggs')" title="Add to meal plan">&#x1F4C5;</button>
+      <span class="recipeChevron">&#x203A;</span>
+    </div>
+    <div class="recipeCard" onclick="openRecipe('rice-bowl')" data-tags="gluten-free dairy-free" data-ing="5/5" data-key="rice-bowl">
+      <img class="recipeThumb" src="Beef%20%26%20Rice%20Bowl.png" alt="">
+      <div class="recipeInfo">
+        <div class="recipeName">Beef &amp; Rice Bowl</div>
+        <div class="recipeMeta">35 min &middot; Beginner</div>
+        <div class="ingBar"><div class="ingFill ingFull" style="width:100%"></div></div>
+        <div class="ingLabel">All 5 ingredients on hand &#x2713;</div>
+      </div>
+      <button class="cardMealBtn" onclick="event.stopPropagation(); quickAddMealPlan('rice-bowl')" title="Add to meal plan">&#x1F4C5;</button>
+      <span class="recipeChevron">&#x203A;</span>
+    </div>
+  </div>
+  <!-- View Plan modal (read-only) -->
+  <div id="viewPlanModal" class="modalOverlay">
+    <div class="modalBox">
+      <div class="modalHeader"><span>This Week's Meal Plan</span><button class="closeBtn" onclick="closeModal('viewPlanModal')">&#x2715;</button></div>
+      <div class="modalBody" id="viewPlanList"></div>
+      <div class="modalFooter"><button class="darkBtn" onclick="closeModal('viewPlanModal')">Done</button></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ RECIPE DETAIL ═══ -->
+<div id="recipe-detail" class="tabcontent">
+  <div class="topbar">
+    <button class="backBtn" onclick="closeRecipe()">&#x2039; Back</button>
+    <span class="topbar-title" id="rd-title"></span>
+  </div>
+  <div class="rdBody">
+    <img class="rdHero" id="rd-hero" src="" alt="">
+    <div id="rd-meta" class="rdMetaRow"></div>
+    <div id="rd-tags" class="rdTagsRow"></div>
+    <div class="sectionLabel">Ingredients</div>
+    <div id="rd-ingr-list" class="ingrList"></div>
+    <button class="addMissingBtn" id="rd-add-missing-btn" onclick="addMissingToShopping()" style="display:none">Add missing items to shopping list</button>
+    <button class="addCalBtn" onclick="openAddToMealPlan()">+ Add to meal plan</button>
+    <div class="sectionLabel">Steps</div>
+    <div id="rd-steps-list"></div>
+  </div>
+  <!-- Add to Meal Plan modal -->
+  <div id="addMealModal" class="modalOverlay">
+    <div class="modalBox">
+      <div class="modalHeader"><span>Add to Meal Plan</span><button class="closeBtn" onclick="closeModal('addMealModal')">&#x2715;</button></div>
+      <div class="modalBody">
+        <p id="cal-recipe-name" class="calRecipeName"></p>
+        <label class="fieldLabel">Meal type</label>
+        <div class="segGroup" id="mealTypeSeg" style="margin-bottom:10px">
+          <button class="segBtn active" onclick="pickSeg(this,'mealTypeSeg')">Breakfast</button>
+          <button class="segBtn" onclick="pickSeg(this,'mealTypeSeg')">Lunch</button>
+          <button class="segBtn" onclick="pickSeg(this,'mealTypeSeg')">Dinner</button>
+        </div>
+        <label class="fieldLabel">Day(s) &mdash; tap to toggle, tap again to deselect</label>
+        <div class="calDays">
+          <button class="calDayBtn" data-day="Monday" onclick="toggleDay(this)">Mon</button>
+          <button class="calDayBtn" data-day="Tuesday" onclick="toggleDay(this)">Tue</button>
+          <button class="calDayBtn" data-day="Wednesday" onclick="toggleDay(this)">Wed</button>
+          <button class="calDayBtn" data-day="Thursday" onclick="toggleDay(this)">Thu</button>
+          <button class="calDayBtn" data-day="Friday" onclick="toggleDay(this)">Fri</button>
+          <button class="calDayBtn" data-day="Saturday" onclick="toggleDay(this)">Sat</button>
+          <button class="calDayBtn" data-day="Sunday" onclick="toggleDay(this)">Sun</button>
+        </div>
+        <div id="planPreviewInModal" class="planPreviewInModal"></div>
+      </div>
+      <div class="modalFooter">
+        <button class="greenBtn" onclick="confirmMealPlan()">Add to Plan</button>
+        <button class="grayBtn" onclick="closeModal('addMealModal')">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SHOPPING LIST ═══ -->
+<div id="shopping-list" class="tabcontent">
+  <div class="topbar">
+    <div>
+      <div class="topbar-title">Shopping List</div>
+      <div id="shop-subtitle" class="topbarSub">0 items</div>
+    </div>
+    <button class="addBtn" onclick="openAddShop()">+ Add</button>
+  </div>
+  <ul id="shopList" class="shopList"></ul>
+  <button class="doneShopBtn" onclick="openDoneShopping()">Done shopping &#x2014; add to inventory</button>
+  <!-- Add shop item -->
+  <div id="addShopModal" class="modalOverlay">
+    <div class="modalBox">
+      <div class="modalHeader"><span>Add to Shopping List</span><button class="closeBtn" onclick="closeModal('addShopModal')">&#x2715;</button></div>
+      <div class="modalBody">
+        <label class="fieldLabel">Item name</label>
+        <input type="text" id="shop-inp-name" class="textInput" placeholder="e.g. Feta cheese">
+        <span class="errMsg" id="shop-inp-err"></span>
+        <div class="twoCol">
+          <div class="colItem"><label class="fieldLabel">Quantity</label><input type="number" id="shop-inp-qty" class="textInput" value="1" min="1" step="1"></div>
+          <div class="colItem"><label class="fieldLabel">Unit</label>
+            <select id="shop-inp-unit" class="selectInput">
+              <option>count</option><option>oz</option><option>lbs</option><option>cups</option>
+              <option>tbsp</option><option>bag</option><option>bottle</option><option>box</option><option>bunch</option><option>can</option><option>jar</option>
+            </select>
+          </div>
+        </div>
+        <label class="fieldLabel">Category</label>
+        <select id="shop-inp-cat" class="selectInput">
+          <option>Produce</option><option>Dairy</option><option>Protein</option>
+          <option>Pantry</option><option>Condiments</option><option>Frozen</option><option>Other</option>
+        </select>
+      </div>
+      <div class="modalFooter">
+        <button class="greenBtn" onclick="submitShopItem()">Add to List</button>
+        <button class="grayBtn" onclick="closeModal('addShopModal')">Cancel</button>
+      </div>
+    </div>
+  </div>
+  <!-- Edit shop item -->
+  <div id="editShopModal" class="modalOverlay">
+    <div class="modalBox">
+      <div class="modalHeader"><span>Edit Item</span><button class="closeBtn" onclick="closeModal('editShopModal')">&#x2715;</button></div>
+      <div class="modalBody">
+        <input type="hidden" id="editShop-id">
+        <label class="fieldLabel">Item name</label>
+        <input type="text" id="editShop-name" class="textInput">
+        <div class="twoCol">
+          <div class="colItem"><label class="fieldLabel">Quantity</label><input type="number" id="editShop-qty" class="textInput" min="1" step="1"></div>
+          <div class="colItem"><label class="fieldLabel">Unit</label>
+            <select id="editShop-unit" class="selectInput">
+              <option>count</option><option>oz</option><option>lbs</option><option>cups</option>
+              <option>tbsp</option><option>bag</option><option>bottle</option><option>box</option><option>bunch</option><option>can</option><option>jar</option>
+            </select>
+          </div>
+        </div>
+        <label class="fieldLabel">Category</label>
+        <select id="editShop-cat" class="selectInput">
+          <option>Produce</option><option>Dairy</option><option>Protein</option>
+          <option>Pantry</option><option>Condiments</option><option>Frozen</option><option>Other</option>
+        </select>
+      </div>
+      <div class="modalFooter">
+        <button class="greenBtn" onclick="saveShopEdit()">Save Changes</button>
+        <button class="grayBtn" onclick="closeModal('editShopModal')">Cancel</button>
+      </div>
+    </div>
+  </div>
+  <!-- Done Shopping -->
+  <div id="doneShopModal" class="modalOverlay">
+    <div class="modalBox">
+      <div class="modalHeader"><span>Add Purchased Items to Inventory</span><button class="closeBtn" onclick="closeModal('doneShopModal')">&#x2715;</button></div>
+      <div class="modalBody">
+        <div id="done-progress" class="doneProgress"></div>
+        <div id="done-item-name" class="doneItemName"></div>
+        <div class="twoCol">
+          <div class="colItem"><label class="fieldLabel">Quantity</label><input type="number" id="done-qty" class="textInput" step="1" min="1"></div>
+          <div class="colItem"><label class="fieldLabel">Unit</label>
+            <select id="done-unit" class="selectInput">
+              <option>count</option><option>oz</option><option>lbs</option><option>cups</option>
+              <option>tbsp</option><option>bag</option><option>bottle</option><option>box</option><option>bunch</option><option>can</option><option>jar</option>
+            </select>
+          </div>
+        </div>
+        <label class="fieldLabel">Storage location</label>
+        <div class="segGroup" id="done-loc">
+          <button class="segBtn active" onclick="pickSeg(this,'done-loc')">Fridge</button>
+          <button class="segBtn" onclick="pickSeg(this,'done-loc')">Freezer</button>
+          <button class="segBtn" onclick="pickSeg(this,'done-loc')">Pantry</button>
+        </div>
+        <label class="fieldLabel">Expiration date</label>
+        <input type="date" id="done-exp" class="textInput">
+        <div class="toggleRow">
+          <label class="fieldLabel" style="margin:0">Shared item</label>
+          <label class="switch"><input type="checkbox" id="done-shared"><span class="slider"></span></label>
+        </div>
+      </div>
+      <div class="modalFooter">
+        <button class="greenBtn" id="done-confirm-btn" onclick="confirmDoneItem()">Confirm &amp; Next</button>
+        <button class="grayBtn" onclick="closeModal('doneShopModal')">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ PROFILE TAB ═══ -->
+<div id="profile" class="tabcontent">
+  <div class="topbar"><div class="topbar-title">Preferences</div></div>
+  <div class="profileScroll">
+    <div class="profileContent">
+      <div class="profileSummaryCard">
+        <div class="summaryRow"><span class="summaryLabel">Skill level</span><span class="summaryVal" id="summSkill">Not set</span></div>
+        <div class="summaryRow"><span class="summaryLabel">Diet</span><span class="summaryVal" id="summDiet">None</span></div>
+        <div class="summaryRow"><span class="summaryLabel">Time/week</span><span class="summaryVal" id="summTime">Not set</span></div>
+        <div class="summaryNote">Diet preference automatically filters your Recipes tab.</div>
+      </div>
+      <div class="profileCard">
+        <div class="profileSection">Cooking preferences</div>
+        <div class="profileField">
+          <label>Dietary restriction <span class="fieldNote">(auto-applied to Recipes)</span></label>
+          <select id="profileRestriction">
+            <option value="">None</option>
+            <option value="vegetarian">Vegetarian</option>
+            <option value="vegan">Vegan</option>
+            <option value="gluten-free">Gluten-Free</option>
+            <option value="dairy-free">Dairy-Free</option>
+            <option value="nut-free">Nut-Free</option>
+            <option value="halal">Halal</option>
+            <option value="kosher">Kosher</option>
+          </select>
+        </div>
+        <div class="profileField">
+          <label>Cooking skill level <span class="fieldNote">(filters recipe difficulty)</span></label>
+          <select id="profileSkill">
+            <option value="">Select skill level</option>
+            <option>Beginner</option><option>Intermediate</option><option>Advanced</option>
+          </select>
+        </div>
+        <div class="profileField">
+          <label>Weekly cooking time <span class="fieldNote">(affects recipe length shown)</span></label>
+          <select id="profileTime">
+            <option value="">Select time budget</option>
+            <option>1&#x2013;3 hours</option><option>4&#x2013;6 hours</option>
+            <option>7&#x2013;10 hours</option><option>10+ hours</option>
+          </select>
+        </div>
+        <div class="profileSection">Roommate mode</div>
+        <div class="profileField roommateRow">
+          <label style="margin:0">Show Shared / Personal labels on inventory</label>
+          <label class="switch"><input type="checkbox" id="roommateToggle" onchange="applyRoommateMode()"><span class="slider"></span></label>
+        </div>
+        <div id="roommateNames" class="roommateNames">
+          <div class="roommateItem"><span class="roommateAvatar">M</span><span class="roommateName">Marcus</span><span class="roommateTag">Roommate</span></div>
+          <div class="roommateItem"><span class="roommateAvatar">P</span><span class="roommateName">Priya</span><span class="roommateTag">Roommate</span></div>
+        </div>
+        <button class="greenBtn" onclick="saveProfile()">Save Preferences</button>
+        <p id="profileMsg" class="profileMsg"></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ NAV ═══ -->
+<div class="tab">
+  <button class="tablinks active" onclick="openTab(event,'inventory')">
+    <svg class="navIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="3" width="14" height="18" rx="2"/><line x1="5" y1="9" x2="19" y2="9"/></svg>
+    <span>Inventory</span>
+  </button>
+  <button class="tablinks" id="tab-btn-recipes" onclick="openTab(event,'recipes')">
+    <svg class="navIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 2h18l-2 7H5L3 2z"/><path d="M5 9v11a2 2 0 002 2h10a2 2 0 002-2V9"/><line x1="9" y1="14" x2="15" y2="14"/></svg>
+    <span>Recipes</span>
+  </button>
+  <button class="tablinks" onclick="openTab(event,'shopping-list')">
+    <svg class="navIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+    <span>Shopping</span>
+  </button>
+  <button class="tablinks" onclick="openTab(event,'profile')">
+    <svg class="navIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+    <span>Profile</span>
+  </button>
+</div>
+
+<div id="toastBar" class="toastBar"></div>
+<script src="script.js"></script>
+</body>
 </html>
