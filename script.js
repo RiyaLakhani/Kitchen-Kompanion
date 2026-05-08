@@ -521,15 +521,15 @@ function renderWeekPreview() {
   var days = ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"];
   var html = "";
   days.forEach(function(d){
-    if (mealPlan[d] && mealPlan[d].length) {
-      var mealsHtml = "";
-      mealPlan[d].forEach(function(e){
-        mealsHtml += '<div class="mealPreviewMeal"><span class="mealPreviewMealType">'+e.mealType+':</span> <span class="mealPreviewMealTitle">'+e.title+'</span></div>';
-      });
-      html += '<div class="mealPreviewDayBlock"><div class="mealPreviewDayHeader">'+d.slice(0,3)+'</div><div class="mealPreviewDayMeals">'+mealsHtml+'</div></div>';
-    }
+    var entries = mealPlan[d];
+    if (!entries || !entries.length) return;
+    // All meals for this day joined on ONE line: "B: Eggs · D: Fried Rice"
+    var meals = entries.map(function(e){
+      return e.mealType.charAt(0) + ": " + e.title;
+    }).join(" &middot; ");
+    html += '<div class="wpRow"><span class="wpDay">' + d.slice(0,3) + '</span><span class="wpMeals">' + meals + '</span></div>';
   });
-  document.getElementById("weekPreview").innerHTML = html || "No meals planned yet";
+  document.getElementById("weekPreview").innerHTML = html || "<span class='wpEmpty'>No meals planned yet</span>";
 }
 function openViewPlan() {
   var days=["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"];

@@ -265,41 +265,43 @@ html, body {
 .togBtn { padding: 7px 16px; border: 1.5px solid #b0bcc8; border-radius: 10px; background: #fff; font-size: 14px; cursor: pointer; color: #333; }
 .togBtn.active { background: #0c447c; color: #fff; border-color: #0c447c; font-weight: bold; }
 
-.mealPreview { margin: 4px 11px 5px; background: #fff; border: 1px solid #d8e6f5; border-radius: 10px; padding: 8px 11px; flex-shrink: 0; }
-.mealPreviewHead { display: flex; justify-content: space-between; align-items: center; font-size: 14px; font-weight: bold; color: #0c447c; margin-bottom: 3px; }
-.viewPlanBtn { border: 1px solid #0c447c; background: #fff; color: #0c447c; font-size: 13px; border-radius: 6px; padding: 4px 10px; cursor: pointer; }
-.mealPreviewBody { font-size: 13px; color: #444; line-height: 1.5; }
-.mealPreviewRow { display: flex; gap: 8px; font-size: 13px; }
-.mealPreviewDay { min-width: 34px; color: #0c447c; font-weight: bold; }
-.mealPreviewDayBlock { display: flex; gap: 10px; margin-bottom: 6px; }
-.mealPreviewDayBlock:last-child { margin-bottom: 0; }
-.mealPreviewDayHeader {
-  min-width: 34px;
-  color: #0c447c;
-  font-weight: bold;
-  font-size: 13px;
-  line-height: 1.4;
+.mealPreview {
+  margin: 4px 11px 5px; background: #fff;
+  border: 1px solid #d8e6f5; border-radius: 10px;
+  padding: 8px 11px; flex-shrink: 0;
+  max-height: 160px; overflow: hidden; /* cap height so recipes always visible */
 }
-.mealPreviewDayMeals { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
-.mealPreviewMeal { font-size: 13px; color: #444; line-height: 1.4; }
-.mealPreviewMealType { font-weight: 600; color: #333; }
-.mealPreviewMealTitle { word-break: break-word; }
+.mealPreviewHead { display: flex; justify-content: space-between; align-items: center; font-size: 14px; font-weight: bold; color: #0c447c; margin-bottom: 5px; }
+.viewPlanBtn { border: 1px solid #0c447c; background: #fff; color: #0c447c; font-size: 12px; border-radius: 6px; padding: 3px 9px; cursor: pointer; }
+
+/* One row per day */
+.wpRow {
+  display: flex; align-items: baseline; gap: 7px;
+  padding: 2px 0; border-bottom: 1px solid #edf2f8;
+}
+.wpRow:last-child { border-bottom: none; }
+.wpDay { font-size: 12px; font-weight: 800; color: #0c447c; min-width: 28px; flex-shrink: 0; }
+.wpMeals { font-size: 12px; color: #333; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.wpEmpty { font-size: 12px; color: #999; }
 
 .recipeListScroll { overflow-y: auto; flex: 1; border-top: 1px solid #e0e4ea; }
 .recipeCard {
-  display: flex; align-items: center; gap: 11px;
+  display: flex; align-items: center; gap: 10px;
   background: #fff; border-bottom: 1px solid #eaecef;
-  padding: 10px 12px; cursor: pointer;
+  padding: 8px 12px; cursor: pointer; min-height: 0;
 }
 .recipeCard:hover { background: #f5f9ff; }
-.recipeThumb { width: 62px; height: 62px; object-fit: cover; border-radius: 9px; flex-shrink: 0; border: 1px solid #ddd; background: #e4f0fb; }
+.recipeThumb { width: 48px; height: 48px; object-fit: cover; border-radius: 8px; flex-shrink: 0; border: 1px solid #ddd; background: #e4f0fb; }
 .recipeInfo { flex: 1; min-width: 0; }
-.recipeName { font-size: 16px; font-weight: bold; color: #111; }
-.recipeMeta { font-size: 13px; color: #555; margin-top: 1px; }
+.recipeName { font-size: 15px; font-weight: bold; color: #111; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.recipeMeta { font-size: 12px; color: #555; margin-top: 1px; }
 
-.ingBar  { height: 5px; background: #e0e0e0; border-radius: 3px; margin-top: 5px; }
-.ingFill { height: 5px; border-radius: 3px; }
-.ingLabel{ font-size: 12px; color: #555; margin-top: 2px; font-weight: 500; }
+/* Ingredient availability — thin colored bar + short label, no separate line */
+.ingRow { display: flex; align-items: center; gap: 6px; margin-top: 4px; }
+.ingBar  { flex: 1; height: 4px; background: #e0e0e0; border-radius: 3px; }
+.ingFill { height: 4px; border-radius: 3px; background: #f59e0b; }
+.ingFull { background: #1b5e3b; }
+.ingLabel{ font-size: 11px; color: #555; font-weight: 500; white-space: nowrap; }
 .recipeChevron { font-size: 22px; color: #aab4c0; flex-shrink: 0; }
 .cardMealBtn {
   width: 32px; height: 32px; border-radius: 7px;
@@ -428,4 +430,4 @@ html, body {
   font-size: 14px; opacity: 0; pointer-events: none; transition: opacity .25s;
   z-index: 999; max-width: 520px; text-align: center; white-space: normal;
 }
-.toastBar.show { opacity: 1; } 
+.toastBar.show { opacity: 1; }
